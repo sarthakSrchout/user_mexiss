@@ -313,7 +313,7 @@
                                     </div>
                                     <div class="col-2">
                                         <select name="" class="form-select shadow-none"
-                                            style=" border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;">
+                                            style=" border-radius: 0px; font-size: 14px; outline: none; box-shadow: none;">
                                             @foreach ($country as $item)
                                             <option value="{{ $item->id }}" @if($item->country_phone_code == '+91') selected @endif>{{ $item->country_phone_code }} ({{ $item->country_name }})</option>
 

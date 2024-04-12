@@ -15,59 +15,87 @@ class UserController extends Controller
     }
     public function product()
     {
-        return view('User.Pages.product');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.product',$data);
     }
     public function aboutus()
     {
-        return view('User.Pages.aboutuspage');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.aboutuspage',$data);
     }
     public function contactus()
     {
-        return view('User.Pages.contactus');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.contactus',$data);
     }
     public function term()
     {
-        return view('User.Pages.termsandcondition');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.termsandcondition',$data);
     }
     public function profile()
     {
-        return view('User.Pages.userprofile');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.userprofile',$data);
     }
     public function faq()
     {
-        return view('User.Pages.frequently');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.frequently',$data);
     }
     public function help()
     {
-        return view('User.Pages.helpandsupport');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.helpandsupport',$data);
     }
     public function productdetails()
     {
-        return view('User.Pages.singleproduct');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.singleproduct',$data);
     }
     public function cart()
     {
-        return view('User.Pages.cart');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.cart',$data);
     }
     public function address()
     {
-        return view('User.Pages.address');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.address',$data);
     }
     public function myaddress()
     {
-        return view('User.Pages.myaddress');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.myaddress',$data);
     }
     public function payment()
     {
-        return view('User.Pages.payment');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.payment',$data);
     }
     public function myorrders()
     {
-        return view('User.Pages.myoorders');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.myoorders',$data);
     }
     public function shopbycategories()
     {
-        return view('User.Pages.shopbycategories');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        return view('User.Pages.shopbycategories',$data);
     }
 }
 
