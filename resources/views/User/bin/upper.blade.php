@@ -248,13 +248,13 @@
             .categoryImageTitle {
                 background: #212121;
                 height: 55px;
-                width: 90%;
-                margin: 0px 12px;
+                width: 112%;
+                margin: 0px -16px;
                 margin-top: -68px;
                 position: relative;
                 z-index: 1893;
                 position: relative;
-                padding: 8px 13px
+                padding: 8px    13px
                     /* Ensure the overlay is positioned relative to this container */
             }
 
