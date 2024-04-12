@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\User\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
 
 use Illuminate\Support\Facades\Route;
@@ -22,3 +24,10 @@ Route::match(['post', 'get'], '/add/payment', [UserController::class, 'payment']
 Route::match(['post', 'get'], '/user/profile', [UserController::class, 'profile'])->name('user-profile');
 Route::match(['post', 'get'], '/user/myorrders', [UserController::class, 'myorrders'])->name('user-myorrders');
 Route::match(['post', 'get'], '/shopbycategories', [UserController::class, 'shopbycategories'])->name('user-shopbycategories');
+
+
+Route::prefix('auth')->group(function () {
+    
+    Route::match(['post', 'get'], '/register', [AuthController::class, 'register'])->name('user-register');
+   
+});

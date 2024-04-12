@@ -3,8 +3,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
-    @yield('css')
     <style>
         .border-warning-4x {
             border: 8px solid #ffc107 !important
@@ -122,15 +121,11 @@
         .categoryImage {
             height: 220px;
         }
-        @media only screen and (max-width: 991px) {
-          
-        }
+
+        @media only screen and (max-width: 991px) {}
 
         /* Large devices (laptops/desktops, 992px and up) */
-        @media only screen and (min-width: 992px) {
-         
-
-        }
+        @media only screen and (min-width: 992px) {}
 
         /* Medium devices (landscape tablets, 768px and up) */
         @media only screen and (max-width: 991px) {
@@ -145,6 +140,7 @@
             .largescreen {
                 display: none !important
             }
+
             .largeflexscreen {
                 display: none !important
             }
@@ -193,7 +189,8 @@
                 padding: 6px;
                 /* Ensure the overlay is positioned relative to this container */
             }
-            .smallscreenffootertext{
+
+            .smallscreenffootertext {
                 font-size: 15px
             }
         }
@@ -203,6 +200,7 @@
             .largescreen {
                 display: block !important;
             }
+
             .largeflexscreen {
                 display: flex !important;
             }
@@ -262,9 +260,7 @@
 
         }
 
-        /* .row{
-            --bs-gutter-x:0
-        } */
+
         .hide-arrow::-webkit-outer-spin-button,
         .hide-arrow::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -278,11 +274,11 @@
     </style>
 </head>
 
-<body style="min-height:100vh;overflow-x:hidden">
+<body style="min-height:100vh;">
 
 
-    @yield('body')
-
+    @section('body')
+    @show
     @if (Session::has('error'))
         <div class="p-2 py-3 box-sizing-border-box w-50 w-md-20 border font-weight-bold border-right-0 border-top-0 border-bottom-0 border-danger transition-1  alert-danger load"
             style="right:-100%;position:fixed;top:110px;border-width:3px !important">

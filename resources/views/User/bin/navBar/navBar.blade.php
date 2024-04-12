@@ -1,3 +1,10 @@
+<style>
+    .dropdown-menu2[data-bs-popper] {
+        top: 130%;
+        left: -116px;
+        margin-top: var(--bs-dropdown-spacer)
+    }
+</style>
 <nav class="navbar navbar-expand-lg bg-body-tertiary secondary-color p-0 shadow largescreen"
     style="top: 0;position:sticky;z-index:101001">
     <div class="container-fluid" style="padding: 0px 30px">
@@ -33,7 +40,7 @@
         </ul>
 
         <div class="col-lg-3">
-            {{-- <button type="button" class="btn btn-labeled btn-success ms-5   " data-bs-toggle="modal"
+            <button type="button" class="btn btn-labeled btn-success ms-5   " data-bs-toggle="modal"
                 data-bs-target="#loginmodal"
                 style="color: #FF4545;background:white;border:none;font-size: 13px;font-weight: 600;">
                 <span class="btn-label me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -41,15 +48,15 @@
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                         <path fill-rule="evenodd"
                             d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                    </svg></span>Login</button> --}}
-            <a href="{{ route('user-profile') }}" type="button" class="btn btn-labeled btn-success ms-5   "
+                    </svg></span>Login</button>
+            {{-- <a href="{{ route('user-profile') }}" type="button" class="btn btn-labeled btn-success ms-5   "
                 style="color: #FF4545;background:white;border:none;font-size: 13px;font-weight: 600;">
                 <span class="btn-label me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                         <path fill-rule="evenodd"
                             d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                    </svg></span>Profile</a>
+                    </svg></span>Profile</a> --}}
             <a href="{{ route('user-cart') }}" class="ms-5" type="submit">
                 <img src="{{ asset('logo/shopping-cart.png') }}" height="23px" alt="">
             </a>
@@ -58,7 +65,7 @@
     </div>
 
 </nav>
-@if(request()->is('/'))
+@if (request()->is('/'))
     <nav class="navbar navbar-expand-lg bg-body-tertiary secondary-color p-0 shadow smallscreen"
         style="top: 0;position:sticky;z-index:101001">
         <div class="d-flex p-3" style="align-items: center">
@@ -79,21 +86,13 @@
                             d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
                     </svg></span>Login</button> --}}
 
-                        {{-- <a href="#" class="ms-3" type="submit" data-bs-toggle="modal" data-bs-target="#loginmodal">
-            <img src="{{ asset('logo/profile.png') }}" height="30px" alt="">
-            </a> --}}
+
             <div class="btn-group">
                 <a href="#" class="ms-3  dropdown-toggle" type="submit" data-bs-toggle="dropdown"
                     style="text-decoration: none;color:grey">
                     <img src="{{ asset('logo/profile.png') }}" height="30px" alt="">
                 </a>
-                <style>
-                    .dropdown-menu2[data-bs-popper] {
-                        top: 130%;
-                        left: -116px;
-                        margin-top: var(--bs-dropdown-spacer)
-                    }
-                </style>
+
                 <ul class="dropdown-menu dropdown-menu2 dropdown-menu-lg-end">
                     <li><a class="dropdown-item" href="{{ route('user-profile') }}" style="font-size: 13px"><img
                                 src="{{ asset('logo/sprofile.png') }}" alt="" class="me-3">My Profile</a>
@@ -158,59 +157,59 @@
                             </div> --}}
                     </div>
                     <div class="modal-body marginmodaltop">
-                        <h5 style="color: # FF4545">Welcome to MAXXiSS</h5>
+                        <h5 style="color: # FF4545">Welcome to MEXXiSS</h5>
                         <form>
                             <div class="row">
                                 <h6 class="mt-lg-2" style="font-size:13px">Please Login to your account.</h6>
                                 <h6 class="mt-lg-3 mt-2" style="font-size:13px;color:grey">Enter your registered
-                                    mobile
-                                    number</h6>
+                                    email
+                                </h6>
 
-                                <div class=" mt-lg-3 mt-2">
-                                    <form action="{{ route('user-homepage') }}" method="POST">
+                                <div class=" mt-lg-1 mt-2">
+                                    <form action="" method="POST">
                                         @csrf
                                         <div class="d-flex">
-                                            <select name="" class="form-select shadow-none"
-                                                style="width:80px;font-size:15px">
-                                                <option value="" selected>+91</option>
-                                                <option value="">+91</option>
-                                                <option value="">+91</option>
-                                            </select>
-                                            <input type="number" name="phone"
+
+                                            <input type="email" name="email"
                                                 class="form-control shadow-none ms-2 hide-arrow"
-                                                placeholder="0000000000">
+                                                placeholder="xyz@xyz.com">
                                         </div>
-                                        <div class="d-flex ">
-                                            <div class="position-relative">
-                                                <h6 class="mt-3" style="font-size:13px;color:grey">Enter OTP</h6>
-                                                <div id="otp"
-                                                    class="inputs d-flex flex-row justify-content-center mt-2"> <input
-                                                        class="m-2 text-center form-control rounded" required
-                                                        type="text" id="first" name="first"
-                                                        maxlength="1" /> <input
-                                                        class="m-2 text-center form-control rounded" required
-                                                        type="text" id="second" name="second"
-                                                        maxlength="1" /> <input
-                                                        class="m-2 text-center form-control rounded" required
-                                                        type="text" id="third" name="third"
-                                                        maxlength="1" /> <input
-                                                        class="m-2 text-center form-control rounded" required
-                                                        type="text" id="fourth" name="fourth"
-                                                        maxlength="1" /> <input
-                                                        class="m-2 text-center form-control rounded" required
-                                                        type="text" id="fifth" name="fifth"
-                                                        maxlength="1" /> <input
-                                                        class="m-2 text-center form-control rounded" required
-                                                        type="text" id="sixth" name="sixth"
-                                                        maxlength="1" /> </div>
+                                        <div class="otpdiv">
+                                            <div class="d-flex ">
+                                                <div class="position-relative">
+                                                    <h6 class="mt-3" style="font-size:13px;color:grey">Enter OTP
+                                                    </h6>
+                                                    <div id="otp"
+                                                        class="inputs d-flex flex-row justify-content-center mt-2">
+                                                        <input class="m-2 text-center form-control rounded" required
+                                                            type="text" id="first" name="first"
+                                                            maxlength="1" /> <input
+                                                            class="m-2 text-center form-control rounded" required
+                                                            type="text" id="second" name="second"
+                                                            maxlength="1" /> <input
+                                                            class="m-2 text-center form-control rounded" required
+                                                            type="text" id="third" name="third"
+                                                            maxlength="1" /> <input
+                                                            class="m-2 text-center form-control rounded" required
+                                                            type="text" id="fourth" name="fourth"
+                                                            maxlength="1" /> <input
+                                                            class="m-2 text-center form-control rounded" required
+                                                            type="text" id="fifth" name="fifth"
+                                                            maxlength="1" /> <input
+                                                            class="m-2 text-center form-control rounded" required
+                                                            type="text" id="sixth" name="sixth"
+                                                            maxlength="1" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="input-group mb-3 mt-3">
+                                                <input type="submit" href=""
+                                                    class="button btn mt-2 button-background w-100"
+                                                    style="padding: 7px 10px!important;font-size:13px"
+                                                    value="Get OTP">
 
                                             </div>
-                                        </div>
-                                        <div class="input-group mb-3 mt-3">
-                                            <input type="submit" href=""
-                                                class="button btn mt-2 button-background w-100"
-                                                style="padding: 7px 10px!important;font-size:13px" value="Get OTP">
-
                                         </div>
                                     </form>
 
@@ -233,72 +232,7 @@
         </div>
     </div>
 </div>
-{{-- otp verification modal --}}
-{{-- <div class="modal fade" id="loginverificationmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content" style="border-radius:0px">
-            <div class="row">
-                <div class="col-6">
-                    <img style="height: 100%" src="{{ asset('logo/login.png') }}" class="img-fluid w-100"
-                        alt="">
-                </div>
-                <div class="col-6 p-3">
-                    <div class="modal-header border-0" style="flex-direction: column;align-items: stretch">
-                        <div class="d-flex"
-                            style="width: 100%;
-                            align-items: center;
-                            justify-content: space-between;">
-                          
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                
-                    </div>
-                    <div class="modal-body">
-                        <h5 style="color: #FF4545">Welcome to MAXXiSS</h5>
-                        <form>
-                            <div class="row">
-                                <h6 class="mt-2" style="font-size:13px">Please Login to your account.</h6>
-                                <h6 class="mt-3" style="font-size:13px;color:grey">Enter your registered mobile
-                                    number</h6>
 
-                                <div class="d-flex mt-3">
-                                    <form action="">
-                                        <select name="" class="form-select shadow-none"
-                                            style="width:80px;font-size:15px">
-                                            <option value="" selected>+91</option>
-                                            <option value="">+91</option>
-                                            <option value="">+91</option>
-                                        </select>
-                                        <input type="text" name="phone" class="form-control shadow-none ms-2"
-                                            placeholder="0000000000">
-                                    </form>
-
-
-                                </div>
-
-                                <div class="input-group mb-3 mt-3">
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                        class="button btn mt-2 button-background w-100"
-                                        style="padding: 7px 10px!important;font-size:13px">Submit
-                                    </a>
-                                </div>
-                                <h6 class="mt-2 text-center" style="font-size:13px">Didn't have an Account? <a
-                                        href="#" data-bs-toggle="modal" data-bs-target="#registermodal"
-                                        style="color: #FF4545">Register</a></h6>
-
-                            </div>
-
-
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div> --}}
 {{-- register modal --}}
 <div class="modal fade" style="z-index:999990" id="registermodal" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -324,17 +258,9 @@
 
 
             </div>
-            <style>
-                .registercontainser {
-                    --bs-gutter-x: 0 !important
-                }
 
-                .registerrow {
-                    --bs-gutter-x: 0 !important
-                }
-            </style>
-            <div class="container-fluid registercontainser">
-                <div class="row p-0 registerrow">
+            <div class="container-fluid ">
+                <div class="row p-0 ">
                     <div class="col-12 p-0">
                         <img style="height: 100%" src="{{ asset('logo/resgister.png') }}" class=" w-100"
                             alt="">
@@ -342,8 +268,8 @@
                 </div>
 
                 <div class="modal-body">
-                    <h5 style="color: #FF4545" class="text-center">New User In MAXXiSS?</h5>
-                    <div class="row registerrow">
+                    <h5 style="color: #FF4545" class="text-center">New User In MEXXiSS?</h5>
+                    <div class="row ">
                         <div class="col-10 mx-auto">
                             <h6 class="mt-3 mb-2" style="font-size:13px;color:rgb(46, 46, 46)">Please enter the
                                 details below for the registration</h6>
@@ -358,7 +284,7 @@
                                             </span>
                                             <input type="text"
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                                class="form-control shadow-none" placeholder="First Name"
+                                                class="form-control shadow-none" required placeholder="First Name *"
                                                 aria-label="Username" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
@@ -371,7 +297,7 @@
                                             </span>
                                             <input type="text"
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                                class="form-control shadow-none" placeholder="Last name"
+                                                class="form-control shadow-none" required placeholder="Last name *"
                                                 aria-label="Username" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
@@ -382,18 +308,30 @@
                                         </span>
                                         <input type="email"
                                             style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                            class="form-control shadow-none" placeholder="E-mail"
-                                            aria-label="Username" aria-describedby="basic-addon1">
+                                            class="form-control shadow-none" placeholder="E-mail *"
+                                            aria-label="Username" aria-describedby="basic-addon1" required>
                                     </div>
-                                    <div class="input-group mb-3 inquiryinput">
-                                        <span class="input-group-text"
-                                            style="background: transparent; border-radius: 0px">
-                                            <img src="{{ asset('logo/phone.png') }}" alt="" height="18px">
-                                        </span>
-                                        <input type="tel"
-                                            style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                            class="form-control shadow-none" placeholder="Phone"
-                                            aria-label="Username" aria-describedby="basic-addon1">
+                                    <div class="col-2">
+                                        <select name="" class="form-select shadow-none"
+                                            style=" border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;">
+                                            @foreach ($country as $item)
+                                            <option value="{{ $item->id }}" @if($item->country_phone_code == '+91') selected @endif>{{ $item->country_phone_code }} ({{ $item->country_name }})</option>
+
+                                            @endforeach                                          
+                                        </select>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="input-group mb-3 inquiryinput">
+                                            <span class="input-group-text"
+                                                style="background: transparent; border-radius: 0px">
+                                                <img src="{{ asset('logo/phone.png') }}" alt=""
+                                                    height="18px">
+                                            </span>
+                                            <input type="tel"
+                                                style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
+                                                class="form-control shadow-none" placeholder="Phone *" required
+                                                aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-group mb-3 inquiryinput">

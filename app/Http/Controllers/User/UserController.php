@@ -4,15 +4,14 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function homepage(Request $request)
     {
-        if($request->method() == "POST"){
-            dd($request->all());
-        }
-        return view('User.Pages.homepage');
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+        return view('User.Pages.homepage',$data);
     }
     public function product()
     {

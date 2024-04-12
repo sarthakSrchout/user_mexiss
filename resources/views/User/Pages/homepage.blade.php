@@ -93,10 +93,7 @@
             .margintopform{
                 margin-top: 10%
             }
-            /* .row{
-                --bs-gutter-x:0;
-                 
-            } */
+          
         }
 
         /* Large devices (laptops/desktops, 992px and up) */
@@ -154,7 +151,6 @@
 
             .corevalue2 {
                 margin: 0 auto;
-                width: 100%;
                 display: flex;
                 margin-left: 17%;
                 position: relative;
