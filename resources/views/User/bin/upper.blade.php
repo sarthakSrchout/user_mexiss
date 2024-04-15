@@ -12,7 +12,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <style>
         .border-warning-4x {
@@ -277,24 +277,25 @@
 
 <body style="min-height:100vh;">
     <style>
-     /* Remove spinner buttons for number input */
-input[type=number] {
-    -moz-appearance: textfield; /* Firefox */
-    appearance: textfield; /* Other browsers */
-}
+        /* Remove spinner buttons for number input */
+        input[type=number] {
+            -moz-appearance: textfield;
+            /* Firefox */
+            appearance: textfield;
+            /* Other browsers */
+        }
 
-/* Remove spinner buttons on input focus */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-}
+        /* Remove spinner buttons on input focus */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
 
-/* Remove spinner buttons on input hover */
-input[type=number]:hover::-webkit-inner-spin-button,
-input[type=number]:hover::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-}
-
+        /* Remove spinner buttons on input hover */
+        input[type=number]:hover::-webkit-inner-spin-button,
+        input[type=number]:hover::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
     </style>
     <style>
         /* public/css/loader.css */
@@ -417,7 +418,7 @@ input[type=number]:hover::-webkit-outer-spin-button {
     </script>
     @yield('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>

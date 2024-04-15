@@ -40,23 +40,28 @@
         </ul>
 
         <div class="col-lg-3">
-            <button type="button" class="btn btn-labeled btn-success ms-5   " data-bs-toggle="modal"
-                data-bs-target="#loginmodal"
-                style="color: #FF4545;background:white;border:none;font-size: 13px;font-weight: 600;">
-                <span class="btn-label me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                        <path fill-rule="evenodd"
-                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                    </svg></span>Login</button>
-            {{-- <a href="{{ route('user-profile') }}" type="button" class="btn btn-labeled btn-success ms-5   "
-                style="color: #FF4545;background:white;border:none;font-size: 13px;font-weight: 600;">
-                <span class="btn-label me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                        <path fill-rule="evenodd"
-                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                    </svg></span>Profile</a> --}}
+            @if (!authcheck())
+                <button type="button" class="btn btn-labeled btn-success ms-5   " data-bs-toggle="modal"
+                    data-bs-target="#loginmodal"
+                    style="color: #FF4545;background:white;border:none;font-size: 13px;font-weight: 600;">
+                    <span class="btn-label me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                            <path fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                        </svg></span>Login</button>
+            @else
+                <a href="{{ route('user-profile') }}" type="button" class="btn btn-labeled btn-success ms-5   "
+                    style="color: #FF4545;background:white;border:none;font-size: 13px;font-weight: 600;">
+                    <span class="btn-label me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                            <path fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                        </svg></span>Profile</a>
+            @endif
+
+
             <a href="{{ route('user-cart') }}" class="ms-5" type="submit">
                 <img src="{{ asset('logo/shopping-cart.png') }}" height="23px" alt="">
             </a>
@@ -76,44 +81,53 @@
                 placeholder="Enter Product/Service Name" style="font-size: 13.5px">
 
 
-            {{-- <button type="button" class="btn btn-labeled btn-success ms-5   " data-bs-toggle="modal"
-                data-bs-target="#loginmodal"
-                style="color: #FF4545;background:white;border:none;font-size: 13px;font-weight: 600;">
-                <span class="btn-label me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                        <path fill-rule="evenodd"
-                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                    </svg></span>Login</button> --}}
+            @if (!authcheck())
+                <button type="button" class="btn btn-labeled btn-success ms-2 me-2" data-bs-toggle="modal"
+                    data-bs-target="#loginmodal"
+                    style="color: #FF4545;background:white;border:none;font-size: 13px;font-weight: 600;width:30%">
+                    <span class="btn-label me-2">
+                            <path fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                        </svg></span>Login</button>
+                      
+            @else
+                <div class="btn-group">
+                    <a href="#" class="ms-3  dropdown-toggle" type="submit" data-bs-toggle="dropdown"
+                        style="text-decoration: none;color:grey">
+                        <img src="{{ asset('logo/profile.png') }}" height="30px" alt="">
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu2 dropdown-menu-lg-end">
+                        <li><a class="dropdown-item" href="{{ route('user-profile') }}" style="font-size: 13px"><img
+                                    src="{{ asset('logo/sprofile.png') }}" alt="" class="me-3">My
+                                Profile</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ route('user-myorrders') }}"
+                                style="font-size: 13px"><img src="{{ asset('logo/sorder.png') }}" alt=""
+                                    class="me-3">My Order</a></li>
+                        <li><a class="dropdown-item" href="{{ route('user-cart') }}" style="font-size: 13px"><img
+                                    src="{{ asset('logo/scart.png') }}" alt="" class="me-3">My Cart</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ route('user-help') }}" style="font-size: 13px"><img
+                                    src="{{ asset('logo/shelp.png') }}" alt="" class="me-3">Help</a></li>
+                        <li><a class="dropdown-item" href="{{ route('user-logout') }}" style="font-size: 13px"><img
+                                    src="{{ asset('logo/slogout.png') }}" alt="" class="me-3">Logout</a>
+                        </li>
+
+                    </ul>
+                </div>
+            @endif
 
 
-            <div class="btn-group">
-                <a href="#" class="ms-3  dropdown-toggle" type="submit" data-bs-toggle="dropdown"
-                    style="text-decoration: none;color:grey">
-                    <img src="{{ asset('logo/profile.png') }}" height="30px" alt="">
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu2 dropdown-menu-lg-end">
-                    <li><a class="dropdown-item" href="{{ route('user-profile') }}" style="font-size: 13px"><img
-                                src="{{ asset('logo/sprofile.png') }}" alt="" class="me-3">My Profile</a>
-                    </li>
-                    <li><a class="dropdown-item" href="{{ route('user-myorrders') }}" style="font-size: 13px"><img
-                                src="{{ asset('logo/sorder.png') }}" alt="" class="me-3">My Order</a></li>
-                    <li><a class="dropdown-item" href="{{ route('user-cart') }}" style="font-size: 13px"><img
-                                src="{{ asset('logo/scart.png') }}" alt="" class="me-3">My Cart</a></li>
-                    <li><a class="dropdown-item" href="{{ route('user-help') }}" style="font-size: 13px"><img
-                                src="{{ asset('logo/shelp.png') }}" alt="" class="me-3">Help</a></li>
-                    <li><a class="dropdown-item" href="" style="font-size: 13px"><img
-                                src="{{ asset('logo/slogout.png') }}" alt="" class="me-3">Logout</a></li>
-
-                </ul>
-            </div>
 
 
         </div>
 
     </nav>
 @endif
+
+
+
 {{-- login modal --}}
 <div class="modal fade" style="z-index:23456765" id="loginmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -204,7 +218,7 @@
                                             color: red;
                                             font-weight:500
                                             "
-                                            value="Resend OTP"  onclick="pageloginchange('default')"/>
+                                            value="Resend OTP" onclick="pageloginchange('default')" />
                                         <div class="input-group mb-3 mt-3">
                                             <input type="submit" onclick="pageloginchange('login')"
                                                 class="button btn mt-2 button-background w-100"
@@ -463,34 +477,36 @@
                 let opt = document.getElementById('otpinput').value;
                 if (opt == '') {
                     toastr.error('Please fill otp field!');
-                }
-                else{
+                } else {
                     $.ajax({
-                    type: 'POST',
-                    url: '{{ route('user-register') }}',
-                    data: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    success: function(response) {
-                        if (response.status === 0) {
-                            toastr.error('User already registered with this email!');
-                        } else if (response.status === 2) {
-                            toastr.error('Invalid OTP!');
-                        } else {
-                            toastr.success('Verification Done! User Logined!');
-                            document.getElementById('otpverificationdiv').style.display =
-                                'block';
-                            document.getElementById('getotpbutton').style.display = 'none';
-                            window.location.href = '{{ route('user-homepage') }}';
+                        type: 'POST',
+                        url: '{{ route('user-register') }}',
+                        data: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        success: function(response) {
+                            if (response.status === 0) {
+                                toastr.error('User already registered with this email!');
+                            } else if (response.status === 2) {
+                                toastr.error('Invalid OTP!');
+                            } else {
+                                toastr.success('Verification Done! User Logined!');
+                                document.getElementById('otpverificationdiv').style
+                                    .display =
+                                    'block';
+                                document.getElementById('getotpbutton').style.display =
+                                    'none';
+                                window.location.href = '{{ route('user-homepage') }}';
 
 
-                        }
-                        document.getElementById('overlay').style.display = 'none';
-                        document.getElementById('loader-container').style.display = 'none';
-                    },
+                            }
+                            document.getElementById('overlay').style.display = 'none';
+                            document.getElementById('loader-container').style.display =
+                                'none';
+                        },
 
-                });
+                    });
                 }
 
             } else {
@@ -537,37 +553,40 @@
             if (loginpage === 'login') {
                 console.log(formDataObject.sixth)
 
-                if (formDataObject.first == '' || formDataObject.second == '' || formDataObject.third == '' || formDataObject
+                if (formDataObject.first == '' || formDataObject.second == '' || formDataObject.third ==
+                    '' || formDataObject
                     .fourth == '' || formDataObject.fifth == '' || formDataObject.sixth == '') {
                     toastr.error('Please fill otp field!');
-                }
-                else{
+                } else {
                     $.ajax({
-                    type: 'POST',
-                    url: '{{ route('user-login') }}',
-                    data: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    success: function(response) {
-                        if (response.status === 0) {
-                            toastr.error('Email not registered with us!');
-                        } else if (response.status === 2) {
-                            toastr.error('Invalid OTP!');
-                        } else {
-                            toastr.success('User Logined!');
-                            document.getElementById('otpverificationdiv').style.display =
-                                'block';
-                            document.getElementById('getotpbutton').style.display = 'none';
-                            window.location.href = '{{ route('user-homepage') }}';
+                        type: 'POST',
+                        url: '{{ route('user-login') }}',
+                        data: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        success: function(response) {
+                            if (response.status === 0) {
+                                toastr.error('Email not registered with us!');
+                            } else if (response.status === 2) {
+                                toastr.error('Invalid OTP!');
+                            } else {
+                                toastr.success('User Logined!');
+                                document.getElementById('otpverificationdiv').style
+                                    .display =
+                                    'block';
+                                document.getElementById('getotpbutton').style.display =
+                                    'none';
+                                window.location.href = '{{ route('user-homepage') }}';
 
 
-                        }
-                        document.getElementById('overlay').style.display = 'none';
-                        document.getElementById('loader-container').style.display = 'none';
-                    },
+                            }
+                            document.getElementById('overlay').style.display = 'none';
+                            document.getElementById('loader-container').style.display =
+                                'none';
+                        },
 
-                });
+                    });
                 }
 
             } else {

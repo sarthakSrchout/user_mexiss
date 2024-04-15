@@ -88,7 +88,7 @@
 
             </div>
             <div class="d-flex align-items-center mt-2">
-                <a href="" class="text-decoration-none"
+                <a href="{{ route('user-logout') }}" class="text-decoration-none"
                     style="
                         padding: 8px 30px;
                         font-size: 13px;

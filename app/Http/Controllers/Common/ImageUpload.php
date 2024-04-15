@@ -12,7 +12,9 @@ class ImageUpload extends Controller
         if (count(array($image)) > 0) {
             $new_name_of_profile_photo = uniqid('', true) . "." . $image->getClientOriginalExtension();
             $image->move($storage, $new_name_of_profile_photo);
-            return $path . '/' . $new_name_of_profile_photo;
+            return env('LARAVEL_SITE_URL').$storage . $new_name_of_profile_photo;
+
+            // return $path . '/' . $new_name_of_profile_photo;
         } else {
         }
 

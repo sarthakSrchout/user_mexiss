@@ -10,7 +10,8 @@ class UserController extends Controller
 {
     public function homepage(Request $request)
     {
-        // dd($request->user());
+        // dd(isauth($request));
+        // authcheck();
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
         return view('User.Pages.homepage',$data);
     }

@@ -105,4 +105,8 @@ class AuthController extends Controller
             return response()->json(['status' => 2, 'msg' => 'Invalid otp!']);
         }
     }
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('user-homepage');
+    }
 }
