@@ -147,7 +147,7 @@
                         border-radius: 50%;
                         align-items: center;
                         justify-content: center;
-                        font-weight: 700;
+                        font-weight: 700;   
                         color: #000000;"
                                 aria-label="Close">X</button>
 
@@ -157,74 +157,80 @@
                             </div> --}}
                     </div>
                     <div class="modal-body marginmodaltop">
-                        <h5 style="color: # FF4545">Welcome to MEXXiSS</h5>
-                        <form>
-                            <div class="row">
-                                <h6 class="mt-lg-2" style="font-size:13px">Please Login to your account.</h6>
-                                <h6 class="mt-lg-3 mt-2" style="font-size:13px;color:grey">Enter your registered
-                                    email
-                                </h6>
+                        <h5 style="color: #FF4545">Welcome to MEXXiSS</h5>
+                        <div class="row">
+                            <h6 class="mt-lg-2" style="font-size:13px">Please Login to your account.</h6>
+                            <h6 class="mt-lg-3 mt-2" style="font-size:13px;color:grey">Enter your registered
+                                email
+                            </h6>
 
-                                <div class=" mt-lg-1 mt-2">
-                                    <form action="" method="POST">
-                                        @csrf
-                                        <div class="d-flex">
+                            <div class=" mt-lg-1 mt-2">
+                                <form id="loginform">
+                                    @csrf
+                                    <div class="d-flex">
 
-                                            <input type="email" name="email"
-                                                class="form-control shadow-none ms-2 hide-arrow"
-                                                placeholder="xyz@xyz.com">
-                                        </div>
-                                        <div class="otpdiv">
-                                            <div class="d-flex ">
-                                                <div class="position-relative">
-                                                    <h6 class="mt-3" style="font-size:13px;color:grey">Enter OTP
-                                                    </h6>
-                                                    <div id="otp"
-                                                        class="inputs d-flex flex-row justify-content-center mt-2">
-                                                        <input class="m-2 text-center form-control rounded" required
-                                                            type="text" id="first" name="first"
-                                                            maxlength="1" /> <input
-                                                            class="m-2 text-center form-control rounded" required
-                                                            type="text" id="second" name="second"
-                                                            maxlength="1" /> <input
-                                                            class="m-2 text-center form-control rounded" required
-                                                            type="text" id="third" name="third"
-                                                            maxlength="1" /> <input
-                                                            class="m-2 text-center form-control rounded" required
-                                                            type="text" id="fourth" name="fourth"
-                                                            maxlength="1" /> <input
-                                                            class="m-2 text-center form-control rounded" required
-                                                            type="text" id="fifth" name="fifth"
-                                                            maxlength="1" /> <input
-                                                            class="m-2 text-center form-control rounded" required
-                                                            type="text" id="sixth" name="sixth"
-                                                            maxlength="1" />
-                                                    </div>
-
+                                        <input type="email" name="email"
+                                            class="form-control shadow-none  hide-arrow" placeholder="xyz@xyz.com"
+                                            required>
+                                    </div>
+                                    <div class="otpdiv" id="loginotpdiv" style="display:none">
+                                        <div class="d-flex ">
+                                            <div class="position-relative">
+                                                <h6 class="mt-3" style="font-size:13px;color:grey">Enter OTP
+                                                </h6>
+                                                <div id="otp"
+                                                    class="inputs d-flex flex-row justify-content-center mt-2">
+                                                    <input class="m-2 text-center form-control rounded" type="number"
+                                                        id="first" name="first" maxlength="1" /> <input
+                                                        class="m-2 text-center form-control rounded" type="number"
+                                                        id="second" name="second" maxlength="1" /> <input
+                                                        class="m-2 text-center form-control rounded" type="number"
+                                                        id="third" name="third" maxlength="1" /> <input
+                                                        class="m-2 text-center form-control rounded" type="number"
+                                                        id="fourth" name="fourth" maxlength="1" /> <input
+                                                        class="m-2 text-center form-control rounded" type="number"
+                                                        id="fifth" name="fifth" maxlength="1" /> <input
+                                                        class="m-2 text-center form-control rounded" type="number"
+                                                        id="sixth" name="sixth" maxlength="1" />
                                                 </div>
-                                            </div>
-                                            <div class="input-group mb-3 mt-3">
-                                                <input type="submit" href=""
-                                                    class="button btn mt-2 button-background w-100"
-                                                    style="padding: 7px 10px!important;font-size:13px"
-                                                    value="Get OTP">
 
                                             </div>
                                         </div>
-                                    </form>
+                                        <input type="submit" class="mb-2 mt-2"
+                                            style="    width: 18%;
+                                            border: none;
+                                            background: none;
+                                            float: right;
+                                            color: red;
+                                            font-weight:500
+                                            "
+                                            value="Resend OTP"  onclick="pageloginchange('default')"/>
+                                        <div class="input-group mb-3 mt-3">
+                                            <input type="submit" onclick="pageloginchange('login')"
+                                                class="button btn mt-2 button-background w-100"
+                                                style="padding: 7px 10px!important;font-size:13px" value="LOGIN" />
 
-                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3 mt-3" id="logingetotpbutton">
+                                        <input type="submit" onclick="pageloginchange('default')"
+                                            class="button btn mt-2 button-background w-100"
+                                            style="padding: 7px 10px!important;font-size:13px" value="Get OTP" />
 
-
-                                <h6 class="mt-2 text-center" style="font-size:13px">Didn't have an Account? <a
-                                        href="#" data-bs-toggle="modal" data-bs-target="#registermodal"
-                                        style="color: #FF4545">Register</a></h6>
+                                    </div>
+                                </form>
 
                             </div>
 
 
+                            <h6 class="mt-2 text-center" style="font-size:13px">Didn't have an Account? <a
+                                    href="#" data-bs-toggle="modal" data-bs-target="#registermodal"
+                                    style="color: #FF4545">Register</a></h6>
 
-                        </form>
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>
@@ -262,7 +268,7 @@
             <div class="container-fluid ">
                 <div class="row p-0 ">
                     <div class="col-12 p-0">
-                        <img style="height: 100%" src="{{ asset('logo/resgister.png') }}" class=" w-100"
+                        <img style="height: 90%" src="{{ asset('logo/resgister.png') }}" class=" w-100"
                             alt="">
                     </div>
                 </div>
@@ -273,7 +279,8 @@
                         <div class="col-10 mx-auto">
                             <h6 class="mt-3 mb-2" style="font-size:13px;color:rgb(46, 46, 46)">Please enter the
                                 details below for the registration</h6>
-                            <form>
+                            <form id="registerform">
+                                @csrf
                                 <div class="row ">
                                     <div class="col-6">
                                         <div class="input-group mb-3 inquiryinput">
@@ -282,7 +289,7 @@
                                                 <img src="{{ asset('logo/person.png') }}" alt=""
                                                     height="18px">
                                             </span>
-                                            <input type="text"
+                                            <input type="text" name="first_name"
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
                                                 class="form-control shadow-none" required placeholder="First Name *"
                                                 aria-label="Username" aria-describedby="basic-addon1">
@@ -295,7 +302,7 @@
                                                 <img src="{{ asset('logo/person.png') }}" alt=""
                                                     height="18px">
                                             </span>
-                                            <input type="text"
+                                            <input type="text" name="last_name"
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
                                                 class="form-control shadow-none" required placeholder="Last name *"
                                                 aria-label="Username" aria-describedby="basic-addon1">
@@ -306,18 +313,20 @@
                                             style="background: transparent; border-radius: 0px">
                                             <img src="{{ asset('logo/mail.png') }}" alt="" height="18px">
                                         </span>
-                                        <input type="email"
+                                        <input type="email" name="email"
                                             style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
                                             class="form-control shadow-none" placeholder="E-mail *"
                                             aria-label="Username" aria-describedby="basic-addon1" required>
                                     </div>
                                     <div class="col-2">
-                                        <select name="" class="form-select shadow-none"
-                                            style=" border-radius: 0px; font-size: 14px; outline: none; box-shadow: none;">
+                                        <select name="country_table_id" class="form-select shadow-none"
+                                            style=" border-radius: 0px; font-size: 15px; outline: none; box-shadow: none;">
                                             @foreach ($country as $item)
-                                            <option value="{{ $item->id }}" @if($item->country_phone_code == '+91') selected @endif>{{ $item->country_phone_code }} ({{ $item->country_name }})</option>
-
-                                            @endforeach                                          
+                                                <option value="{{ $item->id }}"
+                                                    @if ($item->country_phone_code == '+91') selected @endif>
+                                                    {{ $item->country_phone_code }} ({{ $item->country_name }})
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-10">
@@ -327,9 +336,9 @@
                                                 <img src="{{ asset('logo/phone.png') }}" alt=""
                                                     height="18px">
                                             </span>
-                                            <input type="tel"
+                                            <input type="tel" name="phone_no"
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                                class="form-control shadow-none" placeholder="Phone *" required
+                                                class="form-control shadow-none" placeholder="Phone" required
                                                 aria-label="Username" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
@@ -340,10 +349,10 @@
                                                 <img src="{{ asset('logo/loc.png') }}" alt=""
                                                     height="18px">
                                             </span>
-                                            <input type="tel"
+                                            <input type="text" name="locality"
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                                class="form-control shadow-none" placeholder="Locality"
-                                                aria-label="Username" aria-describedby="basic-addon1">
+                                                class="form-control shadow-none" placeholder="Locality *"
+                                                aria-label="Username" aria-describedby="basic-addon1" required>
                                         </div>
                                     </div>
 
@@ -354,16 +363,44 @@
                                                 <img src="{{ asset('logo/address.png') }}" alt=""
                                                     height="18px">
                                             </span>
-                                            <input type="tel"
+                                            <input type="text" name="zipcode"
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                                class="form-control shadow-none" placeholder="Pincode"
-                                                aria-label="Username" aria-describedby="basic-addon1">
+                                                class="form-control shadow-none" placeholder="Zipcode *"
+                                                aria-label="Username" aria-describedby="basic-addon1" required>
                                         </div>
                                     </div>
-                                    <div class="input-group mb-3 ">
-                                        <a href="" class="button btn mt-2 button-background w-100"
-                                            style="padding: 7px 10px!important;font-size:13px"> Regsiter
-                                        </a>
+                                    {{-- <div id="error_message"></div> --}}
+                                    <div class="input-group mb-3 " id="otpverificationdiv" style="display: none">
+                                        <div class="input-group  inquiryinput">
+                                            <span class="input-group-text"
+                                                style="background: transparent; border-radius: 0px">
+                                                <img src="{{ asset('logo/password.png') }}" alt=""
+                                                    height="18px">
+                                            </span>
+                                            <input type="text"
+                                                style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
+                                                class="form-control shadow-none" placeholder="Enter OTP *"
+                                                id="otpinput" aria-label="Username" aria-describedby="basic-addon1"
+                                                name="otp">
+                                        </div>
+                                        <input type="submit" class="mb-2 mt-2"
+                                            style="    width: 15%;
+                                        border: none;
+                                        background: none;
+                                        float: right;
+                                        color: red;
+                                        font-weight:500
+                                        "
+                                            value="Resend OTP" onclick="pagechange('default')" />
+
+                                        <input type="submit" class="button btn mt-2 button-background w-100"
+                                            style="padding: 7px 10px!important;font-size:13px" value="Register"
+                                            onclick="pagechange('otpverify')" />
+                                    </div>
+                                    <div class="input-group mb-3 " id="getotpbutton">
+                                        <input type="submit" class="button btn mt-2 button-background w-100"
+                                            style="padding: 7px 10px!important;font-size:13px" value="Register"
+                                            onclick="pagechange('default')" />
                                     </div>
                                     <h6 class="mt-2 text-center" style="font-size:13px">Already have an Account? <a
                                             href="#" data-bs-toggle="modal" data-bs-target="#loginmodal"
@@ -407,4 +444,169 @@
         }
         OTPInput();
     });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let page = 'default';
+    let loginpage = 'default';
+
+    $(document).ready(function() {
+        $('#registerform').submit(function(event) {
+            event.preventDefault();
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            var formData = $(this).serialize();
+            console.log(formData)
+            if (page === 'otpverify') {
+                console.log("sdasd")
+                let opt = document.getElementById('otpinput').value;
+                if (opt == '') {
+                    toastr.error('Please fill otp field!');
+                }
+                else{
+                    $.ajax({
+                    type: 'POST',
+                    url: '{{ route('user-register') }}',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    success: function(response) {
+                        if (response.status === 0) {
+                            toastr.error('User already registered with this email!');
+                        } else if (response.status === 2) {
+                            toastr.error('Invalid OTP!');
+                        } else {
+                            toastr.success('Verification Done! User Logined!');
+                            document.getElementById('otpverificationdiv').style.display =
+                                'block';
+                            document.getElementById('getotpbutton').style.display = 'none';
+                            window.location.href = '{{ route('user-homepage') }}';
+
+
+                        }
+                        document.getElementById('overlay').style.display = 'none';
+                        document.getElementById('loader-container').style.display = 'none';
+                    },
+
+                });
+                }
+
+            } else {
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('loader-container').style.display = 'block';
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('user-sendotp') }}',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    success: function(response) {
+                        if (response.status === 0) {
+                            toastr.error('User already registered with this email!');
+                        } else {
+                            toastr.success('OTP sent to your email! Verify and register!');
+                            document.getElementById('otpverificationdiv').style.display =
+                                'block';
+                            document.getElementById('getotpbutton').style.display = 'none';
+
+                        }
+                        document.getElementById('overlay').style.display = 'none';
+                        document.getElementById('loader-container').style.display = 'none';
+                    },
+
+                });
+            }
+        });
+
+        //login form events
+
+        $('#loginform').submit(function(event) {
+            event.preventDefault();
+
+            console.log("SAdasda");
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            var formData = $(this).serialize();
+            var formDataObject = {};
+            new URLSearchParams(formData).forEach(function(value, key) {
+                formDataObject[key] = value;
+            });
+            if (loginpage === 'login') {
+                console.log(formDataObject.sixth)
+
+                if (formDataObject.first == '' || formDataObject.second == '' || formDataObject.third == '' || formDataObject
+                    .fourth == '' || formDataObject.fifth == '' || formDataObject.sixth == '') {
+                    toastr.error('Please fill otp field!');
+                }
+                else{
+                    $.ajax({
+                    type: 'POST',
+                    url: '{{ route('user-login') }}',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    success: function(response) {
+                        if (response.status === 0) {
+                            toastr.error('Email not registered with us!');
+                        } else if (response.status === 2) {
+                            toastr.error('Invalid OTP!');
+                        } else {
+                            toastr.success('User Logined!');
+                            document.getElementById('otpverificationdiv').style.display =
+                                'block';
+                            document.getElementById('getotpbutton').style.display = 'none';
+                            window.location.href = '{{ route('user-homepage') }}';
+
+
+                        }
+                        document.getElementById('overlay').style.display = 'none';
+                        document.getElementById('loader-container').style.display = 'none';
+                    },
+
+                });
+                }
+
+            } else {
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('loader-container').style.display = 'block';
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('user-sendloginotp') }}',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    success: function(response) {
+                        if (response.status === 0) {
+                            toastr.error('Email not registered with us!');
+                        } else {
+                            toastr.success('OTP sent to your email!');
+                            document.getElementById('loginotpdiv').style.display =
+                                'block';
+                            document.getElementById('logingetotpbutton').style.display =
+                                'none';
+
+                        }
+                        document.getElementById('overlay').style.display = 'none';
+                        document.getElementById('loader-container').style.display = 'none';
+                    },
+
+                });
+            }
+        });
+
+    });
+
+    function pagechange(p) {
+        page = p;
+    }
+
+    function pageloginchange(p) {
+        console.log(p)
+        loginpage = p;
+    }
 </script>

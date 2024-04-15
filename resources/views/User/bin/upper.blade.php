@@ -12,6 +12,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <style>
         .border-warning-4x {
@@ -254,7 +255,7 @@
                 position: relative;
                 z-index: 1893;
                 position: relative;
-                padding: 8px    13px
+                padding: 8px 13px
                     /* Ensure the overlay is positioned relative to this container */
             }
 
@@ -275,7 +276,74 @@
 </head>
 
 <body style="min-height:100vh;">
+    <style>
+     /* Remove spinner buttons for number input */
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* Other browsers */
+}
 
+/* Remove spinner buttons on input focus */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+/* Remove spinner buttons on input hover */
+input[type=number]:hover::-webkit-inner-spin-button,
+input[type=number]:hover::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+    </style>
+    <style>
+        /* public/css/loader.css */
+
+        /* Black overlay */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Black with 50% opacity */
+            z-index: 2323232323;
+            /* Ensure it's above other content */
+        }
+
+        /* Loader container */
+        #loader-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 12321312312312;
+            /* Ensure it's above the overlay */
+        }
+    </style>
+
+    <div id="overlay"></div>
+
+    <!-- Loader container -->
+    <div id="loader-container">
+        <img src="{{ asset('logo/spinner.gif') }}" alt="Loading Spinner">
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('loader-container').style.display = 'none';
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('myForm').addEventListener('submit', function() {
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('loader-container').style.display = 'block';
+            });
+        });
+    </script>
 
     @section('body')
     @show
@@ -348,7 +416,8 @@
         });
     </script>
     @yield('script')
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>

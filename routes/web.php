@@ -28,6 +28,10 @@ Route::match(['post', 'get'], '/shopbycategories', [UserController::class, 'shop
 
 Route::prefix('auth')->group(function () {
     
+    Route::match(['post', 'get'], '/sendotp', [AuthController::class, 'sendotp'])->name('user-sendotp');
     Route::match(['post', 'get'], '/register', [AuthController::class, 'register'])->name('user-register');
+   
+    Route::match(['post', 'get'], '/login', [AuthController::class, 'login'])->name('user-login');
+    Route::match(['post', 'get'], '/sendloginotp', [AuthController::class, 'sendloginotp'])->name('user-sendloginotp');
    
 });
