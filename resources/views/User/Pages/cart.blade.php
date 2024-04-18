@@ -88,8 +88,10 @@
         <div class="row mt-2 mb-2">
             <div class="col-12 d-flex" style="justify-content: space-between">
                 <div class="d-flex align-items-center largeflexscreen">
-                    <img src="{{ asset('logo/leftarrow.png') }}" height="9.5px" alt="">
-                    <p class="mt-3 ms-4" style="font-size: 14px">Home</p>
+                    <a href="{{ route('user-homepage') }}" class="d-flex align-items-center link">
+                        <img src="{{ asset('logo/leftarrow.png') }}" height="9.5px" alt="">
+                        <p class="mt-3 ms-4" style="font-size: 14px">Home</p>
+                    </a>
                     <img class="ms-1" src="{{ asset('logo/greater.png') }}" height="15px" alt="">
                     <p class="mt-3 ms-1" style="font-size: 14px;color:#FF4545;flex:1">Cart</p>
                 </div>
@@ -121,7 +123,7 @@
             <div class="col-lg-7 col-12 mt-4 mb-lg-5 mb-0 largeborder" style="">
                 <div class="row">
                     <div class="col-lg-9 col-12  mx-auto">
-                        <div class="input-group   mb-3 largeflexscreen" style="height: 45px;">
+                        {{-- <div class="input-group   mb-3 largeflexscreen" style="height: 45px;">
 
                             <input type="text" class="form-control shadow-none"
                                 aria-label="Text input with segmented dropdown button" placeholder="Check Availability"
@@ -129,73 +131,62 @@
                             <button class="btn homeparagraph text-light button-background"
                                 style="border-radius: 0px;width:120px" type="button">Enter Pincode</button>
 
-                        </div>
+                        </div> --}}
                         <div class="smallscreen mb-4"></div>
-                        <div class="card cardmt" style="border: 0px">
-                            <div class="card-body">
-                                <div class="d-flex row p-0">
-                                    <div class="col-6 p-0">
-                                        <img src="{{ asset('logo/productImage.png') }}" class="img-fluid"
-                                            style="height: 250px" alt="">
-                                    </div>
-                                    <div class="col-6 p-4" style="margin-top: -20px">
-                                        <h6>REDFORD CB-16 COLD BOX</h6>
-                                        <p style="font-size: 15px;color:black;margin-top:-px">Rs. 2837</p>
-                                        <div class="d-flex mt-4" style="height: 5px;align-items:center">
-                                            <img src="{{ asset('logo/stars.png') }}" style="margin-top:-13px"
-                                                alt="">
-                                            <p style="font-size: 13px" class="ms-2">(5)</p>
-                                        </div>
+                        @if ($cart['item'])
+                            @foreach ($cart['item'] as $item)
+                                <div class="card cardmt" style="border: 0px">
+                                    <div class="card-body">
+                                        <div class="d-flex row p-0">
+                                            <div class="col-6 p-0">
+                                                @if (!empty($item->product->product_images))
+                                                    @php
+                                                        $imageUrls = explode(',', $item->product->product_images);
+                                                        $firstImageUrl = $imageUrls[0];
+                                                    @endphp
 
-                                        <p style="font-size: 13px;color:black" class="mt-2">Quantity</p>
-                                        <div class="quantity">
-                                            <button class="minus" aria-label="Decrease">&minus;</button>
-                                            <input type="number" class="input-box" value="1" min="1"
-                                                max="10">
-                                            <button class="plus" aria-label="Increase">&plus;</button>
-                                        </div>
-                                        <p class="mt-3" style="font-size: 14px;color:black;margin-top:-px">Seller :
-                                            MTAILMODEECOM</p>
+                                                    <img src="{{ $firstImageUrl }}" class="img-fluid" style="height: 250px"
+                                                        alt="">
+                                                @endif
+                                            </div>
+                                            <div class="col-6 p-4" style="margin-top: -20px">
+                                                <h6>{{ $item->product->product_name }}</h6>
+                                                <p style="font-size: 15px;color:black;margin-top:-px">Rs.
+                                                    {{ $item->discounted_price }} <del class="ms-2">Rs. {{ $item->original_price }}</del></p>
+                                                <div class="d-flex mt-4" style="height: 5px;align-items:center">
+                                                    <img src="{{ asset('logo/stars.png') }}" style="margin-top:-13px"
+                                                        alt="">
+                                                    <p style="font-size: 13px" class="ms-2">(5)</p>
+                                                </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card cardmt" style="border: 0px">
-                            <div class="card-body">
-                                <div class="d-flex row p-0">
-                                    <div class="col-6 p-0">
-                                        <img src="{{ asset('logo/productImage.png') }}" class="img-fluid"
-                                            style="height: 250px" alt="">
-                                    </div>
-                                    <div class="col-6 p-4" style="margin-top: -20px">
-                                        <h6>REDFORD CB-16 COLD BOX</h6>
-                                        <p style="font-size: 15px;color:black;margin-top:-px">Rs. 2837</p>
-                                        <div class="d-flex mt-4" style="height: 5px;align-items:center">
-                                            <img src="{{ asset('logo/stars.png') }}" style="margin-top:-13px"
-                                                alt="">
-                                            <p style="font-size: 13px" class="ms-2">(5)</p>
-                                        </div>
+                                                <p style="font-size: 13px;color:black" class="mt-2">Quantity</p>
+                                                <div class="quantity">
+                                                    <a href="{{ route('user-decreasecartquantity', ['cart_item_id' => $item->id]) }}"
+                                                        class="input-box link" style="font-size: 21px;padding:0px"
+                                                        aria-label="Decrease">&minus;</a>
+                                                    <input type="number" readonly class="input-box"
+                                                        value="{{ $item->quantity }}" min="1">
+                                                    <a href="{{ route('user-increasecartquantity', ['cart_item_id' => $item->id]) }}"
+                                                        class="input-box link" style="font-size: 21px;padding:0px"
+                                                        aria-label="Increase">&plus;</a>
+                                                </div>
+                                                <p class="mt-3" style="font-size: 14px;color:black;margin-top:-px">
+                                                    Seller :
+                                                    {{ $item->product?->seller?->business_name }}</p>
 
-                                        <p style="font-size: 13px;color:black" class="mt-2">Quantity</p>
-                                        <div class="quantity">
-                                            <button class="minus" aria-label="Decrease">&minus;</button>
-                                            <input type="number" class="input-box" value="1" min="1"
-                                                max="10">
-                                            <button class="plus" aria-label="Increase">&plus;</button>
+                                            </div>
                                         </div>
-                                        <p class="mt-3" style="font-size: 14px;color:black;margin-top:-px">Seller :
-                                            MTAILMODEECOM</p>
-
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            @endforeach
+                        @else
+                        @endif
+
 
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-12 mt-lg-4 mt-0 mb-5 " >
+            <div class="col-lg-5 col-12 mt-lg-4 mt-0 mb-5 ">
                 <div style="text-align: center;
                 justify-content: center;
                 display: flex;">
@@ -213,12 +204,12 @@
                 <div class="row">
                     <div class="col-lg-8 col-11 mx-auto mt-lg-5 mt-3">
                         <div class="d-flex ">
-                            <p style="font-size: 14px;flex-grow:1">Price(1 item)</p>
-                            <p style="font-size: 14px;font-weight: 600">Rs 2443</p>
+                            <p style="font-size: 14px;flex-grow:1">Price({{ $cart['no_of_products'] }} item)</p>
+                            <p style="font-size: 14px;font-weight: 600">Rs {{ $cart->total_original_price }}</p>
                         </div>
                         <div class="d-flex">
                             <p style="font-size: 14px;flex-grow:1">Discount</p>
-                            <p style="font-size: 14px;font-weight: 600">-Rs 2443</p>
+                            <p style="font-size: 14px;font-weight: 600">-Rs {{ $cart->total_original_price - $cart->total_discounted_price }}</p>
                         </div>
                         <div class="d-flex">
                             <p style="font-size: 14px;flex-grow:1">Delivery Charges</p>
@@ -231,13 +222,33 @@
                         </div>
                         <div class="d-flex mt-3">
                             <p style="font-size: 14px;flex-grow:1;font-weight:600">Total Amount</p>
-                            <p style="font-size: 14px;font-weight: 600" class="text-dark">Rs 2443</p>
+                            <p style="font-size: 14px;font-weight: 600" class="text-dark">Rs {{ $cart->total_cart_value }}</p>
                         </div>
                         <a href="{{ route('user-address') }}"
                             class="btn mt-2  homeparagraph w-100 text-light button-background" style="border-radius: 0px;"
                             type="button">Continue</a>
+
+                        <div class="input-group   mb-3  mt-4" style="height: 45px;">
+
+                            <form action="{{ route('user-cartapplycoupon') }}" class="d-flex w-100">
+                                @csrf
+                                <input type="text" class="form-control shadow-none" name="coupon"
+                                aria-label="Text input with segmented dropdown button" required placeholder="Have a coupon?"
+                                style="border-radius: 0px;font-size:13px">
+                                @error('coupon')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            <input type="submit" class="btn homeparagraph text-light button-background"
+                                style="border-radius: 0px;width:180px"  value="Apply Coupon">
+                            </form>
+
+                        </div>
                     </div>
+
+
+
                 </div>
+
             </div>
         </div>
     </div>

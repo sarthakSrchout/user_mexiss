@@ -211,7 +211,7 @@
                                             </div>
                                         </div>
                                         <input type="submit" class="mb-2 mt-2"
-                                            style="    width: 18%;
+                                            style="    width: 100%;
                                             border: none;
                                             background: none;
                                             float: right;
@@ -290,7 +290,7 @@
                 <div class="modal-body">
                     <h5 style="color: #FF4545" class="text-center">New User In MEXXiSS?</h5>
                     <div class="row ">
-                        <div class="col-10 mx-auto">
+                        <div class="col-12 col-lg-10 mx-auto">
                             <h6 class="mt-3 mb-2" style="font-size:13px;color:rgb(46, 46, 46)">Please enter the
                                 details below for the registration</h6>
                             <form id="registerform">
@@ -398,7 +398,7 @@
                                                 name="otp">
                                         </div>
                                         <input type="submit" class="mb-2 mt-2"
-                                            style="    width: 15%;
+                                            style="    width: 100%;
                                         border: none;
                                         background: none;
                                         float: right;

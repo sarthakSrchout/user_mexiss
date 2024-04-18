@@ -183,7 +183,7 @@
                 background: #212121;
                 height: 55px;
                 width: 100%;
-                margin-top: -100px;
+                margin-top: -120px;
                 position: relative;
                 z-index: 1893;
                 position: relative;
@@ -297,6 +297,26 @@
             -webkit-appearance: none;
         }
     </style>
+
+    {{-- pagination style --}}
+    <style>
+        .pagination-container .pagination {
+            border: none;
+            margin: 0;
+        }
+    
+        .pagination-container .pagination .page-item .page-link {
+            color: black;
+            border: none;
+        }
+    
+        .pagination-container .pagination .page-item.active .page-link {
+            background-color: #f45;
+            border-color: #f45;
+            border-radius: 50%;
+            color: white;
+        }
+    </style>
     <style>
         /* public/css/loader.css */
 
@@ -321,6 +341,10 @@
             transform: translate(-50%, -50%);
             z-index: 12321312312312;
             /* Ensure it's above the overlay */
+        }
+        .link{
+            text-decoration: none;
+            color: black
         }
     </style>
 
@@ -423,7 +447,38 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 
+          @if ($message = session('success_response'))
+        <script>
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ $message }}',
+                icon: 'success',
+                confirmButtonColor: '#28a745', // Set the color to green
+            });
+        </script>
+        @endif
+        @if ($message = session('error_response'))
+            <script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: '{{ $message }}',
+                    icon: 'error',
+                    confirmButtonColor: '#dc3545', // Set the color to red for error
+                });
+            </script>
+        @endif
+        @if ($message = session('loginmsg'))
+            <script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: '{{ $message }}',
+                    icon: 'success',
+                    confirmButtonColor: '#28a745', // Set the color to green for success
+                });
+            </script>
+        @endif
 </body>
 
 </html>

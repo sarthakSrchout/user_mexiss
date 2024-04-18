@@ -91,9 +91,9 @@
                             <div class="input-group">
 
                                 <input type="text" class="form-control shadow-none"
-                                    aria-label="Text input with segmented dropdown button"
+                                    aria-label="Text input with segmented dropdown button" id="search"
                                     placeholder="Enter Product/Service Name" style="border-radius: 0px;font-size:12px">
-                                <button class="btn homeparagraph text-light button-background" style="border-radius: 0px;"
+                                <button id="searchbutton" class="btn homeparagraph text-light button-background" style="border-radius: 0px;"
                                     type="button">Search</button>
 
                             </div>
@@ -436,356 +436,14 @@
                                     alt="">
                             </div>
                         </div>
-                        <div class="row mt-lg-4">
-                            <div class="col-lg-3 col-6 mt-3 ">
-                                <a href="{{ route('user-productdetails') }}" style="text-decoration: none;color:black">
-                                    <div class="card productCardData" style="border-radius: 0px">
-                                        <div class="card-body">
-                                            <img src="{{ asset('logo/productImage.png') }}" class="card-img-top "
-                                                style="border-radius:0px;height:150px" alt="">
-                                            <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                                            <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                                            <img src="{{ asset('logo/stars.png') }}" alt=""><span
-                                                style="font-size: .7rem" class="text-bold ms-1">(5)</span>
-                                            <div class="d-flex">
-                                                <a href="" class="button mt-2 button-background d-flex"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex
-                                            height:32px;font-size:10px">
-                                                    View Details
-
-                                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1"
-                                                        height="9px" alt="">
-                                                </a>
-                                                <a href="" class="button secondary-color  mt-2 ms-2"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex;
-                                            height:32px;font-size:10px">
-                                                    Contact Us
-                                                    <img src="{{ asset('logo/call.png') }}" class="ms-1"
-                                                        height="11px" alt="">
-
-                                                </a>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-6 mt-3 ">
-                                <a href="{{ route('user-productdetails') }}" style="text-decoration: none;color:black">
-                                    <div class="card productCardData" style="border-radius: 0px">
-                                        <div class="card-body">
-                                            <img src="{{ asset('logo/productImage.png') }}" class="card-img-top "
-                                                style="border-radius:0px;height:150px" alt="">
-                                            <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                                            <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                                            <img src="{{ asset('logo/stars.png') }}" alt=""><span
-                                                style="font-size: .7rem" class="text-bold ms-1">(5)</span>
-                                            <div class="d-flex">
-                                                <a href="" class="button mt-2 button-background d-flex"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex
-                                            height:32px;font-size:10px">
-                                                    View Details
-
-                                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1"
-                                                        height="9px" alt="">
-                                                </a>
-                                                <a href="" class="button secondary-color  mt-2 ms-2"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex;
-                                            height:32px;font-size:10px">
-                                                    Contact Us
-                                                    <img src="{{ asset('logo/call.png') }}" class="ms-1"
-                                                        height="11px" alt="">
-
-                                                </a>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-6 mt-3 ">
-                                <a href="{{ route('user-productdetails') }}" style="text-decoration: none;color:black">
-                                    <div class="card productCardData" style="border-radius: 0px">
-                                        <div class="card-body">
-                                            <img src="{{ asset('logo/productImage.png') }}" class="card-img-top "
-                                                style="border-radius:0px;height:150px" alt="">
-                                            <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                                            <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                                            <img src="{{ asset('logo/stars.png') }}" alt=""><span
-                                                style="font-size: .7rem" class="text-bold ms-1">(5)</span>
-                                            <div class="d-flex">
-                                                <a href="" class="button mt-2 button-background d-flex"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex
-                                            height:32px;font-size:10px">
-                                                    View Details
-
-                                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1"
-                                                        height="9px" alt="">
-                                                </a>
-                                                <a href="" class="button secondary-color  mt-2 ms-2"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex;
-                                            height:32px;font-size:10px">
-                                                    Contact Us
-                                                    <img src="{{ asset('logo/call.png') }}" class="ms-1"
-                                                        height="11px" alt="">
-
-                                                </a>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-6 mt-3 ">
-                                <a href="{{ route('user-productdetails') }}" style="text-decoration: none;color:black">
-                                    <div class="card productCardData" style="border-radius: 0px">
-                                        <div class="card-body">
-                                            <img src="{{ asset('logo/productImage.png') }}" class="card-img-top "
-                                                style="border-radius:0px;height:150px" alt="">
-                                            <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                                            <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                                            <img src="{{ asset('logo/stars.png') }}" alt=""><span
-                                                style="font-size: .7rem" class="text-bold ms-1">(5)</span>
-                                            <div class="d-flex">
-                                                <a href="" class="button mt-2 button-background d-flex"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex
-                                            height:32px;font-size:10px">
-                                                    View Details
-
-                                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1"
-                                                        height="9px" alt="">
-                                                </a>
-                                                <a href="" class="button secondary-color  mt-2 ms-2"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex;
-                                            height:32px;font-size:10px">
-                                                    Contact Us
-                                                    <img src="{{ asset('logo/call.png') }}" class="ms-1"
-                                                        height="11px" alt="">
-
-                                                </a>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-6 mt-3 ">
-                                <a href="{{ route('user-productdetails') }}" style="text-decoration: none;color:black">
-                                    <div class="card productCardData" style="border-radius: 0px">
-                                        <div class="card-body">
-                                            <img src="{{ asset('logo/productImage.png') }}" class="card-img-top "
-                                                style="border-radius:0px;height:150px" alt="">
-                                            <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                                            <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                                            <img src="{{ asset('logo/stars.png') }}" alt=""><span
-                                                style="font-size: .7rem" class="text-bold ms-1">(5)</span>
-                                            <div class="d-flex">
-                                                <a href="" class="button mt-2 button-background d-flex"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex
-                                            height:32px;font-size:10px">
-                                                    View Details
-
-                                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1"
-                                                        height="9px" alt="">
-                                                </a>
-                                                <a href="" class="button secondary-color  mt-2 ms-2"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex;
-                                            height:32px;font-size:10px">
-                                                    Contact Us
-                                                    <img src="{{ asset('logo/call.png') }}" class="ms-1"
-                                                        height="11px" alt="">
-
-                                                </a>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-6 mt-3 ">
-                                <a href="{{ route('user-productdetails') }}" style="text-decoration: none;color:black">
-                                    <div class="card productCardData" style="border-radius: 0px">
-                                        <div class="card-body">
-                                            <img src="{{ asset('logo/productImage.png') }}" class="card-img-top "
-                                                style="border-radius:0px;height:150px" alt="">
-                                            <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                                            <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                                            <img src="{{ asset('logo/stars.png') }}" alt=""><span
-                                                style="font-size: .7rem" class="text-bold ms-1">(5)</span>
-                                            <div class="d-flex">
-                                                <a href="" class="button mt-2 button-background d-flex"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex
-                                            height:32px;font-size:10px">
-                                                    View Details
-
-                                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1"
-                                                        height="9px" alt="">
-                                                </a>
-                                                <a href="" class="button secondary-color  mt-2 ms-2"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex;
-                                            height:32px;font-size:10px">
-                                                    Contact Us
-                                                    <img src="{{ asset('logo/call.png') }}" class="ms-1"
-                                                        height="11px" alt="">
-
-                                                </a>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-6 mt-3 ">
-                                <a href="{{ route('user-productdetails') }}" style="text-decoration: none;color:black">
-                                    <div class="card productCardData" style="border-radius: 0px">
-                                        <div class="card-body">
-                                            <img src="{{ asset('logo/productImage.png') }}" class="card-img-top "
-                                                style="border-radius:0px;height:150px" alt="">
-                                            <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                                            <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                                            <img src="{{ asset('logo/stars.png') }}" alt=""><span
-                                                style="font-size: .7rem" class="text-bold ms-1">(5)</span>
-                                            <div class="d-flex">
-                                                <a href="" class="button mt-2 button-background d-flex"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex
-                                            height:32px;font-size:10px">
-                                                    View Details
-
-                                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1"
-                                                        height="9px" alt="">
-                                                </a>
-                                                <a href="" class="button secondary-color  mt-2 ms-2"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex;
-                                            height:32px;font-size:10px">
-                                                    Contact Us
-                                                    <img src="{{ asset('logo/call.png') }}" class="ms-1"
-                                                        height="11px" alt="">
-
-                                                </a>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-6 mt-3 ">
-                                <a href="{{ route('user-productdetails') }}" style="text-decoration: none;color:black">
-                                    <div class="card productCardData" style="border-radius: 0px">
-                                        <div class="card-body">
-                                            <img src="{{ asset('logo/productImage.png') }}" class="card-img-top "
-                                                style="border-radius:0px;height:150px" alt="">
-                                            <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                                            <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                                            <img src="{{ asset('logo/stars.png') }}" alt=""><span
-                                                style="font-size: .7rem" class="text-bold ms-1">(5)</span>
-                                            <div class="d-flex">
-                                                <a href="" class="button mt-2 button-background d-flex"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex
-                                            height:32px;font-size:10px">
-                                                    View Details
-
-                                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1"
-                                                        height="9px" alt="">
-                                                </a>
-                                                <a href="" class="button secondary-color  mt-2 ms-2"
-                                                    style="align-items:center;align-items: center;
-                                            width: 50%;
-                                            justify-content: center;
-                                            display: flex;
-                                            height:32px;font-size:10px">
-                                                    Contact Us
-                                                    <img src="{{ asset('logo/call.png') }}" class="ms-1"
-                                                        height="11px" alt="">
-
-                                                </a>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-
-
+                        <div class="row mt-lg-4" id="paginationdata">
+                            @include('User.Pages.productpagiantion')
 
                         </div>
+                        <input type="hidden" id="hidden_page" name="hidden_page" value="1">
+
                     </div>
-                    <div class="row mt-5 " style="margin-bottom: 80px">
-                        <div class="col-lg-3"></div>
-                        <div class="col-7 d-flex mx-auto" style="justify-content: center">
-                            <h6 class="ms-5">1</h6>
-                            <h6 class="ms-3">2</h6>
-                            <h6 class="ms-3">3</h6>
-                            <h6 class="ms-3">4</h6>
-                            <h6 class="ms-3">5</h6>
-                        </div>
-                        <div class="col-2 largeflexscreen" style="display:flex;justify-content: end">
-
-                            <a href="" class="button mt-2 button-background float-right"
-                                style="padding: 7px 10px!important;font-size:13px;    align-items: center;
-                            display: flex;
-                        ">
-                                Next Page
-
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-2" height="11px"
-                                    alt="">
-
-                            </a>
-                        </div>
-                    </div>
+                
                 </div>
             </div>
             <nav class="navbar navbar-expand-lg bg-body-tertiary w-100 secondary-color p-0 shadow smallscreen"
@@ -843,7 +501,8 @@
             <div class="container-fluid">
                 <div class="row p-0">
                     <div class="col-12 p-0 m-0">
-                        <nav class="navbar navbar-expand-lg bg-body-tertiary secondary-color w-100 p-0 shadow smallscreen" style="position:fixed; top:0; z-index:1021321321001; background:white!important">
+                        <nav class="navbar navbar-expand-lg bg-body-tertiary secondary-color w-100 p-0 shadow smallscreen"
+                            style="position:fixed; top:0; z-index:1021321321001; background:white!important">
                             <div class="d-flex align-items-center" style="height: 60px">
                                 <p class="mt-3 ms-3" style="font-size: 14.5px;color:#000000;font-weight:600;flex:1">
                                     Filters
@@ -853,7 +512,7 @@
                                 </a>
                             </div>
                         </nav>
-                        
+
                     </div>
                     <div class="row p-0 " style="margin-top: 60px">
                         <div class="col-4" style="background: #fbf2f2;min-height:100vh;max-height: fit-content">
@@ -1030,5 +689,42 @@
                 $("#amount").val("$" + $("#slider-range").slider("values", 0) +
                     " - $" + $("#slider-range").slider("values", 1));
             });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                const fetch_data = (page, search) => {
+
+                    if (search === undefined) {
+                        search = "";
+                    }
+
+                    $.ajax({
+                        url: "{{ route('product-search') }}" + "/?page=" + page + "&search=" +
+                            search,
+                        success: function(data) {
+                            // console.log(data)
+                            $('#paginationdata').html('');
+                            $('#paginationdata').html(data);
+                        }
+                    })
+                }
+
+                $('#searchbutton').on('click', function() {
+                    var search = $('#search').val();
+                    var page = $('#hidden_page').val();
+                    fetch_data(page, search);
+                });
+
+                $('body').on('click', '.page-item a', function(event) {
+                    event.preventDefault();
+                    var page = $(this).attr('href').split('page=')[1];
+                    $('#hidden_page').val(page);
+                    var search = $('#search').val();
+                    fetch_data(page, search);
+                });
+            });
+
+            
         </script>
     @endsection

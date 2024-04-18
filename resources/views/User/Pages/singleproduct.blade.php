@@ -36,7 +36,29 @@
             color: white;
             padding: 5px 70px;
             border-radius: 0px;
-            border: 1px
+            border: 1px;
+            width: 35%
+        }
+
+        .scrollable-container {
+            height: 370px;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+        }
+
+        .scrollable-container::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        .scrollable-container::-webkit-scrollbar-thumb {
+            background-color: #ff8989;
+            border-radius: 4px;
+        }
+
+        .scrollable-container::-webkit-scrollbar-track {
+            background-color: #d7d7d7;
+            border-radius: 1px;
         }
 
         .smallimagescreen {
@@ -56,8 +78,10 @@
     <div class="container largescreen">
         <div class="row mt-4">
             <div class="col-12 d-flex align-items-center ">
-                <img src="{{ asset('logo/leftarrow.png') }}" height="9.5px" alt="">
-                <p class="mt-3 ms-4" style="font-size: 14px">Home</p>
+                <a href="{{ route('user-homepage') }}" class="d-flex align-items-center link">
+                    <img src="{{ asset('logo/leftarrow.png') }}" height="9.5px" alt="">
+                    <p class="mt-3 ms-4" style="font-size: 14px">Home</p>
+                </a>
                 <img class="ms-1" src="{{ asset('logo/greater.png') }}" height="15px" alt="">
                 <p class="mt-3 ms-1" style="font-size: 14px;color:#FF4545;flex:1">Products</p>
                 <div class="col-4">
@@ -80,14 +104,14 @@
         <div class="row">
             <div class="col-5 mx-auto imagescroll">
                 <div class="row">
-                    <div class="col-2">
-                        <img src="{{ asset('logo/productdetails.png') }}" height="66px" alt="">
-                        <img src="{{ asset('logo/productdetails.png') }}" class="mt-3" height="66px" alt="">
-                        <img src="{{ asset('logo/productdetails.png') }}" class="mt-3" height="66px" alt="">
-                        <img src="{{ asset('logo/productdetails.png') }}" class="mt-3" height="66px" alt="">
+                    <div class="col-2 scrollable-container">
+                        @foreach ($product['product_image'] as $item)
+                            <img src="{{ $item }}" class="mb-3" height="66px" alt="">
+                        @endforeach
+
                     </div>
                     <div class="col-10">
-                        <img src="{{ asset('logo/largeproduct.png') }}" alt="" class="img-fluid">
+                        <img src="{{ $product->product_image[0] }}" alt="" class="img-fluid">
                     </div>
                 </div>
                 <div class="row mt-5">
@@ -98,26 +122,21 @@
                             </div>
                             <div class="card-body p-2">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex">
-                                        <h6 style="font-size:12px">Machine type:</h6>
-                                        <h6 style="font-size:12px;font-weight:400" class="ms-1">REDFORD CB-16 COLD BOX
-                                            with PLC</h6>
-                                    </li>
-                                    <li class="list-group-item d-flex">
-                                        <h6 style="font-size:12px">Manufacturer:</h6>
-                                        <h6 style="font-size:12px;font-weight:400" class="ms-1">REDFORD CB-16 COLD BOX
-                                            with PLC</h6>
-                                    </li>
-                                    <li class="list-group-item d-flex">
-                                        <h6 style="font-size:12px">Year of construction:</h6>
-                                        <h6 style="font-size:12px;font-weight:400" class="ms-1">REDFORD CB-16 COLD BOX
-                                            with PLC</h6>
-                                    </li>
-                                    <li class="list-group-item d-flex">
-                                        <h6 style="font-size:12px">Condition:</h6>
-                                        <h6 style="font-size:12px;font-weight:400" class="ms-1">REDFORD CB-16 COLD BOX
-                                            with PLC</h6>
-                                    </li>
+                                    @if (sizeof($product->machine) > 0)
+                                        @foreach ($product->machine as $item)
+                                            <li class="list-group-item d-flex">
+                                                <h6 style="font-size:12px">{{ $item->label }}:</h6>
+                                                <h6 style="font-size:12px;font-weight:400" class="ms-1">
+                                                    {{ $item->value }}
+                                                </h6>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <li class="list-group-item d-flex">
+                                            No Data Provided!
+                                        </li>
+                                    @endif
+
 
                                 </ul>
 
@@ -144,8 +163,8 @@
                                         <div class="d-flex " style="flex-direction: column">
                                             <div class="d-flex" style="align-items: center">
                                                 <div style="font-size: 13px">5</div>
-                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2"
-                                                    height="13px" alt="">
+                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
+                                                    alt="">
                                                 <div
                                                     style="height: 5px;
                                                 background: #FEC80Aed;
@@ -218,56 +237,20 @@
                     <div style="position: relative; overflow: hidden;">
 
                         <div class="smallslider w-100">
-                            <div class="col-12 ">
-                                <div class="card w-100" style="border-radius: 0px;border:0">
-                                    <div class="card-body">
-                                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top w-100 "
-                                            style="border-radius:0px;height:250px" alt="">
+                            @foreach ($product['product_image'] as $item)
+                                <div class="col-12 ">
+                                    <div class="card w-100" style="border-radius: 0px;border:0">
+                                        <div class="card-body">
+
+                                            <img src="{{ $item }}" class="card-img-top w-100 "
+                                                style="border-radius:0px;height:250px" alt="">
 
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="card w-100" style="border-radius: 0px;border:0">
-                                    <div class="card-body">
-                                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top w-100 "
-                                            style="border-radius:0px;height:250px" alt="">
+                            @endforeach
 
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="card w-100" style="border-radius: 0px;border:0">
-                                    <div class="card-body">
-                                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top w-100 "
-                                            style="border-radius:0px;height:250px" alt="">
-
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="card w-100" style="border-radius: 0px;border:0">
-                                    <div class="card-body">
-                                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top w-100 "
-                                            style="border-radius:0px;height:250px" alt="">
-
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="card w-100" style="border-radius: 0px;border:0">
-                                    <div class="card-body">
-                                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top w-100 "
-                                            style="border-radius:0px;height:250px" alt="">
-
-
-                                    </div>
-                                </div>
-                            </div>
 
 
 
@@ -279,40 +262,58 @@
                 </div>
             </div>
             <div class="col-12 col-lg-6">
-                <h6>REDFORD CB-16 COLD BOX</h6>
+                <h6>{{ $product->product_name }}</h6>
                 <p style="font-size: 13px;color:#FF4545;font-weight:500" class="mt-3">Description</p>
-                <p style="font-size: 13px;color:black;margin-top:-13px">REDFORD CB-16 COLD BOX with PLC</p>
-                <p style="font-size: 13px;color:black;margin-top:-13px">Manufacturer : REDFORD</p>
-                <p style="font-size: 13px;color:black;margin-top:-13px">Condition : New</p>
+                <p style="font-size: 13px;color:black;margin-top:-13px">{{ $product->description }}/p>
+                <p style="font-size: 13px;color:black;margin-top:-13px">Manufacturer : {{ $product->manufacturer }}</p>
+                <p style="font-size: 13px;color:black;margin-top:-13px">Condition : {{ $product->pcondition }}</p>
                 <div class="d-flex mt-4" style="height: 5px;align-items:center">
                     <img src="{{ asset('logo/stars.png') }}" style="margin-top:-13px" alt="">
                     <p style="font-size: 13px" class="ms-2">(5)</p>
                 </div>
-                <h6 class="mt-3">Rs. 6765</h6>
-                <a href="{{ route('user-cart') }}" class="getquotesbutton largescreen" style="text-decoration: none">Get
-                    Quote</a>
+                <h6 class="mt-3">Rs. {{ $product->discounted_price }} <del style="font-size: 13px" class="ms-2">Rs.
+                        {{ $product->original_price }}</del></h6>
+                @if ($product->product_type == '1')
+                    <a href="{{ route('user-cart') }}" class="getquotesbutton largescreen link"
+                        style="text-decoration: none;background: #FF4545">Get Quote</a>
+                @else
+                    @if ($product->product_quantity == 0)
+                        <h2 style="font-size: 17px;color:#FF4545;font-weight:500" class="mt-3 text-decoration-underline">Out of Stock!</h2>
+                    @elseif ($product->cart == 1)
+                        <a href="{{ route('user-cart') }}" class="getquotesbutton largescreen"
+                            style="text-decoration: none">Go to Cart</a>
+                    @else
+                        <a href="{{ route('user-addtocart', ['product_id' => $product->id]) }}"
+                            class="getquotesbutton largescreen" style="text-decoration: none">Add to Cart</a>
+                    @endif
+                @endif
                 <p style="font-size: 13px;color:#FF4545;font-weight:500" class="mt-3">Specification</p>
                 <p style="font-size: 13px;color:black;margin-top:-13px">100% Original Products</p>
                 <p style="font-size: 13px;color:black;margin-top:-13px">Pay on delivery might be available</p>
                 <p style="font-size: 13px;color:black;margin-top:-13px">Easy 14 days returns and exchanges</p>
                 <div class="row mt-5">
-                    <div class="col-12">
-                        <div class="card" style="border-radius:0px">
-                            <div class="card-header">
-                                <span class="ms-2">SELLER</span>
-                            </div>
-                            <div class="card-body p-4">
-                                <h6 style="font-size: 14px;color:#FF4545">MEXXiSS Technologies</h6>
-                                <h6 style="font-size: 14px;color:#000000;font-weight:400" class="mt-2">New Delhi, India
-                                </h6>
-                                <h6 style="font-size: 14px;color:#000000" class="mt-2 mb-3">Registered since : 2007</h6>
-                                <button data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    class="button mt-2 button-background largescreen"
-                                    style="padding: 7px 10px!important;font-size:10.2px"> Request for Callback
-                                </button>
+                    @if ($product->seller)
+                        <div class="col-12">
+                            <div class="card" style="border-radius:0px">
+                                <div class="card-header">
+                                    <span class="ms-2">SELLER</span>
+                                </div>
+                                <div class="card-body p-4">
+                                    <h6 style="font-size: 14px;color:#FF4545">{{ $product->seller->business_name }}</h6>
+                                    <h6 style="font-size: 14px;color:#000000;font-weight:400" class="mt-2">
+                                        {{ $product->seller->business_state }},
+                                        {{ $product->seller->country->country_name }}
+                                    </h6>
+                                    <h6 style="font-size: 14px;color:#000000" class="mt-2 mb-3">Registered since :
+                                        {{ $product->seller->created_at->format('Y') }}</h6>
+                                    <button data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        class="button mt-2 button-background "
+                                        style="padding: 7px 10px!important;font-size:10.2px"> Request for Callback
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 <div class="row mt-4">
                     <div class="col-12">
@@ -322,25 +323,21 @@
                             </div>
                             <div class="card-body p-2">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex">
-                                        <h6 style="font-size:12px">Overall Weight:</h6>
-                                        <h6 style="font-size:12px;font-weight:400" class="ms-1">7200 kg</h6>
-                                    </li>
-                                    <li class="list-group-item d-flex">
-                                        <h6 style="font-size:12px">Manufacturer:</h6>
-                                        <h6 style="font-size:12px;font-weight:400" class="ms-1">REDFORD CB-16 COLD BOX
-                                            with PLC</h6>
-                                    </li>
-                                    <li class="list-group-item d-flex">
-                                        <h6 style="font-size:12px">Year of construction:</h6>
-                                        <h6 style="font-size:12px;font-weight:400" class="ms-1">REDFORD CB-16 COLD BOX
-                                            with PLC</h6>
-                                    </li>
-                                    <li class="list-group-item d-flex">
-                                        <h6 style="font-size:12px">Condition:</h6>
-                                        <h6 style="font-size:12px;font-weight:400" class="ms-1">REDFORD CB-16 COLD BOX
-                                            with PLC</h6>
-                                    </li>
+                                    @if (sizeof($product->technical) > 0)
+                                        @foreach ($product->technical as $item)
+                                            <li class="list-group-item d-flex">
+                                                <h6 style="font-size:12px">{{ $item->label }}:</h6>
+                                                <h6 style="font-size:12px;font-weight:400" class="ms-1">
+                                                    {{ $item->value }}
+                                                </h6>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <li class="list-group-item d-flex">
+                                            No Data Provided!
+                                        </li>
+                                    @endif
+
 
                                 </ul>
 
@@ -357,10 +354,28 @@
         <hr>
     </div>
 
-    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="button mt-2 button-background smallscreen w-100"
-        style="padding: 10px !important;font-size:15px;bottom: 0; position: fixed; z-index: 101001; background: #FF4545 !important">
-        Request for Callback
-    </button>
+    @if ($product->product_type == '0')
+        @if ($product->product_quantity == 0)
+       
+            
+        @elseif ($product->cart == 1)
+        <a href="{{ route('user-cart') }}" class="getquotesbutton button mt-2 smallscreen w-100 link text-center"
+            style="padding: 10px !important;font-size:15px;bottom: 0; position: fixed; z-index: 101001;">Go to
+            Cart</a>
+            
+        @else
+            <a href="{{ route('user-addtocart',['product_id' => $product->id]) }}" class="getquotesbutton button mt-2 smallscreen w-100 link text-center"
+                style="padding: 10px !important;font-size:15px;bottom: 0; position: fixed; z-index: 101001;">Add to
+                Cart</a>
+        @endif
+      
+    @else
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal"
+            class="button mt-2 button-background smallscreen w-100"
+            style="padding: 10px !important;font-size:15px;bottom: 0; position: fixed; z-index: 101001; background: #FF4545 !important">
+            Get Quotes
+        </button>
+    @endif
 
     @include('User.Pages.recommendation')
 
