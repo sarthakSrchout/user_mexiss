@@ -133,7 +133,8 @@
 
                         </div> --}}
                         <div class="smallscreen mb-4"></div>
-                        @if ($cart['item'])
+                       
+                        @if ($cart)
                             @foreach ($cart['item'] as $item)
                                 <div class="card cardmt" style="border: 0px">
                                     <div class="card-body">
@@ -152,7 +153,8 @@
                                             <div class="col-6 p-4" style="margin-top: -20px">
                                                 <h6>{{ $item->product->product_name }}</h6>
                                                 <p style="font-size: 15px;color:black;margin-top:-px">Rs.
-                                                    {{ $item->discounted_price }} <del class="ms-2">Rs. {{ $item->original_price }}</del></p>
+                                                    {{ $item->discounted_price }} <del class="ms-2">Rs.
+                                                        {{ $item->original_price }}</del></p>
                                                 <div class="d-flex mt-4" style="height: 5px;align-items:center">
                                                     <img src="{{ asset('logo/stars.png') }}" style="margin-top:-13px"
                                                         alt="">
@@ -204,17 +206,23 @@
                 <div class="row">
                     <div class="col-lg-8 col-11 mx-auto mt-lg-5 mt-3">
                         <div class="d-flex ">
-                            <p style="font-size: 14px;flex-grow:1">Price({{ $cart['no_of_products'] }} item)</p>
-                            <p style="font-size: 14px;font-weight: 600">Rs {{ $cart->total_original_price }}</p>
+                            <p style="font-size: 14px;flex-grow:1">Price({{ $cart?->no_of_products }} item)</p>
+                            <p style="font-size: 14px;font-weight: 600">Rs {{ $cart?->total_original_price }}</p>
+                        </div>
+                        <div class="d-flex">
+                            <p style="font-size: 14px;flex-grow:1">Total Discounted Amount</p>
+                            <p style="font-size: 14px;font-weight: 600" class="text-success">Rs {{ $cart?->total_discounted_price }}</p>
                         </div>
                         <div class="d-flex">
                             <p style="font-size: 14px;flex-grow:1">Discount</p>
-                            <p style="font-size: 14px;font-weight: 600">-Rs {{ $cart->total_original_price - $cart->total_discounted_price }}</p>
+                            <p style="font-size: 14px;font-weight: 600">  @if ($cart?->coupon_id)
+                                <span class="text-success">Coupon Discount (Rs.{{ $cart?->total_coupon_discount }}\-)</span>
+                            @endif-Rs
+                                {{ $cart?->total_original_price - $cart?->total_discounted_price + $cart?->total_coupon_discount }}
+                              
+                            </p>
                         </div>
-                        <div class="d-flex">
-                            <p style="font-size: 14px;flex-grow:1">Delivery Charges</p>
-                            <p style="font-size: 14px;font-weight: 600" class="text-success">Rs 2443</p>
-                        </div>
+                      
                         <div class="mt-3"
                             style="    width: 100%;
                     height: 1px;
@@ -222,7 +230,8 @@
                         </div>
                         <div class="d-flex mt-3">
                             <p style="font-size: 14px;flex-grow:1;font-weight:600">Total Amount</p>
-                            <p style="font-size: 14px;font-weight: 600" class="text-dark">Rs {{ $cart->total_cart_value }}</p>
+                            <p style="font-size: 14px;font-weight: 600" class="text-dark">Rs
+                                {{ $cart?->total_cart_value }}</p>
                         </div>
                         <a href="{{ route('user-address') }}"
                             class="btn mt-2  homeparagraph w-100 text-light button-background" style="border-radius: 0px;"
@@ -230,17 +239,31 @@
 
                         <div class="input-group   mb-3  mt-4" style="height: 45px;">
 
-                            <form action="{{ route('user-cartapplycoupon') }}" class="d-flex w-100">
-                                @csrf
-                                <input type="text" class="form-control shadow-none" name="coupon"
-                                aria-label="Text input with segmented dropdown button" required placeholder="Have a coupon?"
-                                style="border-radius: 0px;font-size:13px">
-                                @error('coupon')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            <input type="submit" class="btn homeparagraph text-light button-background"
-                                style="border-radius: 0px;width:180px"  value="Apply Coupon">
-                            </form>
+                            @if (!$cart?->coupon_id)
+                                <form action="{{ route('user-cartapplycoupon') }}" class="d-flex w-100">
+                                    @csrf
+                                    <input type="text" class="form-control shadow-none" name="coupon"
+                                        aria-label="Text input with segmented dropdown button" required
+                                        placeholder="Have a coupon?" style="border-radius: 0px;font-size:13px">
+                                    @error('coupon')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    <input type="submit" class="btn homeparagraph text-light button-background"
+                                        style="border-radius: 0px;width:180px" value="Apply Coupon">
+                                </form>
+                                @else
+                                <form action="{{ route('user-cartremovecoupon') }}" class="d-flex w-100">
+                                    @csrf
+                                    <input type="text" readonly disabled class="form-control shadow-none" name="coupon" value="{{ $cart?->coupon->coupon_code }} applied! (Rs.{{ $cart->total_coupon_discount }}\- off) "
+                                        aria-label="Text input with segmented dropdown button" required
+                                        placeholder="Have a coupon?" style="border-radius: 0px;font-size:13px">
+                                    @error('coupon')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    <input type="submit" class="btn homeparagraph text-light button-background"
+                                        style="border-radius: 0px;width:180px" value="Remove Coupon">
+                                </form>
+                            @endif
 
                         </div>
                     </div>

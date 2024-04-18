@@ -108,10 +108,10 @@ class UserController extends Controller
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
         $data['recommendate'] = Product::where('status', '1')->inRandomOrder()->limit(22)->get();
         if(!Auth::user()){
-            $data['cart'] = guestCart::with('item')->where('user_ip',$ip)->first();
+            $data['cart'] = guestCart::with('item','coupon')->where('user_ip',$ip)->first();
         }
         else{
-            
+
         }
 
         return view('User.Pages.cart', $data);

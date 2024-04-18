@@ -13,5 +13,8 @@ class guestCart extends Model
     public function item(){
         return $this->hasMany(GuestCartItem::class,'guest_cart_id','id');
     }
+    public function coupon(){
+        return $this->hasOne(Coupon::class,'id','coupon_id');
+    }
     protected $guarded = [];
 }

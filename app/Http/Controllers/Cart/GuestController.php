@@ -39,6 +39,12 @@ class GuestController extends Controller
             $item->discounted_price = $prd->discounted_price;
             $item->original_price = $prd->original_price;
             $item->save();
+
+            $user->no_of_products = $user->no_of_products + 1;
+            $user->total_cart_value = $user->total_cart_value +  $prd->discounted_price;
+            $user->total_discounted_price = $user->total_discounted_price +  $prd->discounted_price;
+            $user->total_original_price = $user->total_original_price +  $prd->original_price;
+            $user->save();
         }
         return redirect()->back()->with('success_response', 'Product Added to Cart!');
     }
@@ -60,6 +66,52 @@ class GuestController extends Controller
         $cart->total_cart_value = ($discounted_price - $cart->total_coupon_discount);
         $cart->save();
     }
+    //check totalprice of cart with coupon validity
+    public function couponvalidity($request)
+    {
+        $ip = $request->ip();
+        $cart = guestCart::where('user_ip', $ip)->first();
+        $coupon = Coupon::where('id', $cart->coupon_id)->first();
+        // dd($coupon);
+        if (!$coupon) {
+            $cart->total_coupon_discount = 0;
+            $cart->coupon_id = NULL;
+            $cart->save();
+            $this->updateguestcartprice($cart->id);
+
+            return;
+        }
+        if (($coupon->valid_till < Carbon::now()) || ($coupon->valid_from > Carbon::now())) {
+            $cart->total_coupon_discount = 0;
+            $cart->coupon_id = NULL;
+            $cart->save();
+            $this->updateguestcartprice($cart->id);
+
+            return;
+        }
+        if ($coupon->minimum_cart_value > $cart->total_discounted_price) {
+            $cart->total_coupon_discount = 0;
+            $cart->coupon_id = NULL;
+            $cart->save();
+            $this->updateguestcartprice($cart->id);
+
+            return;
+        }
+        if ($cart->coupon_id) {
+            $discount_amount = ($cart->total_discounted_price * ($coupon->discount_percentage / 100));
+
+            if ($coupon->discount_upto != NULL) {
+                if ($discount_amount >= $coupon->discount_upto) {
+                    $discount_amount = $coupon->discount_upto;
+                }
+            }
+            $cart->total_coupon_discount = $discount_amount;
+            $cart->save();
+            $this->updateguestcartprice($cart->id);
+
+            return;
+        }
+    }
     //guest increase quanitity
     public function guestincreasecartquanitity($request)
     {
@@ -71,7 +123,6 @@ class GuestController extends Controller
         }
 
         $prd = Product::where([['id', $item->product_id], ['product_type', '0'], ['status', '1']])->first();
-        // dd($item,$prd,$prd->quantity,$item->quantity + 1);
         if ($prd->product_quantity < ($item->quantity + 1)) {
             return redirect()->back()->with('error_response', 'Not enough quantity available!');
         }
@@ -79,8 +130,8 @@ class GuestController extends Controller
         $item->discounted_price = $prd->discounted_price;
         $item->original_price = $prd->original_price;
         $item->save();
-
         $this->updateguestcartprice($cart->id);
+        $this->couponvalidity($request);
 
         return redirect()->back()->with('success_response', 'Product Quantity Increased!');
     }
@@ -97,6 +148,7 @@ class GuestController extends Controller
         if ($item->quantity <= 1) {
             $item->delete();
             $this->updateguestcartprice($cart->id);
+            $this->couponvalidity($request);
 
             return redirect()->back()->with('success_response', 'Product removed from cart!');
         }
@@ -104,7 +156,9 @@ class GuestController extends Controller
         $item->discounted_price = $prd->discounted_price;
         $item->original_price = $prd->original_price;
         $item->save();
+
         $this->updateguestcartprice($cart->id);
+        $this->couponvalidity($request);
 
         return redirect()->back()->with('success_response', 'Product Quantity Decreased!');
     }
@@ -115,7 +169,6 @@ class GuestController extends Controller
 
         $cart = guestCart::where('user_ip', $ip)->first();
         $coupon = Coupon::where('coupon_code', strtoupper($request->coupon))->first();
-        // dd($request->coupon,$coupon);
 
         if (!$coupon) {
             return redirect()->back()->with('error_response', 'Not a valid coupon!')->withInput();
@@ -123,11 +176,11 @@ class GuestController extends Controller
         if (($coupon->valid_till < Carbon::now()) || ($coupon->valid_from > Carbon::now())) {
             return redirect()->back()->with('error_response', 'Not a valid coupon!')->withInput();
         }
-        if ($coupon->minimum_cart_value > $cart->total_cart_value) {
-            $msg = 'Add more product worth Rs.' . $coupon->minimum_cart_value - $cart->total_cart_value . ' to avail this coupon!';
+        if ($coupon->minimum_cart_value > $cart->total_discounted_price) {
+            $msg = 'Add more product worth Rs.' . $coupon->minimum_cart_value - $cart->total_discounted_price . ' to avail this coupon!';
             return redirect()->back()->with('error_response', $msg)->withInput();
         }
-        $discount_amount = ($cart->total_cart_value * ($coupon / 100));
+        $discount_amount = ($cart->total_discounted_price * ($coupon->discount_percentage / 100));
 
         if ($coupon->discount_upto != NULL) {
             if ($discount_amount >= $coupon->discount_upto) {
@@ -141,6 +194,21 @@ class GuestController extends Controller
         $this->updateguestcartprice($cart->id);
 
         return redirect()->back()->with('success_response', 'Coupon Added on Cart!');
+    }
+    //guest cart remove coupon
+    public function guestcartremovecoupon($request)
+    {
+        $ip = $request->ip();
+
+        $cart = guestCart::where('user_ip', $ip)->first();
+
+        $cart->total_coupon_discount = 0;
+        $cart->coupon_id = NULL;
+        $cart->save();
+
+        $this->updateguestcartprice($cart->id);
+
+        return redirect()->back()->with('success_response', 'Coupon Removed from Cart!');
     }
 
     //--------------------------------------------main function for both cart and guest cart-----------------------------------//
@@ -176,6 +244,14 @@ class GuestController extends Controller
         ]);
         if (!Auth::user()) {
             return $this->guestcartapplycoupon($request);
+        } else {
+        }
+    }
+    public function cartremovecoupon(Request $request)
+    {
+
+        if (!Auth::user()) {
+            return $this->guestcartremovecoupon($request);
         } else {
         }
     }

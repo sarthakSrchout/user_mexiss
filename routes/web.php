@@ -38,6 +38,7 @@ Route::prefix('cart')->group(function () {
     Route::match(['post', 'get'], '/increasecartquantity', [GuestController::class, 'increasecartquantity'])->name('user-increasecartquantity');
     Route::match(['post', 'get'], '/decreasecartquantity', [GuestController::class, 'decreasecartquantity'])->name('user-decreasecartquantity');
     Route::match(['post', 'get'], '/cartapplycoupon', [GuestController::class, 'cartapplycoupon'])->name('user-cartapplycoupon');
+    Route::match(['post', 'get'], '/cartremovecoupon', [GuestController::class, 'cartremovecoupon'])->name('user-cartremovecoupon');
 
 });
 Route::prefix('auth')->group(function () {
