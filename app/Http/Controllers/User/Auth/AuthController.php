@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Common\BulksSMS;
 use App\Http\Controllers\Common\OtpController;
 use App\Http\Controllers\Controller;
@@ -18,11 +19,13 @@ class AuthController extends Controller
 {
     protected $BulksSMS;
     protected $OtpServices;
+    protected $cart;
 
-    public function __construct(BulksSMS $BulksSMS, OtpController $OtpController)
+    public function __construct(BulksSMS $BulksSMS, OtpController $OtpController,CartController $cart)
     {
         $this->OtpServices = $OtpController;
         $this->BulksSMS = $BulksSMS;
+        $this->cart = $cart;
     }
     public function saveEmailOtp($email)
     {
@@ -100,6 +103,7 @@ class AuthController extends Controller
 
         if ($otpget && ($otpget['otp'] == $otp)) {
             Auth::login($user);
+            $this->cart->guestcarttocart($request);
             return response()->json(['status' => 1, 'msg' => 'User Registered!']);
         } else {
             return response()->json(['status' => 2, 'msg' => 'Invalid otp!']);

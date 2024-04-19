@@ -37,7 +37,7 @@
             padding: 5px 70px;
             border-radius: 0px;
             border: 1px;
-            width: 35%
+            width: fit-content
         }
 
         .scrollable-container {

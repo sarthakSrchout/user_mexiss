@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\guestCart;
 use App\Models\GuestCartItem;
 use App\Models\Product;
@@ -83,8 +85,7 @@ class UserController extends Controller
     }
     public function productdetails(Request $request)
     {
-        $ip =$request->ip();
-        $gc = guestCart::where('user_ip',$ip)->first();
+       
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
         $data['product'] = Product::where([['id', $request->product_id], ['status', '1']])->first();
         $data['recommendate'] = Product::where('status', '1')->where('id', '!=', $request->product_id)->inRandomOrder()->limit(22)->get();
@@ -92,10 +93,16 @@ class UserController extends Controller
             abort(404);
         }
         $data['product']['cart'] =0;
+        $ip =$request->ip();
+        $gc = guestCart::where('user_ip',$ip)->first();
+        if(Auth::user()){
+            $cart = Cart::where('user_id',Auth::user()->id)->first();
+
+        }
         if(!Auth::user() && GuestCartItem::where([['guest_cart_id',$gc?->id],['product_id',$request->product_id]])->first()){
             $data['product']['cart'] = 1;
         }  
-        else if (Auth::user()) {
+        else if (Auth::user() && CartItem::where([['cart_id',$cart?->id],['product_id',$request->product_id]])->first() ) {
             $data['product']['cart'] = 1;
         } 
         $data['product']['product_image'] = explode(',', $data['product']->product_images);
@@ -111,6 +118,9 @@ class UserController extends Controller
             $data['cart'] = guestCart::with('item','coupon')->where('user_ip',$ip)->first();
         }
         else{
+            $user_id =Auth::user()->id;
+
+            $data['cart'] = Cart::with('item','coupon')->where('user_id',$user_id)->first();
 
         }
 

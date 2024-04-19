@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Cart\GuestController;
+use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\User\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
 
@@ -34,11 +34,12 @@ Route::match(['post', 'get'], '/user/myorrders', [UserController::class, 'myorrd
 
 Route::prefix('cart')->group(function () {
     
-    Route::match(['post', 'get'], '/addtocart', [GuestController::class, 'addtocart'])->name('user-addtocart');
-    Route::match(['post', 'get'], '/increasecartquantity', [GuestController::class, 'increasecartquantity'])->name('user-increasecartquantity');
-    Route::match(['post', 'get'], '/decreasecartquantity', [GuestController::class, 'decreasecartquantity'])->name('user-decreasecartquantity');
-    Route::match(['post', 'get'], '/cartapplycoupon', [GuestController::class, 'cartapplycoupon'])->name('user-cartapplycoupon');
-    Route::match(['post', 'get'], '/cartremovecoupon', [GuestController::class, 'cartremovecoupon'])->name('user-cartremovecoupon');
+    Route::match(['post', 'get'], '/addtocart', [CartController::class, 'addtocart'])->name('user-addtocart');
+    Route::match(['post', 'get'], '/increasecartquantity', [CartController::class, 'increasecartquantity'])->name('user-increasecartquantity');
+    Route::match(['post', 'get'], '/decreasecartquantity', [CartController::class, 'decreasecartquantity'])->name('user-decreasecartquantity');
+    Route::match(['post', 'get'], '/cartapplycoupon', [CartController::class, 'cartapplycoupon'])->name('user-cartapplycoupon');
+    Route::match(['post', 'get'], '/cartremovecoupon', [CartController::class, 'cartremovecoupon'])->name('user-cartremovecoupon');
+    Route::match(['post', 'get'], '/guestcarttocart', [CartController::class, 'guestcarttocart'])->name('user-guestcarttocart');
 
 });
 Route::prefix('auth')->group(function () {
@@ -54,8 +55,7 @@ Route::prefix('auth')->group(function () {
    
 });
 
-// in product add specification and tax type for every oproduct like india product for loacl shipment and interantional shipment
+// in product add specification and tax type for every product like india product for loacl shipment and interantional shipment
 //product price in dollar??
 //category not required in product
 //rating system in product
-//11 - 1 gupio
