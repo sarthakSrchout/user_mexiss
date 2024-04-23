@@ -274,7 +274,7 @@
                 <h6 class="mt-3">Rs. {{ $product->discounted_price }} <del style="font-size: 13px" class="ms-2">Rs.
                         {{ $product->original_price }}</del></h6>
                 @if ($product->product_type == '1')
-                    <a href="{{ route('user-cart') }}" class="getquotesbutton largescreen link"
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="getquotesbutton largescreen link"
                         style="text-decoration: none;background: #FF4545">Get Quote</a>
                 @else
                     @if ($product->product_quantity == 0)
@@ -413,7 +413,8 @@
                             </div>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form method="post" action="{{ route('user-sendproductquery',['product_id' => $product->id,'seller_id' => $product->seller->sellar_id]) }}">
+                                @csrf
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="input-group mb-3 inquiryinput">
@@ -421,21 +422,21 @@
                                                 style="background: transparent; border-radius: 0px">
                                                 <img src="{{ asset('logo/person.png') }}" alt="" height="18px">
                                             </span>
-                                            <input type="text"
+                                            <input type="text" required
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                                class="form-control shadow-none" placeholder="First Name"
+                                                class="form-control shadow-none" value="{{ Auth::user()?->first_name }}"  placeholder="First Name *" name="first_name"
                                                 aria-label="Username" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-group mb-3 inquiryinput">
-                                            <span class="input-group-text"
+                                            <span class="input-group-text" 
                                                 style="background: transparent; border-radius: 0px">
                                                 <img src="{{ asset('logo/person.png') }}" alt="" height="18px">
                                             </span>
-                                            <input type="text"
+                                            <input type="text" required
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                                class="form-control shadow-none" placeholder="Last name"
+                                                class="form-control shadow-none" value="{{ Auth::user()?->last_name }}" placeholder="Last name *" name="last_name"
                                                 aria-label="Username" aria-describedby="basic-addon1">
                                         </div>
                                     </div>
@@ -444,9 +445,9 @@
                                             style="background: transparent; border-radius: 0px">
                                             <img src="{{ asset('logo/mail.png') }}" alt="" height="18px">
                                         </span>
-                                        <input type="email"
+                                        <input type="email" required
                                             style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                            class="form-control shadow-none" placeholder="E-mail" aria-label="Username"
+                                            class="form-control shadow-none" value="{{ Auth::user()?->email }}" placeholder="E-mail *" aria-label="Username" name="email"
                                             aria-describedby="basic-addon1">
                                     </div>
                                     <div class="input-group mb-3 inquiryinput">
@@ -454,22 +455,22 @@
                                             style="background: transparent; border-radius: 0px">
                                             <img src="{{ asset('logo/phone.png') }}" alt="" height="18px">
                                         </span>
-                                        <input type="tel"
+                                        <input type="tel" required value="{{ Auth::user()?->phone_no }}"
                                             style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                            class="form-control shadow-none" placeholder="Phone" aria-label="Username"
+                                            class="form-control shadow-none" placeholder="Phone *" aria-label="Username" name="phone"
                                             aria-describedby="basic-addon1">
                                     </div>
                                     <div class="input-group mb-3 ">
                                         <textarea class="form-control shadow-none"
                                             style=" border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;" rows="3"
-                                            placeholder="Describe your issue"></textarea>
+                                            placeholder="Describe your issue" name="issue_initial_description"></textarea>
 
                                     </div>
                                     <div class="input-group mb-3 ">
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        <button type="submit"
                                             class="button btn mt-2 button-background w-100"
-                                            style="padding: 7px 10px!important;font-size:13px"> Send
-                                        </a>
+                                            style="padding: 7px 10px!important;font-size:13px"> Send Query
+                                        </button>
                                     </div>
                                 </div>
 

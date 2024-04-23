@@ -22,12 +22,18 @@ Route::match(['post', 'get'], '/terms-and-condition', [UserController::class, 't
 Route::match(['post', 'get'], '/help-and-support', [UserController::class, 'help'])->name('user-help');
 Route::match(['post', 'get'], '/frequently-asked-questions', [UserController::class, 'faq'])->name('user-faq');
 Route::match(['post', 'get'], '/shopbycategories', [UserController::class, 'shopbycategories'])->name('user-shopbycategories');
+Route::match(['post', 'get'], '/user/sendproductquery', [UserController::class, 'sendproductquery'])->name('user-sendproductquery');
+
 
 Route::match(['post', 'get'], '/add/address', [UserController::class, 'address'])->name('user-address')->middleware('userauth');
 Route::match(['post', 'get'], '/my/address', [UserController::class, 'myaddress'])->name('user-myaddress')->middleware('userauth');
-Route::match(['post', 'get'], '/add/payment', [UserController::class, 'payment'])->name('user-payment')->middleware('userauth');
+Route::match(['post', 'get'], '/add/payment', [UserController::class, 'payment'])->name('user-payment')->middleware('userauth','paymentpage');
 Route::match(['post', 'get'], '/user/profile', [UserController::class, 'profile'])->name('user-profile')->middleware('userauth');
 Route::match(['post', 'get'], '/user/myorrders', [UserController::class, 'myorrders'])->name('user-myorrders')->middleware('userauth');
+Route::match(['post', 'get'], '/user/addresspostoperation', [UserController::class, 'addresspostoperation'])->name('user-addresspostoperation')->middleware('userauth');
+Route::match(['post', 'get'], '/user/getaddressdetails/{address_id}', [UserController::class, 'getaddressdetails'])->name('user-getaddressdetails')->middleware('userauth');
+
+
 
 //guest cart
 

@@ -166,13 +166,14 @@ class CartController extends Controller
 
         return redirect()->back()->with('success_response', 'Product Quantity Decreased!');
     }
+   
     //guest cart apply coupon
     public function guestcartapplycoupon($request)
     {
         $ip = $request->ip();
 
         $cart = guestCart::where('user_ip', $ip)->first();
-        $coupon = Coupon::where('coupon_code', strtoupper($request->coupon))->first();
+        $coupon = Coupon::where([['coupon_code', strtoupper($request->coupon)],['status','1']])->first();
 
         if (!$coupon) {
             return redirect()->back()->with('error_response', 'Not a valid coupon!')->withInput();
@@ -184,6 +185,7 @@ class CartController extends Controller
             $msg = 'Add more product worth Rs.' . $coupon->minimum_cart_value - $cart->total_discounted_price . ' to avail this coupon!';
             return redirect()->back()->with('error_response', $msg)->withInput();
         }
+    
         $discount_amount = ($cart->total_discounted_price * ($coupon->discount_percentage / 100));
 
         if ($coupon->discount_upto != NULL) {
@@ -424,7 +426,7 @@ class CartController extends Controller
         $ip = Auth::user()->id;
 
         $cart = Cart::where('user_id', $ip)->first();
-        $coupon = Coupon::where('coupon_code', strtoupper($request->coupon))->first();
+        $coupon = Coupon::where([['coupon_code', strtoupper($request->coupon)],['status','1']])->first();
 
         if (!$coupon) {
             return redirect()->back()->with('error_response', 'Not a valid coupon!')->withInput();
@@ -432,6 +434,7 @@ class CartController extends Controller
         if (($coupon->valid_till < Carbon::now()) || ($coupon->valid_from > Carbon::now())) {
             return redirect()->back()->with('error_response', 'Not a valid coupon!')->withInput();
         }
+
         if ($coupon->minimum_cart_value > $cart->total_discounted_price) {
             $msg = 'Add more product worth Rs.' . $coupon->minimum_cart_value - $cart->total_discounted_price . ' to avail this coupon!';
             return redirect()->back()->with('error_response', $msg)->withInput();
