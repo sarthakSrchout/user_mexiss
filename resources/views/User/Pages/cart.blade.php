@@ -119,11 +119,12 @@
     </div>
     <div class="container-fluid mt-2"
         style="border-top: .5px solid rgb(181, 181, 181);border-bottom: .5px solid rgb(181, 181, 181) ">
-        <div class="row">
-            <div class="col-lg-7 col-12 mt-4 mb-lg-5 mb-0 largeborder" style="">
-                <div class="row">
-                    <div class="col-lg-9 col-12  mx-auto">
-                        {{-- <div class="input-group   mb-3 largeflexscreen" style="height: 45px;">
+        @if (sizeof($cart['item']) > 0)
+            <div class="row">
+                <div class="col-lg-7 col-12 mt-4 mb-lg-5 mb-0 largeborder" style="">
+                    <div class="row">
+                        <div class="col-lg-9 col-12  mx-auto">
+                            {{-- <div class="input-group   mb-3 largeflexscreen" style="height: 45px;">
 
                             <input type="text" class="form-control shadow-none"
                                 aria-label="Text input with segmented dropdown button" placeholder="Check Availability"
@@ -132,161 +133,180 @@
                                 style="border-radius: 0px;width:120px" type="button">Enter Pincode</button>
 
                         </div> --}}
-                        <div class="smallscreen mb-4"></div>
+                            <div class="smallscreen mb-4"></div>
 
-                        @if ($cart)
-                            @foreach ($cart['item'] as $item)
-                                <div class="card cardmt" style="border: 0px">
-                                    <div class="card-body">
-                                        <div class="d-flex row p-0">
-                                            <div class="col-6 p-0">
-                                                @if (!empty($item->product->product_images))
-                                                    @php
-                                                        $imageUrls = explode(',', $item->product->product_images);
-                                                        $firstImageUrl = $imageUrls[0];
-                                                    @endphp
+                            @if ($cart['item'])
+                                @foreach ($cart['item'] as $item)
+                                    <div class="card cardmt" style="border: 0px">
+                                        <div class="card-body">
+                                            <div class="d-flex row p-0">
+                                                <div class="col-6 p-0">
+                                                    @if (!empty($item->product->product_images))
+                                                        @php
+                                                            $imageUrls = explode(',', $item->product->product_images);
+                                                            $firstImageUrl = $imageUrls[0];
+                                                        @endphp
 
-                                                    <img src="{{ $firstImageUrl }}" class="img-fluid" style="height: 250px"
-                                                        alt="">
-                                                @endif
-                                            </div>
-                                            <div class="col-6 p-4" style="margin-top: -20px">
-                                                <h6>{{ $item->product->product_name }}</h6>
-                                                <p style="font-size: 15px;color:black;margin-top:-px">Rs.
-                                                    {{ $item->discounted_price }} <del class="ms-2">Rs.
-                                                        {{ $item->original_price }}</del></p>
-                                                <div class="d-flex mt-4" style="height: 5px;align-items:center">
-                                                    <img src="{{ asset('logo/stars.png') }}" style="margin-top:-13px"
-                                                        alt="">
-                                                    <p style="font-size: 13px" class="ms-2">(5)</p>
+                                                        <img src="{{ $firstImageUrl }}" class="img-fluid"
+                                                            style="height: 250px" alt="">
+                                                    @endif
                                                 </div>
+                                                <div class="col-6 p-4" style="margin-top: -20px">
+                                                    <h6>{{ $item->product->product_name }}</h6>
+                                                    <p style="font-size: 15px;color:black;margin-top:-px">Rs.
+                                                        {{ $item->discounted_price }} <del class="ms-2">Rs.
+                                                            {{ $item->original_price }}</del></p>
+                                                    <div class="d-flex mt-4" style="height: 5px;align-items:center">
+                                                        <img src="{{ asset('logo/stars.png') }}" style="margin-top:-13px"
+                                                            alt="">
+                                                        <p style="font-size: 13px" class="ms-2">(5)</p>
+                                                    </div>
 
-                                                <p style="font-size: 13px;color:black" class="mt-2">Quantity</p>
-                                                <div class="quantity">
-                                                    <a href="{{ route('user-decreasecartquantity', ['cart_item_id' => $item->id]) }}"
-                                                        class="input-box link" style="font-size: 21px;padding:0px"
-                                                        aria-label="Decrease">&minus;</a>
-                                                    <input type="number" readonly class="input-box"
-                                                        value="{{ $item->quantity }}" min="1">
-                                                    <a href="{{ route('user-increasecartquantity', ['cart_item_id' => $item->id]) }}"
-                                                        class="input-box link" style="font-size: 21px;padding:0px"
-                                                        aria-label="Increase">&plus;</a>
+                                                    <p style="font-size: 13px;color:black" class="mt-2">Quantity</p>
+                                                    <div class="quantity">
+                                                        <a href="{{ route('user-decreasecartquantity', ['cart_item_id' => $item->id]) }}"
+                                                            class="input-box link" style="font-size: 21px;padding:0px"
+                                                            aria-label="Decrease">&minus;</a>
+                                                        <input type="number" readonly class="input-box"
+                                                            value="{{ $item->quantity }}" min="1">
+                                                        <a href="{{ route('user-increasecartquantity', ['cart_item_id' => $item->id]) }}"
+                                                            class="input-box link" style="font-size: 21px;padding:0px"
+                                                            aria-label="Increase">&plus;</a>
+                                                    </div>
+                                                    <p class="mt-3" style="font-size: 14px;color:black;margin-top:-px">
+                                                        Seller :
+                                                        {{ $item->product?->seller?->business_name }}</p>
+
                                                 </div>
-                                                <p class="mt-3" style="font-size: 14px;color:black;margin-top:-px">
-                                                    Seller :
-                                                    {{ $item->product?->seller?->business_name }}</p>
-
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
-                        @else
-                        
-                        @endif
-
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-12 mt-lg-4 mt-0 mb-5 ">
-                <div style="text-align: center;
-                justify-content: center;
-                display: flex;">
-                    <h6>Price Details</h6>
-                </div>
-                <div style="text-align: center;
-                justify-content: center;
-                display: flex;">
-                    <div class=""
-                        style="    width: 150px;
-                    height: 1px;
-                    background: black;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8 col-11 mx-auto mt-lg-5 mt-3">
-                        <div class="d-flex ">
-                            <p style="font-size: 14px;flex-grow:1">Price({{ $cart?->no_of_products }} item)</p>
-                            <p style="font-size: 14px;font-weight: 600">Rs {{ $cart?->total_original_price }}</p>
-                        </div>
-                        <div class="d-flex">
-                            <p style="font-size: 14px;flex-grow:1">Total Discounted Amount</p>
-                            <p style="font-size: 14px;font-weight: 600" class="text-success">Rs
-                                {{ $cart?->total_discounted_price }}</p>
-                        </div>
-                        <div class="d-flex">
-                            <p style="font-size: 14px;flex-grow:1">Discount</p>
-                            <p style="font-size: 14px;font-weight: 600">
-                                @if ($cart?->coupon_id)
-                                    <span class="text-success">Coupon Discount
-                                        (Rs.{{ $cart?->total_coupon_discount }}\-)</span>
-                                @endif-Rs
-                                {{ $cart?->total_original_price - $cart?->total_discounted_price + $cart?->total_coupon_discount }}
-
-                            </p>
-                        </div>
-
-                        <div class="mt-3"
-                            style="    width: 100%;
-                    height: 1px;
-                    background: black;">
-                        </div>
-                        <div class="d-flex mt-3">
-                            <p style="font-size: 14px;flex-grow:1;font-weight:600">Total Amount</p>
-                            <p style="font-size: 14px;font-weight: 600" class="text-dark">Rs
-                                {{ $cart?->total_cart_value }}</p>
-                        </div>
-                        @if (Auth::user())
-                            <a href="{{ route('user-address') }}"
-                                class="btn mt-2  homeparagraph w-100 text-light button-background"
-                                style="border-radius: 0px;" type="button">Continue</a>
-                        @else
-                            <a href="#"   data-bs-toggle="modal"
-                            data-bs-target="#loginmodal"
-                                class="btn mt-2  homeparagraph w-100 text-light button-background"
-                                style="border-radius: 0px;" type="button">Continue</a>
-                        @endif
-
-                        <div class="input-group   mb-3  mt-4" style="height: 45px;">
-
-                            @if (!$cart?->coupon_id)
-                                <form action="{{ route('user-cartapplycoupon') }}" class="d-flex w-100">
-                                    @csrf
-                                    <input type="text" class="form-control shadow-none" name="coupon"
-                                        aria-label="Text input with segmented dropdown button" required
-                                        placeholder="Have a coupon?" style="border-radius: 0px;font-size:13px">
-                                    @error('coupon')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    <input type="submit" class="btn homeparagraph text-light button-background"
-                                        style="border-radius: 0px;width:180px" value="Apply Coupon">
-                                </form>
-                            @else
-                                <form action="{{ route('user-cartremovecoupon') }}" class="d-flex w-100">
-                                    @csrf
-                                    <input type="text" readonly disabled class="form-control shadow-none"
-                                        name="coupon"
-                                        value="{{ $cart?->coupon->coupon_code }} applied! (Rs.{{ $cart->total_coupon_discount }}\- off) "
-                                        aria-label="Text input with segmented dropdown button" required
-                                        placeholder="Have a coupon?" style="border-radius: 0px;font-size:13px">
-                                    @error('coupon')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    <input type="submit" class="btn homeparagraph text-light button-background"
-                                        style="border-radius: 0px;width:180px" value="Remove Coupon">
-                                </form>
+                                @endforeach
                             @endif
 
+
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-5 col-12 mt-lg-4 mt-0 mb-5 ">
+                    <div
+                        style="text-align: center;
+                justify-content: center;
+                display: flex;">
+                        <h6>Price Details</h6>
+                    </div>
+                    <div
+                        style="text-align: center;
+                justify-content: center;
+                display: flex;">
+                        <div class=""
+                            style="    width: 150px;
+                    height: 1px;
+                    background: black;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-11 mx-auto mt-lg-5 mt-3">
+                            <div class="d-flex ">
+                                <p style="font-size: 14px;flex-grow:1">Price({{ $cart?->no_of_products }} item)</p>
+                                <p style="font-size: 14px;font-weight: 600">Rs {{ $cart?->total_original_price }}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p style="font-size: 14px;flex-grow:1">Total Discounted Amount</p>
+                                <p style="font-size: 14px;font-weight: 600" class="text-success">Rs
+                                    {{ $cart?->total_discounted_price }}</p>
+                            </div>
+                            <div class="d-flex">
+                                <p style="font-size: 14px;flex-grow:1">Discount</p>
+                                <p style="font-size: 14px;font-weight: 600">
+                                    @if ($cart?->coupon_id)
+                                        <span class="text-success">Coupon Discount
+                                            (Rs.{{ $cart?->total_coupon_discount }}\-)</span>
+                                    @endif-Rs
+                                    {{ $cart?->total_original_price - $cart?->total_discounted_price + $cart?->total_coupon_discount }}
+
+                                </p>
+                            </div>
+
+                            <div class="mt-3"
+                                style="    width: 100%;
+                    height: 1px;
+                    background: black;">
+                            </div>
+                            <div class="d-flex mt-3">
+                                <p style="font-size: 14px;flex-grow:1;font-weight:600">Total Amount</p>
+                                <p style="font-size: 14px;font-weight: 600" class="text-dark">Rs
+                                    {{ $cart?->total_cart_value }}</p>
+                            </div>
+                            @if (Auth::user())
+                                <a href="{{ route('user-address') }}"
+                                    class="btn mt-2  homeparagraph w-100 text-light button-background"
+                                    style="border-radius: 0px;" type="button">Continue</a>
+                            @else
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#loginmodal"
+                                    class="btn mt-2  homeparagraph w-100 text-light button-background"
+                                    style="border-radius: 0px;" type="button">Continue</a>
+                            @endif
+
+                            <div class="input-group   mb-3  mt-4" style="height: 45px;">
+
+                                @if (!$cart?->coupon_id)
+                                    <form action="{{ route('user-cartapplycoupon') }}" class="d-flex w-100">
+                                        @csrf
+                                        <input type="text" class="form-control shadow-none" name="coupon"
+                                            aria-label="Text input with segmented dropdown button" required
+                                            placeholder="Have a coupon?" style="border-radius: 0px;font-size:13px">
+                                        @error('coupon')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                        <input type="submit" class="btn homeparagraph text-light button-background"
+                                            style="border-radius: 0px;width:180px" value="Apply Coupon">
+                                    </form>
+                                @else
+                                    <form action="{{ route('user-cartremovecoupon') }}" class="d-flex w-100">
+                                        @csrf
+                                        <input type="text" readonly disabled class="form-control shadow-none"
+                                            name="coupon"
+                                            value="{{ $cart?->coupon->coupon_code }} applied! (Rs.{{ $cart->total_coupon_discount }}\- off) "
+                                            aria-label="Text input with segmented dropdown button" required
+                                            placeholder="Have a coupon?" style="border-radius: 0px;font-size:13px">
+                                        @error('coupon')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                        <input type="submit" class="btn homeparagraph text-light button-background"
+                                            style="border-radius: 0px;width:180px" value="Remove Coupon">
+                                    </form>
+                                @endif
+
+                            </div>
+                        </div>
 
 
+
+                    </div>
 
                 </div>
-
             </div>
-        </div>
+        @else
+            <div class="row">
+                <div class="col-lg-8 d-flex" style="align-items: center;justify-content: center">
+                    <img src="{{ asset('logo/empty_cart.png') }}" class="img-fluid w-50" alt="">
+                </div>
+                <div class="col-lg-3 mt-5 mx-auto"
+                    style="display: flex;
+                        flex-direction: column;
+                        align-items: center;">
+                    <h4 style="color: #FF4545" class="mb-4">Cart Empty?</h4>
+                    <a href="{{ route('user-homepage') }}" class="mb-5"
+                        style="width: fit-content;
+                            background: #FF4545;
+                            padding: 12px 28px;
+                            text-decoration: none;
+                            color: white;
+                            font-weight: 600;">Start Shopping</a>
+                </div>
+            </div>
+        @endif
     </div>
 
 
