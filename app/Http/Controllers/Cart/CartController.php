@@ -277,9 +277,20 @@ class CartController extends Controller
         $original_price = 0;
         $discounted_price = 0;
 
-        $cart['item']->map(function ($query) use (&$original_price, &$discounted_price) {
+        $cart['item']->map(function ($query) use (&$original_price, &$discounted_price,$cart) {
             $original_price = $original_price + ($query->original_price * $query->quantity);
             $discounted_price = $discounted_price + ($query->discounted_price * $query->quantity);
+            if($cart->total_coupon_discount != 0){
+                $percentage = (($query->quantity * $query->discounted_price)/$cart->total_cart_value) * 100;
+                $amount = ($cart->total_coupon_discount /100) * $percentage;
+                $query->coupon_discount_amount = round($amount);
+                $query->save();
+            }
+            else{
+                $query->coupon_discount_amount = 0;
+                $query->save();
+            }
+
         });
 
         $cart->no_of_products = sizeof($cart['item']);
@@ -450,6 +461,7 @@ class CartController extends Controller
         $cart->coupon_id = $coupon->id;
         $cart->save();
 
+
         $this->updatecartprice($cart->id);
 
         return redirect()->back()->with('success_response', 'Coupon Added on Cart!');
@@ -516,7 +528,7 @@ class CartController extends Controller
         if (!Auth::user()) {
             return $this->guestcartremovecoupon($request);
         } else {
-            return $this->usercartapplycoupon($request);
+            return $this->usercartremovecoupon($request);
 
         }
     }

@@ -19,7 +19,7 @@
                 <div class="col-2 mt-3 mb-4  ms-4">
                     <div class="card productCardData" style="border-radius: 0px">
                         <div class="card-body">
-                            <img src="{{ asset('logo/productImage.png') }}" class="card-img-top "
+                            <img src="{{ $item->product_images[0] }}" class="card-img-top "
                                 style="border-radius:0px;height:150px" alt="">
                             <h6 style="font-size: .85rem" class="mt-2">{{ $item->product_name }}</h6>
                             <h6 style="font-size: .75rem" class="mt-1">Rs. {{ $item->discounted_price }}</h6>

@@ -14,5 +14,8 @@ class Cart extends Model
     public function coupon(){
         return $this->hasOne(Coupon::class,'id','coupon_id');
     }
+    public function address(){
+        return $this->hasOne(UserAddress::class,'id','user_address_id');
+    }
     use HasFactory;
 }

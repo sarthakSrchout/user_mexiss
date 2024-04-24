@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Cart\CartController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\User\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
 
@@ -48,6 +49,14 @@ Route::prefix('cart')->group(function () {
     Route::match(['post', 'get'], '/guestcarttocart', [CartController::class, 'guestcarttocart'])->name('user-guestcarttocart');
 
 });
+Route::prefix('order')->middleware('userauth','paymentpage')->group(function () {
+    
+    Route::match(['post', 'get'], '/placeorder', [OrderController::class, 'placeorder'])->name('user-placeorder');
+ 
+
+});
+Route::match(['post', 'get'], '/placed', [OrderController::class, 'placed'])->name('user-placed');
+
 Route::prefix('auth')->group(function () {
     
     Route::match(['post', 'get'], '/sendotp', [AuthController::class, 'sendotp'])->name('user-sendotp');
