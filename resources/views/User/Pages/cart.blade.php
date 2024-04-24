@@ -300,7 +300,7 @@
                     <a href="{{ route('user-homepage') }}" class="mb-5"
                         style="width: fit-content;
                             background: #FF4545;
-                            padding: 12px 28px;
+                            padding: 12px 35px;
                             text-decoration: none;
                             color: white;
                             font-weight: 600;">Start Shopping</a>
