@@ -111,7 +111,7 @@
 
                     </div>
                     <div class="col-10">
-                        <img src="{{ $product->product_image[0] }}" alt="" class="img-fluid">
+                        <img src="{{ $product->product_image[0] }}" alt="" style="width: 100%" class="img-fluid">
                     </div>
                 </div>
                 <div class="row mt-5">

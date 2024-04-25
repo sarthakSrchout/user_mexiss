@@ -223,7 +223,7 @@ class CartController extends Controller
         $ip = $request->ip();
         $cart = guestCart::with('item')->where('user_ip', $ip)->first();
 
-        if ($cart['item']) {
+        if ($cart && $cart['item']) {
             $user_id = Auth::user()->id;
             $c = Cart::where('user_id', $user_id)->first();
             if (!$c) {

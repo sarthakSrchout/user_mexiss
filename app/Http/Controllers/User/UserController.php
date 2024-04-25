@@ -211,7 +211,7 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
 
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-        $data['cart'] = Cart::with('item', 'coupon')->where('user_id', $user_id)->first();
+        $data['cart'] = Cart::with('item', 'coupon','address')->where('user_id', $user_id)->first();
 
         return view('User.Pages.payment', $data);
     }

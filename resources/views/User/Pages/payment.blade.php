@@ -196,6 +196,7 @@
 
     {{-- footer section --}}
     @include('User.bin.footer.footer')
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -221,38 +222,106 @@
 
                 event.preventDefault(); // Prevent the default action (redirecting to another page)
             } else {
-                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                if (id == '0') {
+                    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                document.getElementById('overlay').style.display = 'block';
-                document.getElementById('loader-container').style.display = 'block';
+                    document.getElementById('overlay').style.display = 'block';
+                    document.getElementById('loader-container').style.display = 'block';
 
-                $.ajax({
-                    url: "{{ route('user-placeorder') }}",
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    data: {
-                        pay_method: id
-                    },
-                    success: function(response) {
-                        if (response.status == 2) {
-                            toastr.error('An Unkown Error Occured! Try again after sometime!');
+                    $.ajax({
+                        url: "{{ route('user-placeorder') }}",
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        data: {
+                            pay_method: id
+                        },
+                        success: function(response) {
+                            if (response.status == 2) {
+                                toastr.error('An Unkown Error Occured! Try again after sometime!');
+                            }
+                            if (response.status == 1) {
+                                window.location.href = "{{ route('user-placed') }}";
+
+                                toastr.success('Order Placed Successfully!');
+                            }
+                            document.getElementById('overlay').style.display = 'none';
+                            document.getElementById('loader-container').style.display = 'none';
+                            // window.location.href = "{{ route('user-payment') }}";
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
                         }
-                        if (response.status == 1) {
-                            window.location.href = "{{ route('user-placed') }}";
 
-                            toastr.success('Order Placed Successfully!');
+                    });
+                } else if (id == '1') {
+                    //Razerpay code
+                    var options = {
+                        "key": "{{ env('RAZORPAY_KEY') }}",
+                        "amount": {{ $cart->total_cart_value + $cart->total_tax_amount }} *
+                            100, // amount in the smallest currency unit (e.g., paise in INR)
+                        "currency": "INR",
+                        "name": "Mexxiss Official",
+                        "description": "Razorpay payment",
+                        "image": "{{ asset('logo/logo.png') }}",
+                        "handler": function(response) {
+                            // Handle the success callback
+                            console.log(response);
+                            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content');
+
+                            document.getElementById('overlay').style.display = 'block';
+                            document.getElementById('loader-container').style.display = 'block';
+                            $.ajax({
+                                url: "{{ route('user-placeorder') }}",
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': csrfToken
+                                },
+                                data: {
+                                    pay_method: 1,
+                                    razer_pay_id: response.razorpay_payment_id
+                                },
+                                success: function(response) {
+                                    if (response.status == 2) {
+                                        toastr.error(
+                                            'An Unkown Error Occured! If money deducted contact admin!'
+                                        );
+                                    }
+                                    if (response.status == 1) {
+                                        window.location.href = "{{ route('user-placed') }}";
+                                        toastr.success('Order Placed Successfully!');
+                                    }
+                                    document.getElementById('overlay').style.display = 'none';
+                                    document.getElementById('loader-container').style.display =
+                                        'none';
+                                    // window.location.href = "{{ route('user-payment') }}";
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error(xhr.responseText);
+                                }
+
+                            });
+                        },
+                        "prefill": {
+                            "name": "{{ $cart->address->full_name }}",
+                            "email": "{{ Auth::user()->email }}",
+                            "phone": "{{ $cart->address->phone_number }}"
+                        },
+                        "theme": {
+                            "color": "#ff7529"
+                        },
+                        "modal": {
+                            "ondismiss": function() {
+                                // Handle the error callback
+                                toastr.error("Payment Cancelled!");
+                            }
                         }
-                        document.getElementById('overlay').style.display = 'none';
-                        document.getElementById('loader-container').style.display = 'none';
-                        // window.location.href = "{{ route('user-payment') }}";
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-
-                });
+                    };
+                    var rzp = new Razorpay(options);
+                    rzp.open();
+                }
 
             }
         });

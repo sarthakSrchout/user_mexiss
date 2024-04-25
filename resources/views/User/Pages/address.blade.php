@@ -602,7 +602,7 @@
                     document.getElementById('colony').value = response.colony;
                     document.getElementById('landmark').value = response.landmark;
                     document.getElementById('address_type').value = response.address_type;
-                    document.getElementById('addressubmitbutton').innerHTML = 'EDIT ADDRESS';
+                    document.getElementById('addressubmitbutton').innerHTML = 'SAVE ADDRESS';
                     document.getElementById('addressdiv').innerHTML =
                         '<input type="text" hidden value="' + response.id +
                         '" name="address_id" id="address_id" class="form-control">';

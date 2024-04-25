@@ -118,8 +118,9 @@
 
     </div>
     <div class="container-fluid mt-2"
+    
         style="border-top: .5px solid rgb(181, 181, 181);border-bottom: .5px solid rgb(181, 181, 181) ">
-        @if (sizeof($cart['item']) > 0)
+        @if ($cart && sizeof($cart->item) > 0)
             <div class="row">
                 <div class="col-lg-7 col-12 mt-4 mb-lg-5 mb-0 largeborder" style="">
                     <div class="row">
