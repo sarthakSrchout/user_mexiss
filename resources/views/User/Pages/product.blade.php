@@ -93,8 +93,8 @@
                                 <input type="text" class="form-control shadow-none"
                                     aria-label="Text input with segmented dropdown button" id="search"
                                     placeholder="Enter Product/Service Name" style="border-radius: 0px;font-size:12px">
-                                <button id="searchbutton" class="btn homeparagraph text-light button-background" style="border-radius: 0px;"
-                                    type="button">Search</button>
+                                <button id="searchbutton" class="btn homeparagraph text-light button-background"
+                                    style="border-radius: 0px;" type="button">Search</button>
 
                             </div>
                         </div>
@@ -110,288 +110,102 @@
                                     .hidescrollbar::-webkit-scrollbar {
                                         width: 0;
                                     }
+
+                                    .accordion-button:focus {
+                                        box-shadow: none !important;
+                                    }
+                                 
                                 </style>
 
                                 <div class="hidescrollbar" style="height: 300px;overflow:hidden;overflow-y: auto;">
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background-image: linear-gradient(to left, #ff4545, #fe574f, #fd6659, #fc7363, #fa806e) !important;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: white">
-                                            Core Machine
+
+                                    @foreach ($cat as $outer)
+                                        <div class="accordion" id="categoryAccordion{{ $outer->outCid }}">
+                                            <div class="accordion-item" style="border: 0">
+                                                <h2 class="accordion-header" id="headingOne{{ $outer->outCid }}"
+                                                    style="border-bottom: .1px solid rgb(234, 234, 234)">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseOne{{ $outer->outCid }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseOne{{ $outer->outCid }}"
+                                                        style="display: flex; padding: 10px; border: 0px; background: transparent">
+                                                        <div class="d-flex align-items-center">
+                                                            <a href="{{ route('user-categoryfilter', ['outer_id' => $outer->outCid]) }}"
+                                                                style="text-decoration: none">
+                                                                <div
+                                                                    @if ($selected && $selected->outCid && $selected->outCid == $outer->outCid) style="font-size: 15px; color: #f54;" @else style="font-size: 15px; color: rgb(0, 0, 0);" @endif>
+                                                                    {{ Str::ucfirst($outer->outer_Category_name) }}
+                                                                </div>
+                                                            </a>
+                                                            <div style="flex: 1"></div>
+                                                        </div>
+                                                    </button>
+                                                </h2>
+                                                {{-- category accordion --}}
+                                                @foreach ($outer->activecategory as $category)
+                                                    <div id="collapseOne{{ $outer->outCid }}"
+                                                        class="accordion-collapse collapse"
+                                                        data-bs-parent="#categoryAccordion{{ $category->cid }}">
+                                                        <div class="accordion-body" style="border:none;padding:0px">
+                                                            <div class="subcataccordion"
+                                                                id="subcataccordion{{ $category->cid }}"
+                                                                style="margin-left: 20px; padding: 7px;">
+                                                                <button class="accordion-button" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#collapsesubCategory{{ $category->cid }}"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="collapsesubCategory{{ $category->cid }}"
+                                                                    style="display: flex; padding: 0px; border: 0px; background: transparent;border-bottom: .1px solid rgb(234, 234, 234)">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <a href="{{ route('user-categoryfilter', ['cat_id' => $category->cid]) }}"
+                                                                            style="text-decoration: none">
+                                                                            <div
+                                                                                @if ($selected && $selected->cid && $selected->cid == $category->cid) style="font-size: 15px; color: #f54;" @else style="font-size: 15px; color: rgb(0, 0, 0);" @endif>
+                                                                                {{ Str::ucfirst($category->category_name) }}
+                                                                            </div>
+                                                                        </a>
+                                                                        <div style="flex: 1"></div>
+                                                                    </div>
+                                                                </button>
+                                                                {{-- subcategory accordion --}}
+                                                                @foreach ($category->activesubcategory as $item)
+                                                                    <div id="collapsesubCategory{{ $category->cid }}"
+                                                                        class="accordion-collapse collapse"
+                                                                        data-bs-parent="#subcataccordion{{ $category->cid }}">
+                                                                        <div class="d-flex align-items-center"
+                                                                            style="margin-left: 16px; margin-top: 5px;">
+                                                                            <a href="{{ route('user-categoryfilter', ['sub_id' => $item->scid]) }}"
+                                                                                style="text-decoration: none">
+                                                                                <div
+                                                                                    @if ($selected && $selected->scid && $selected->scid == $item->scid) style="font-size: 15px; color: #f54;" @else style="font-size: 15px; color: rgb(93, 93, 93);" @endif>
+
+                                                                                    {{ Str::ucfirst($item->sub_category_name) }}
+
+                                                                                </div>
+                                                                            </a>
+                                                                            <div style="flex: 1"></div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <div
-                                            style=" background:white;
-                                            padding: 3.5px 15px;
-                                            font-size: 13px;
-                                            color: rgb(0, 0, 0)">
-                                            Sand Mullar
-                                        </div>
-                                        <div style="flex: 1"></div>
-                                        <span style="font-weight: 500;font-size:13px">23</span>
-                                    </div>
+                                    @endforeach
+
+
+
+
                                 </div>
                             </div>
                         </div>
-                        <div class="card shadow mt-5 me-4 p-2" style="border-radius: 0px;border:0;">
+
+
+                        <div class="card shadow mt-2 me-4 p-2" style="border-radius: 0px;border:0;">
                             <div class="card-body p-4">
                                 <h5>Price</h5>
                                 <div class="d-flex" style="align-items: center;text-align: center">
@@ -401,39 +215,36 @@
                                     <a style="color: #FF4545;text-decoration: none;font-size:14px"
                                         href="">Clear</a>
                                 </div>
-                                <div class="d-flex mt-3" style="justify-content: space-between">
-                                    <select name="" id="initiallimit" style="padding: 1px;font-size:14px">
-                                        <option value="" selected disabled>Rs. 5000</option>
-                                    </select>
-                                    <select name="" id="endlimit" style="padding: 1px;font-size:14px">
-                                        <option value="" selected disabled>Rs .30942</option>
-                                    </select>
-                                </div>
+
                                 <div class="price-range-slider mt-4">
-
                                     <div id="slider-range" class="range-bar"></div>
-
+                                </div>
+                                <div class="mt-2 ms-5">
+                                    <input type="text" id="amount" readonly
+                                        style="border:0; color:#ff4545;border:none; font-weight:bold;width: -webkit-fill-available;">
                                 </div>
                             </div>
                         </div>
+
+
+
                     </div>
                     <div class="col-lg-9 col-12">
                         <div class="d-flex largeflexscreen"
-                            style="    justify-content: space-between;font-size:13px;
+                            style="justify-content: space-between;font-size:13px;
                             align-items: center;">
-                            <div class="ms-5">523 Items</div>
+                            <div class="ms-5">{{ count($product) }} Items</div>
                             <div c>
                                 Sort By:
-                                <select name="" id="" style="padding: 2px">
-                                    <option value="" selected disabled>Featured</option>
+                                <select name="sortby" id="sortby" style="padding: 2px">
+                                    <option value="" selected disabled>Sort By</option>
+                                    <option value="1">Price -Low to High</option>
+                                    <option value="2">Price -High to Low</option>
+                                    <option value="3">Z to A</option>
+                                    <option value="6">A to Z</option>
+                                    <option value="4">Newest</option>
+                                    <option value="5">Oldest</option>
                                 </select>
-                            </div>
-                            <div>
-                                View:
-                                <img src="{{ asset('logo/view-1.png') }}" style="height: 17px" class="ms-3"
-                                    alt="">
-                                <img src="{{ asset('logo/view-2.png') }}" style="height: 17px" class="ms-2"
-                                    alt="">
                             </div>
                         </div>
                         <div class="row mt-lg-4" id="paginationdata">
@@ -443,7 +254,7 @@
                         <input type="hidden" id="hidden_page" name="hidden_page" value="1">
 
                     </div>
-                
+
                 </div>
             </div>
             <nav class="navbar navbar-expand-lg bg-body-tertiary w-100 secondary-color p-0 shadow smallscreen"
@@ -679,18 +490,50 @@
                 $("#slider-range").slider({
                     range: true,
                     min: 0,
-                    max: 100000,
-                    values: [0, 100000],
+                    max: 10000,
+                    values: [0, 10000],
                     slide: function(event, ui) {
-                        $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                        $("#amount").val("Rs. " + ui.values[0] + " - Rs. " + ui.values[1]);
+                    },
+                    stop: function (event, ui) {
+                    fetchFilteredData();
+                }
+                });
+                $("#amount").val("Rs. " + $("#slider-range").slider("values", 0) +
+                    " - Rs. " + $("#slider-range").slider("values", 1));
+             
+            });
+
+            $("#sortby").change(function() {
+                
+                fetchFilteredData();
+            });
+
+            // Function to fetch filtered data based on price range and sort option
+            function fetchFilteredData() {
+                var minPrice = $("#slider-range").slider("values", 0);
+                var maxPrice = $("#slider-range").slider("values", 1);
+                var sortBy = $("#sortby").val();
+                // Make AJAX request to fetch filtered data
+                console.log(sortBy)
+                $.ajax({
+                    url: "{{ route('user-productfilter') }}",
+                    method: "GET",
+                    data: {
+                        min_price: minPrice,
+                        max_price: maxPrice,
+                        sort_by: sortBy
+                    },
+                    success: function(response) {
+                        $("#paginationdata").html('');
+                        $("#paginationdata").html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
                     }
                 });
-
-                $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-                    " - $" + $("#slider-range").slider("values", 1));
-            });
+            }
         </script>
-
         <script>
             $(document).ready(function() {
                 const fetch_data = (page, search) => {
@@ -724,7 +567,5 @@
                     fetch_data(page, search);
                 });
             });
-
-            
         </script>
     @endsection

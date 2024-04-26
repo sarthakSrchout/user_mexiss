@@ -134,16 +134,17 @@
                 <p style="font-size: 14px" class="mb-4">Your feedback is important to us. If you have any questions,
                     comments, or if there's anything specific you'd like to discuss, please don't hesitate to get in touch
                     using the form below.</p>
-                <form>
+                <form action="{{ route('user-contactus') }}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="col-lg-6 col-12">
                             <div class="input-group mb-3 inquiryinput">
                                 <span class="input-group-text" style="background: transparent; border-radius: 0px">
                                     <img src="{{ asset('logo/person.png') }}" alt="" height="18px">
                                 </span>
-                                <input type="text"
+                                <input type="text" required name="first_name"
                                     style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                    class="form-control shadow-none" placeholder="First Name" aria-label="Username"
+                                    class="form-control shadow-none" placeholder="First Name *" aria-label="Username"
                                     aria-describedby="basic-addon1">
                             </div>
                         </div>
@@ -152,9 +153,9 @@
                                 <span class="input-group-text" style="background: transparent; border-radius: 0px">
                                     <img src="{{ asset('logo/person.png') }}" alt="" height="18px">
                                 </span>
-                                <input type="text"
+                                <input type="text" required name="last_name"
                                     style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                    class="form-control shadow-none" placeholder="Last name" aria-label="Username"
+                                    class="form-control shadow-none" placeholder="Last name *" aria-label="Username"
                                     aria-describedby="basic-addon1">
                             </div>
                         </div>
@@ -162,31 +163,31 @@
                             <span class="input-group-text" style="background: transparent; border-radius: 0px">
                                 <img src="{{ asset('logo/mail.png') }}" alt="" height="18px">
                             </span>
-                            <input type="email"
+                            <input type="email" required name="email"
                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                class="form-control shadow-none" placeholder="E-mail" aria-label="Username"
+                                class="form-control shadow-none" placeholder="E-mail *" aria-label="Username"
                                 aria-describedby="basic-addon1">
                         </div>
                         <div class="input-group mb-3 inquiryinput">
                             <span class="input-group-text" style="background: transparent; border-radius: 0px">
                                 <img src="{{ asset('logo/phone.png') }}" alt="" height="18px">
                             </span>
-                            <input type="tel"
+                            <input type="tel" name="phone"
                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
                                 class="form-control shadow-none" placeholder="Phone" aria-label="Username"
                                 aria-describedby="basic-addon1">
                         </div>
                         <div class="input-group mb-3 ">
-                            <textarea class="form-control shadow-none"
+                            <textarea class="form-control shadow-none" required name="issue"
                                 style=" border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;" rows="3"
-                                placeholder="Describe your issue"></textarea>
+                                placeholder="Describe your issue *"></textarea>
 
                         </div>
                         <div class="input-group mb-3 ">
-                            <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            <button type="submit" 
                                 class="button btn mt-2 button-background w-100"
                                 style="padding: 7px 10px!important;font-size:13px"> Send
-                            </a>
+                            </button>
                         </div>
                     </div>
 

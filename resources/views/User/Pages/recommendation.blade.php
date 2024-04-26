@@ -39,7 +39,7 @@
                                     <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="9px"
                                         alt="">
                                 </a>
-                                <a href="" class="button secondary-color  mt-2 ms-2"
+                                <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2"
                                     style="align-items:center;align-items: center;
                                 width: 50%;
                                 justify-content: center;

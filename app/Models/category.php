@@ -13,5 +13,9 @@ class category extends Model
     public function outer(){
         return $this->hasOne(outerCategory::class,'outCid','outCid');
     }
+    public function activesubcategory(){
+        return $this->hasMany(subCategory::class,'cid','cid')->where('status','1');
+    }
+   
     protected $guarded=[];
 }

@@ -206,25 +206,26 @@
                         <div class="card glass-effect mt-4" style="background: transparent">
                             <div class="col-11 mx-auto">
                                 <div class="card-body">
-                                    <form action="" method="post">
+                                    <form action="{{ route('user-contactus') }}" method="post">
+                                        @csrf
                                         <div class="mb-3">
-                                            <input type="text" class="form-control shadow-none outline-none"
-                                                placeholder="Name"
+                                            <input type="text" class="form-control shadow-none outline-none" name="first_name"
+                                                placeholder="Name *"  required
                                                 style="background: transparent;border:none;border-bottom: 1px solid grey;border-radius:0;color:white;font-size:13px">
                                         </div>
                                         <div class="mb-3">
                                             <input type="email" class="form-control shadow-none outline-none"
-                                                placeholder="E-mail"
+                                                placeholder="E-mail *" name="email" required
                                                 style="background: transparent;border:none;border-bottom: 1px solid grey;border-radius:0;color:white;font-size:13px">
                                         </div>
                                         <div class="mb-3">
-                                            <input type="text" class="form-control shadow-none outline-none"
-                                                placeholder="Address"
+                                            <input type="number" class="form-control shadow-none outline-none"
+                                                placeholder="Phone" name="pgone"
                                                 style="background: transparent;border:none;border-bottom: 1px solid grey;border-radius:0;color:white;font-size:13px">
                                         </div>
                                         <div class="mb-4">
                                             <input type="text" class="form-control shadow-none outline-none"
-                                                placeholder="Message"
+                                                placeholder="Message *" name="issue" required
                                                 style="background: transparent;border:none;border-bottom: 1px solid grey;border-radius:0;color:white;font-size:13px">
                                         </div>
                                         <div class="mb-3">

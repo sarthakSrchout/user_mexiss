@@ -24,6 +24,8 @@ Route::match(['post', 'get'], '/help-and-support', [UserController::class, 'help
 Route::match(['post', 'get'], '/frequently-asked-questions', [UserController::class, 'faq'])->name('user-faq');
 Route::match(['post', 'get'], '/shopbycategories', [UserController::class, 'shopbycategories'])->name('user-shopbycategories');
 Route::match(['post', 'get'], '/user/sendproductquery', [UserController::class, 'sendproductquery'])->name('user-sendproductquery');
+Route::match(['post', 'get'], '/user/categoryfilter', [UserController::class, 'categoryfilter'])->name('user-categoryfilter');
+Route::match(['post', 'get'], '/user/productfilter', [UserController::class, 'productfilter'])->name('user-productfilter');
 
 
 Route::match(['post', 'get'], '/add/address', [UserController::class, 'address'])->name('user-address')->middleware('userauth');
@@ -37,7 +39,6 @@ Route::match(['post', 'get'], '/user/getaddressdetails/{address_id}', [UserContr
 
 
 //guest cart
-
 
 Route::prefix('cart')->group(function () {
     

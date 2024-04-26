@@ -9,5 +9,9 @@ class outerCategory extends Model
 {
     protected $primaryKey="outCid";
     protected $table="outer_category";
+
+    public function activecategory(){
+        return $this->hasMany(category::class,'outCid','outCid')->where('status','1');
+    }
     protected $guarded=[];
 }
