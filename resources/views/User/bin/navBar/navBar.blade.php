@@ -66,11 +66,11 @@
                 <img src="{{ asset('logo/shopping-cart.png') }}" height="23px" alt="">
                 <div style="width: 18px;
                 height: 18px;
-                position: absolute;
+                position: fixed;
                 background: white;
                 border-radius: 50%;
                 top: 5px;
-                right: 12%;">
+                right: 9%;">
                 <span style="    color: #f54;
                 font-weight: 700;
                 align-items: center;

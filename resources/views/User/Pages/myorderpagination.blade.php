@@ -49,7 +49,7 @@
                                     <button class=" returnbutton">Return</button>
 
                                     @else
-                                    <button class=" returnbutton">Cancel</button>
+                                    <button class="returnbutton">Cancel</button>
 
                                     @endif
                                     <a href="{{ route('user-contactus') }}" class="ms-3 returnbutton text-dark" style="text-decoration: none">Reach Us?</a>

@@ -413,7 +413,7 @@
                             </div>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('user-sendproductquery',['product_id' => $product->id,'seller_id' => $product->seller->sellar_id]) }}">
+                            <form method="post" action="{{ route('user-sendproductquery',['product_id' => $product->id,'seller_id' => $product->seller?->sellar_id]) }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-6">
