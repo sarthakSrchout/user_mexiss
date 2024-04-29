@@ -56,14 +56,14 @@
     @include('User.bin.navBar.navBar')
     <nav class="navbar navbar-expand-lg bg-body-tertiary secondary-color p-0 shadow smallscreen"
         style="top: 0;position:sticky;z-index:101001">
-       
-                <div class="d-flex align-items-center" style="height: 80px">
-                    <a href="{{ route('user-homepage') }}">
-                        <img src="{{ asset('logo/whitearrow.png') }}" height="9.5px" alt="" class="ms-4">
 
-                    </a>
-                    <p class="mt-3 ms-3" style="font-size: 14.5px;color:#ffffff;font-weight:600">About Us</p>
-                </div>
+        <div class="d-flex align-items-center" style="height: 80px">
+            <a href="{{ route('user-homepage') }}">
+                <img src="{{ asset('logo/whitearrow.png') }}" height="9.5px" alt="" class="ms-4">
+
+            </a>
+            <p class="mt-3 ms-3" style="font-size: 14.5px;color:#ffffff;font-weight:600">About Us</p>
+        </div>
 
 
     </nav>
@@ -84,7 +84,7 @@
     <div class="container-fluid" style="margin-bottom: 10%">
         <div class="row p-0">
             <div class="col-12 p-0">
-                <img src="{{ asset('logo/aboutusbanner.png') }}" class="w-100 aboutusbanner" style="position: absolute">
+                <img src="{{ $aboutus->banner_image }}" class="w-100 aboutusbanner" style="position: absolute">
                 <h6
                     style="z-index: 100;
                 position: relative;
@@ -95,80 +95,58 @@
                 margin-top: 6%;
                 color: white;
                 font-size: 30px;">
-                    About us</h6>
+                    {{ $aboutus->page_title }}</h6>
             </div>
         </div>
     </div>
 
-    <div class="container mb-5">
-        <div class="row">
-            <div class="col-10 col-lg-6 order-2 order-lg-1 mx-auto">
-                <h4 style="color: #FF4545" class="mb-4 mt-3">Who We Are?</h4>
-                <p style="font-size: 14px">Welcome to STEELVISTA, where innovation meets tradition in the world of steel
-                    manufacturing and machinery production. Established 5 years ago, we have been at the forefront of
-                    delivering exceptional solutions that redefine industry standards.</p>
-                <p style="font-size: 14px">Our journey began with a vision - a vision to revolutionize the steel and
-                    machinery sector by blending cutting-edge technology with time-honored craftsmanship. Over the past 5
-                    years, we've evolved, adapted, and grown, becoming a trusted name in the industry.</p>
-            </div>
-            <div class="col-12 col-lg-6 mx-auto order-1 order-lg-2" style="justify-content: center;display:flex">
-                <div>
-                    <img src="{{ asset('logo/aboutus1.png') }}" class="aboutusimage img-fluid" style="align-items: center"
-                        alt="">
+    @foreach ($aboutus->section as $item)
+        @if (sizeof($item->item) <= 0)
+            <div class="container mb-5">
+                <div class="row">
+                    <div class="col-10 col-lg-6 order-2 order-lg-1 mx-auto">
+                        <h4 style="color: #FF4545" class="mb-4 mt-3">{{ $item->section_title }}</h4>
+                        <p style="font-size: 14px">{!! $item->section_description !!}</p>
 
-                </div>
-                {{-- <div style="">
+                    </div>
+                    @if ($item->section_image != null)
+                        <div class="col-12 col-lg-6 mx-auto order-1 order-lg-2"
+                            style="justify-content: center;display:flex">
+                            <div>
+                                <img src="{{ asset('logo/aboutus1.png') }}" class="aboutusimage img-fluid"
+                                    style="align-items: center" alt="">
+
+                            </div>
+                            {{-- <div style="">
                         <img src="{{ asset('logo/aboutus2.png') }}" style="align-items: center" height="140px" alt="">
 
                     </div> --}}
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @else
+        <div class="container">
+            <h4 style="color:#FF4545" class="text-center">{{ $item->section_title }}</h4>
+            <p class="mt-3 col-10 mx-auto col-lg-12" style="font-size: 13px">{!! $item->section_description !!}</p>
+            <div class="row mt-5">
+                @foreach ($item->item as $i)
+                <div class="col-lg-3 col-12">
+                    <div class="card" style="border: 0">
+                        <div class="card-body text-center">
+                            <img src="{{ $i->image }}" class="img-fluid" alt="">
+                            <h6 class="mt-3">{{ $i->title }}</h6>
+                            <h6 style="font-weight: 400">{{ $i->description }}</h6>
+                        </div>
+                    </div>
+                </div>
+               
+                @endforeach
             </div>
         </div>
-    </div>
-    <div class="container">
-        <h4 style="color:#FF4545" class="text-center">Our Team</h4>
-        <p class="mt-3 col-10 mx-auto col-lg-12" style="font-size: 13px">Meet the dedicated individuals behind STEELVISTA.
-            Our team is comprised of
-            skilled professionals, from engineers to craftsmen, united by a passion for excellence. Together, we bring a
-            wealth of experience and expertise to every project.</p>
-        <div class="row mt-5">
-            <div class="col-lg-3 col-12">
-                <div class="card" style="border: 0">
-                    <div class="card-body text-center">
-                        <img src="{{ asset('logo/team.png') }}" class="img-fluid" alt="">
-                        <h6 class="mt-3">Tema</h6>
-                        <h6 style="font-weight: 400">Founder & CEO</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-12">
-                <div class="card" style="border: 0">
-                    <div class="card-body text-center">
-                        <img src="{{ asset('logo/team.png') }}" class="img-fluid" alt="">
-                        <h6 class="mt-3">Tema</h6>
-                        <h6 style="font-weight: 400">Founder & CEO</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-12">
-                <div class="card" style="border: 0">
-                    <div class="card-body text-center">
-                        <img src="{{ asset('logo/team.png') }}" class="img-fluid" alt="">
-                        <h6 class="mt-3">Tema</h6>
-                        <h6 style="font-weight: 400">Founder & CEO</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-12">
-                <div class="card" style="border: 0">
-                    <div class="card-body text-center">
-                        <img src="{{ asset('logo/team.png') }}" class="img-fluid" alt="">
-                        <h6 class="mt-3">Tema</h6>
-                        <h6 style="font-weight: 400">Founder & CEO</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        @endif
+    @endforeach
+   
     <style>
         .card.glass-effect {
             background: rgba(255, 255, 255, 0.1);
@@ -209,8 +187,8 @@
                                     <form action="{{ route('user-contactus') }}" method="post">
                                         @csrf
                                         <div class="mb-3">
-                                            <input type="text" class="form-control shadow-none outline-none" name="first_name"
-                                                placeholder="Name *"  required
+                                            <input type="text" class="form-control shadow-none outline-none"
+                                                name="first_name" placeholder="Name *" required
                                                 style="background: transparent;border:none;border-bottom: 1px solid grey;border-radius:0;color:white;font-size:13px">
                                         </div>
                                         <div class="mb-3">

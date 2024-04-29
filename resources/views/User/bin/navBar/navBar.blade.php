@@ -70,7 +70,7 @@
                 background: white;
                 border-radius: 50%;
                 top: 5px;
-                right: 10.5%;">
+                right: 12%;">
                 <span style="    color: #f54;
                 font-weight: 700;
                 align-items: center;

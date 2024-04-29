@@ -9,6 +9,7 @@ use App\Models\CartItem;
 use App\Models\category;
 use App\Models\guestCart;
 use App\Models\GuestCartItem;
+use App\Models\MultiplePage;
 use App\Models\OrderItems;
 use App\Models\outerCategory;
 use App\Models\Product;
@@ -158,10 +159,11 @@ class UserController extends Controller
         return view('User.Pages.productpagiantion', $data)->render();
     }
 
-    public function aboutus()
+    public function aboutus(Request $request)
     {
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-
+        $data['aboutus'] = MultiplePage::with('section','section.item')->where('slug','about-us')->first();
+        // dd($data);
         return view('User.Pages.aboutuspage', $data);
     }
     public function contactus(Request $request)
@@ -188,6 +190,7 @@ class UserController extends Controller
     public function term()
     {
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+        $data['term'] = MultiplePage::with('section','section.item')->where('slug','terms-and-conditions')->first();
 
         return view('User.Pages.termsandcondition', $data);
     }
@@ -217,12 +220,14 @@ class UserController extends Controller
     public function faq()
     {
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+        $data['faq'] = MultiplePage::with('section','section.item')->where('slug','faq')->first();
 
         return view('User.Pages.frequently', $data);
     }
     public function help()
     {
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+        $data['help'] = MultiplePage::with('section','section.item')->where('slug','help-and-support')->first();
 
         return view('User.Pages.helpandsupport', $data);
     }

@@ -87,100 +87,54 @@
     <div class="container-fluid marginbottom">
         <div class="row p-0">
             <div class="col-12 p-0">
-                <img src="{{ asset('logo/help.png') }}" class="w-100 bannerheight" style="position: absolute">
+                <img src="{{ $help->banner_image }}" class="w-100 bannerheight" style="position: absolute">
                 <h6 class="helpandsupp">
-                    Help & Support</h6>
+                    {{ $help->page_title }}</h6>
             </div>
         </div>
     </div>
 
-    <div class="container-fluid mb-5">
-        <div class="row p-lg-5 p-3">
-            <div class="col-12 text-center">
-                <h3 style="color: #FF4545" class="mb-4 mt-3 welcomefont">Welcome to the MEXXiSS Help and Support Center
-                </h3>
+    @foreach ($help->section as $item)
+        <div class="container-fluid ">
+            <div class="row p-lg-5 p-3">
+                <div class="col-12 text-center">
+                    <h3 style="color: #FF4545" class="mb-4 mt-3 welcomefont">{{ $item->section_title }}
+                    </h3>
 
-            </div>
-            <div class="col-lg-10 col-11 mx-auto">
-                <p style="font-size: 13.5px" class="textcenter">We are here to assist you and provide the information you
-                    need to make the most
-                    of our website and services.
-                    If you have any questions or encounter issues, please explore the following resources or contact our
-                    support team for personalized assistance.</p>
-            </div>
-            <div class="col-6 mx-auto mt-3" style="justify-content: center;display:flex">
-                <img src="{{ asset('logo/supp.png') }}" class="img-fluid" style="align-items: center" alt="">
+                </div>
+                <div class="col-lg-10 col-11 mx-auto">
+                    <p style="font-size: 13.5px" class="textcenter">{{ $item->section_description }}</p>
+                </div>
+                <div class="col-6 mx-auto mt-3" style="justify-content: center;display:flex">
+                    <img src="{{ $item->section_image }}" class="img-fluid" style="align-items: center" alt="">
 
-                {{-- <div style="">
-                        <img src="{{ asset('logo/aboutus2.png') }}" style="align-items: center" height="140px" alt="">
+                    {{-- <div style="">
+                    <img src="{{ asset('logo/aboutus2.png') }}" style="align-items: center" height="140px" alt="">
 
-                    </div> --}}
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-2 mb-5">
-        <div class="row">
-            <div class="col-lg-10 col-11 mx-auto">
-                <div class="card border-0">
-                    <div class="card-body">
-                        <h6 class="mb-3">Frequently Asked Questions (FAQs)</h6>
-                        <p style="font-size: 13px">Our FAQs section is designed to address common queries and provide quick
-                            answers to help you navigate our website and understand our products and services better. Check
-                            our FAQs <a href="{{ route('user-faq') }}" style="color: #FF4545">here.</a></p>
-                    </div>
-                </div>
-                <div class="card border-0" style="margin-top: -20px">
-                    <div class="card-body">
-                        <h6 class="mb-3">Getting Started Guide</h6>
-                        <p style="font-size: 13px">If you're new to MEXXiSS our Getting Started Guide provides step-by-step
-                            instructions to help you explore our website, understand our product categories, and make
-                            informed decisions. Access the guide <a href="" style="color: #FF4545">here.</a> </p>
-                    </div>
-                </div>
-                <div class="card border-0" style="margin-top: -20px">
-                    <div class="card-body">
-                        <h6 class="mb-3">Contacting Support</h6>
-                        <p style="font-size: 13px">For personalized assistance, our support team is ready to help. Please
-                            use one of the following methods to get in touch:</a> </p>
-                        <p style="font-size: 13px" class="d-flex"><span style="font-weight: 700" class="ms-2 me-2">Email:
-                            </span> support@yourcompany.com</a> </p>
-                        <p style="font-size: 13px;margin-top: -12px;" class="d-flex"><span style="font-weight: 700"
-                                class="ms-2 me-2">Phone: </span> [Your Contact Number]</a> </p>
-                        <p style="font-size: 13px;margin-top: -12px;" class="d-flex"><span style="font-weight: 700"
-                                class="ms-2 me-2">Live Chat: </span>Available [Specify Days and Hours]</a> </p>
-
-                    </div>
-                </div>
-                <div class="card border-0" style="margin-top: -20px">
-                    <div class="card-body">
-                        <h6 class="mb-3">Technical Support</h6>
-                        <p style="font-size: 13px">If you are experiencing technical issues or have questions about our
-                            machinery or products, our technical support team is dedicated to resolving your concerns
-                            promptly. Contact our technical support team <a href="" style="color: #FF4545">here.</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="card border-0" style="margin-top: -20px">
-                    <div class="card-body">
-                        <h6 class="mb-3">Customer Feedback</h6>
-                        <p style="font-size: 13px">We value your feedback. If you have suggestions, comments, or if there's
-                            anything we can do to improve your experience with MEXXiSS, please share your thoughts with us
-                            <a href="" style="color: #FF4545">here.</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="card border-0" style="margin-top: -20px">
-                    <div class="card-body">
-                        <h6 class="mb-3">Terms and Conditions</h6>
-                        <p style="font-size: 13px">For detailed information about the terms and conditions of using our
-                            website, please refer to our <a href="{{ route('user-term') }}" style="color: #FF4545">Terms and Conditions</a>
-                            page. </p>
-                    </div>
+                </div> --}}
                 </div>
             </div>
         </div>
-    </div>
+        @if (sizeof($item?->item) > 0)
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-lg-10 col-11 mx-auto">
+                   @foreach ($item->item as $i)
+                   <div class="card border-0">
+                    <div class="card-body">
+                        <h6 class="mb-3">{{ $i->title }}</h6>
+                        <p style="font-size: 13px">{!! $i->description !!}</p>
+                    </div>
+                </div>
+                   @endforeach
+                  
+                </div>
+            </div>
+        </div>
+        @endif
+    @endforeach
+
+   
 
 
 
