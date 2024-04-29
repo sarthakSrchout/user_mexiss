@@ -88,19 +88,29 @@
         <div class="row mt-2 mb-2">
             <div class="col-12 d-flex">
                 <div class="d-flex align-items-center" style="flex: 1">
-                    <img src="{{ asset('logo/leftarrow.png') }}" height="9.5px" alt="">
-                    <p class="mt-3 ms-4" style="font-size: 14px">Home</p>
+                    <a href="{{ route('user-homepage') }}" class="d-flex align-items-center link">
+                        <img src="{{ asset('logo/leftarrow.png') }}" height="9.5px" alt="">
+                        <p class="mt-3 ms-4" style="font-size: 14px">Home</p>
+                    </a>
                     <img class="ms-1" src="{{ asset('logo/greater.png') }}" height="15px" alt="">
                     <p class="mt-3 ms-1" style="font-size: 14px;color:#FF4545;flex:1">My Order</p>
                 </div>
-                <div class="d-flex align-items-center">
-                    <img src="{{ asset('logo/profile-1.png') }}" style="height: 40px;border-radius: 50%" alt="">
-                    <div>
-                        <p class="mt-3 ms-4" style="font-size: 14px">Account</p>
-                        <p class="ms-4" style="font-size: 14px;color:grey;margin-top: -15px;">XYZ</p>
-                    </div>
+                <a href="{{ route('user-profile') }}" style="text-decoration: none;color:black">
+                    <div class="d-flex align-items-center">
+                        @if (!$user->profile_pic)
+                            <img src="{{ asset('logo/profile-1.png') }}" style="height: 30px;border-radius: 50%"
+                                alt="">
+                        @else
+                            <img src="{{ $user->profile_pic }}" style="height: 30px;border-radius: 50%" alt="">
+                        @endif
+                        <div>
+                            <p class="mt-3 ms-4" style="font-size: 14px">Account</p>
+                            <p class="ms-4" style="font-size: 14px;color:grey;margin-top: -15px;">{{ $user->first_name }}
+                            </p>
+                        </div>
 
-                </div>
+                    </div>
+                </a>
             </div>
         </div>
         <hr>
@@ -122,7 +132,7 @@
                             <span class="input-group-text" style="background: transparent; border-radius: 0px">
                                 <img src="{{ asset('logo/search.png') }}" alt="" height="18px">
                             </span>
-                            <input type="tel"
+                            <input type="text" id="search"
                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
                                 class="form-control shadow-none" placeholder="Search in Order" aria-label="Username"
                                 aria-describedby="basic-addon1">
@@ -141,214 +151,11 @@
     </div>
     <div class="container mb-5">
         <div class="row">
-            <div class="col-12 mx-auto mt-3">
-                <div class="card" style="border-radius: 0px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 col-lg-11 mx-auto mb-4">
-                                <div class="d-flex">
-                                    <div
-                                        style="width: 45px;height:45px;border-radius:50%;background: black;align-items: center;
-                                        justify-content: center;
-                                        display: flex;">
-                                        <img src="{{ asset('logo/package.png') }}" height="30px" alt="">
-                                        <div class="tickposition" style=" ">
-                                            <img src="{{ asset('logo/tick.png') }}" height="18px" alt="">
+            <div id="paginationdata" class="pagination-container">
+                @include('User.Pages.myorderpagination')
 
-                                        </div>
-                                    </div>
-                                    <div class="ms-lg-5 ms-4">
-                                        <h6 style="color: rgb(31, 226, 54)">Delivered</h6>
-                                        <p style="font-size: 12px">On Fri, 20th Oct</p>
-                                    </div>
-                                </div>
-
-                                <div class="card " style="border: 0;border-radius: 0;background: #F4F4F4">
-                                    <div class="card-body ordercardpadding mt-2 mt-lg-0" style="">
-                                        <img src="{{ asset('logo/productdetails.png') }}" class="imageheight"
-                                            alt="">
-                                        <div class="ms-3 ms-lg-5" style="flex: 1">
-                                            <h6 class="prdtitle">REDFORD CB-16 COLD BOX</h6>
-                                            <p style="font-size: 13px;color:black;font-weight:500" class="mt-lg-3 ">Rs
-                                                6766
-                                            </p>
-                                            <p style="font-size: 13px;color:black;margin-top:-13px">Seller : REDFORD</p>
-
-                                            <div class="d-flex mt-lg-2">
-                                                <button class="returnbutton" style="">Exchange</button>
-                                                <button class="ms-3 returnbutton">Return</button>
-                                            </div>
-                                            <div class="d-flex mt-lg-3 mt-2">
-                                                <img src="{{ asset('logo/got.png') }}" height="10px" class="mt-1"
-                                                    alt="">
-                                                <p class="ms-2 returntext">Exchange/ Return
-                                                    available till 29th December.</p>
-                                            </div>
-
-                                            <p class="" style="font-size: 13px;color:black;margin-top: -5px;">Rate the product <img
-                                                    src="{{ asset('logo/stars.png') }}" height="20px" alt="">
-                                            </p>
-
-                                        </div>
-                                        <div class="largeflexscreen"
-                                            style="align-items: center;
-                                                justify-content: center;
-                                                display: flex;
-                                                    ">
-                                            <button
-                                                style="height: 35px;width: 35px;border-radius:50%;border:0;background: #FF4545;align-items: center;
-                                            justify-content: center;
-                                            display: flex;" >
-                                                <img src="{{ asset('logo/arrow-1.png') }}" alt=""
-                                                    class="ms-1"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-          
-            <div class="col-12 mx-auto mt-3">
-                <div class="card" style="border-radius: 0px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 col-lg-11 mx-auto mb-4">
-                                <div class="d-flex">
-                                    <div
-                                        style="width: 45px;height:45px;border-radius:50%;background: black;align-items: center;
-                                        justify-content: center;
-                                        display: flex;">
-                                        <img src="{{ asset('logo/package.png') }}" height="30px" alt="">
-                                        <div class="tickposition" style=" ">
-                                            <img src="{{ asset('logo/tick.png') }}" height="18px" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="ms-lg-5 ms-4">
-                                        <h6 style="color: rgb(31, 226, 54)">Delivered</h6>
-                                        <p style="font-size: 12px">On Fri, 20th Oct</p>
-                                    </div>
-                                </div>
-
-                                <div class="card " style="border: 0;border-radius: 0;background: #F4F4F4">
-                                    <div class="card-body ordercardpadding mt-2 mt-lg-0" style="">
-                                        <img src="{{ asset('logo/productdetails.png') }}" class="imageheight"
-                                            alt="">
-                                        <div class="ms-3 ms-lg-5" style="flex: 1">
-                                            <h6 class="prdtitle">REDFORD CB-16 COLD BOX</h6>
-                                            <p style="font-size: 13px;color:black;font-weight:500" class="mt-lg-3 ">Rs
-                                                6766
-                                            </p>
-                                            <p style="font-size: 13px;color:black;margin-top:-13px">Seller : REDFORD</p>
-
-                                            <div class="d-flex mt-lg-2">
-                                                <button class="returnbutton" style="">Exchange</button>
-                                                <button class="ms-3 returnbutton">Return</button>
-                                            </div>
-                                            <div class="d-flex mt-lg-3 mt-2">
-                                                <img src="{{ asset('logo/got.png') }}" height="10px" class="mt-1"
-                                                    alt="">
-                                                <p class="ms-2 returntext">Exchange/ Return
-                                                    available till 29th December.</p>
-                                            </div>
-
-                                            <p class="" style="font-size: 13px;color:black;margin-top: -5px;">Rate the product <img
-                                                    src="{{ asset('logo/stars.png') }}" height="20px" alt="">
-                                            </p>
-
-                                        </div>
-                                        <div class="largeflexscreen"
-                                            style="align-items: center;
-                                                justify-content: center;
-                                                display: flex;
-                                                    ">
-                                            <button
-                                                style="height: 35px;width: 35px;border-radius:50%;border:0;background: #FF4545;align-items: center;
-                                            justify-content: center;
-                                            display: flex;" >
-                                                <img src="{{ asset('logo/arrow-1.png') }}" alt=""
-                                                    class="ms-1"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          
-            <div class="col-12 mx-auto mt-3">
-                <div class="card" style="border-radius: 0px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 col-lg-11 mx-auto mb-4">
-                                <div class="d-flex">
-                                    <div
-                                        style="width: 45px;height:45px;border-radius:50%;background: black;align-items: center;
-                                        justify-content: center;
-                                        display: flex;">
-                                        <img src="{{ asset('logo/package.png') }}" height="30px" alt="">
-                                        <div class="tickposition" style=" ">
-                                            <img src="{{ asset('logo/tick.png') }}" height="18px" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="ms-lg-5 ms-4">
-                                        <h6 style="color: rgb(31, 226, 54)">Delivered</h6>
-                                        <p style="font-size: 12px">On Fri, 20th Oct</p>
-                                    </div>
-                                </div>
-
-                                <div class="card " style="border: 0;border-radius: 0;background: #F4F4F4">
-                                    <div class="card-body ordercardpadding mt-2 mt-lg-0" style="">
-                                        <img src="{{ asset('logo/productdetails.png') }}" class="imageheight"
-                                            alt="">
-                                        <div class="ms-3 ms-lg-5" style="flex: 1">
-                                            <h6 class="prdtitle">REDFORD CB-16 COLD BOX</h6>
-                                            <p style="font-size: 13px;color:black;font-weight:500" class="mt-lg-3 ">Rs
-                                                6766
-                                            </p>
-                                            <p style="font-size: 13px;color:black;margin-top:-13px">Seller : REDFORD</p>
-
-                                            <div class="d-flex mt-lg-2">
-                                                <button class="returnbutton" style="">Exchange</button>
-                                                <button class="ms-3 returnbutton">Return</button>
-                                            </div>
-                                            <div class="d-flex mt-lg-3 mt-2">
-                                                <img src="{{ asset('logo/got.png') }}" height="10px" class="mt-1"
-                                                    alt="">
-                                                <p class="ms-2 returntext">Exchange/ Return
-                                                    available till 29th December.</p>
-                                            </div>
-
-                                            <p class="" style="font-size: 13px;color:black;margin-top: -5px;">Rate the product <img
-                                                    src="{{ asset('logo/stars.png') }}" height="20px" alt="">
-                                            </p>
-
-                                        </div>
-                                        <div class="largeflexscreen"
-                                            style="align-items: center;
-                                                justify-content: center;
-                                                display: flex;
-                                                    ">
-                                            <button
-                                                style="height: 35px;width: 35px;border-radius:50%;border:0;background: #FF4545;align-items: center;
-                                            justify-content: center;
-                                            display: flex;" >
-                                                <img src="{{ asset('logo/arrow-1.png') }}" alt=""
-                                                    class="ms-1"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          
-
+            <input type="hidden" id="hidden_page" name="hidden_page" value="1">
 
         </div>
     </div>
@@ -356,8 +163,8 @@
 
 
     {{-- //filter modal --}}
-    <div class="modal fade" style="z-index: 999999" id="exampleModal" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" style="z-index: 999999" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="row">
@@ -376,85 +183,87 @@
 
                         </div>
                         <div class="modal-body" style="padding: 0px 40px">
-                            <form>
+                            <form method="POST" action="{{ route('user-order-filter') }}">
+                                @csrf
                                 <h6 class="modal-title mb-3" id="exampleModalLabel"
                                     style="color: #000000;font-weight: 600;">Filter Orders</h6>
                                 <div style="font-size: 14px;">
-                                    <label for=""
+                                    <label for="onway"
                                         style="display: flex;
                                         align-items: center;">
-                                        <input type="radio" name="payment" id="" class="me-3">
+                                     
+                                        <input type="radio" name="order" id="onway" value="1" class="me-3" @if($ordervalue == '1') checked @endif>
                                         On the Way
                                     </label>
                                 </div>
                                 <div style="font-size: 14px;" class="mt-3">
-                                    <label for=""
+                                    <label for="delivered"
                                         style="display: flex;
                                         align-items: center;">
-                                        <input type="radio" name="payment" id="" class="me-3">
+                                        <input type="radio" name="order" value="2" id="delivered" class="me-3" @if($ordervalue == '2') checked @endif>
                                         Delivered
                                     </label>
                                 </div>
                                 <div style="font-size: 14px;" class="mt-3">
-                                    <label for=""
+                                    <label for="Cancel"
                                         style="display: flex;
                                         align-items: center;">
-                                        <input type="radio" name="payment" id="" class="me-3">
+                                        <input type="radio" name="order" value="3" id="Cancel" class="me-3" @if($ordervalue == '3') checked @endif>
                                         Cancel
                                     </label>
                                 </div>
                                 <div style="font-size: 14px;" class="mt-3">
-                                    <label for=""
+                                    <label for="Refund"
                                         style="display: flex;
                                         align-items: center;">
-                                        <input type="radio" name="payment" id="" class="me-3">
-                                        Refund
+                                        <input type="radio" name="order" value="4" id="Refund" class="me-3" @if($ordervalue == '4') checked @endif>
+                                        Return
                                     </label>
                                 </div>
                                 <hr>
                                 <h6 class="modal-title mb-4" id="exampleModalLabel"
                                     style="color: #000000;font-weight: 600;flex:1">Time</h6>
                                 <div style="font-size: 14px;">
-                                    <label for=""
+                                    <label for="anytime"
                                         style="display: flex;
                                         align-items: center;">
-                                        <input type="radio" name="payment" id="" class="me-3">
+                                        <input type="radio" name="time" value="1" id="anytime" class="me-3"  @if($timevalue == '1') checked @endif>
                                         Any Time
                                     </label>
                                 </div>
                                 <div style="font-size: 14px;" class="mt-3">
-                                    <label for=""
+                                    <label for="30days"
                                         style="display: flex;
                                         align-items: center;">
-                                        <input type="radio" name="payment" id="" class="me-3">
+                                        <input type="radio" name="time" value="2" id="30days" class="me-3"  @if($timevalue == '2') checked @endif>
                                         Last 30 days
                                     </label>
                                 </div>
                                 <div style="font-size: 14px;" class="mt-3">
-                                    <label for=""
+                                    <label for="6month"
                                         style="display: flex;
                                         align-items: center;">
-                                        <input type="radio" name="payment" id="" class="me-3">
+                                        <input type="radio" name="time" value="3" id="6month" class="me-3"  @if($timevalue == '3') checked @endif>
                                         Last 6 Months
                                     </label>
                                 </div>
                                 <div style="font-size: 14px;" class="mt-3">
-                                    <label for=""
+                                    <label for="lastyear"
                                         style="display: flex;
                                         align-items: center;">
-                                        <input type="radio" name="payment" id="" class="me-3">
+                                        <input type="radio" name="time" value="4" id="lastyear" class="me-3"  @if($timevalue == '4') checked @endif>
                                         Last year
                                     </label>
                                 </div>
 
                                 <div class="d-flex row mt-3 mb-4">
                                     <div class="col-6">
-                                        <button class="w-100"
-                                            style="border: 1px solid grey;font-size:13px;background: white;padding: 5px;font-weight: 600">Clear
-                                            Filter</button>
+                                        <a href="{{ route('user-order-filter',['time' => 0 ,'order' => 0]) }}" class="btn w-100"
+                                            style="border: 1px solid grey;font-size:13px;background: white;padding: 5px;font-weight: 600;text-decoration: none;width:100%">Clear
+                                            Filter</a>
                                     </div>
                                     <div class="col-6">
-                                        <button class="w-100 text-light"
+                                        <button class="w-100 text-light" type="submit"
                                             style="border: 1px solid rgb(255, 255, 255);font-size:13px;background: #FF4545;padding: 5px;font-weight: 600">Apply</button>
 
                                     </div>
@@ -470,4 +279,40 @@
 
     {{-- footer section --}}
     @include('User.bin.footer.footer')
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+    <script>
+        $(document).ready(function() {
+            const fetch_data = (page, search) => {
+
+                if (search === undefined) {
+                    search = "";
+                }
+                
+                $.ajax({
+                    url: "{{ route('user-order-search') }}" + "/?page=" + page + "&search=" + search ,
+                    success: function(data) {
+                        // console.log(data)
+                        $('#paginationdata').html('');
+                        $('#paginationdata').html(data);
+                    }
+                })
+            }
+
+            $('#search').on('keyup', function() {
+                var search = $('#search').val();
+                var page = $('#hidden_page').val();
+                fetch_data(page, search);
+            });
+
+            $('body').on('click', '.page-item a', function(event) {
+                event.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                $('#hidden_page').val(page);
+                var search = $('#search').val();
+                fetch_data(page, search);
+            });
+        });
+    </script>
 @endsection

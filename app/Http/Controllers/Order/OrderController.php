@@ -88,6 +88,11 @@ class OrderController extends Controller
                 $item->original_price = $query->original_price;
                 $item->quantity = $query->quantity;
                 $item->discounted_price = $query->discounted_price;
+                $item->product_width = $prd->product_width;
+                $item->product_length = $prd->product_length;
+                $item->product_height = $prd->product_height;
+                $item->product_weight = $prd->product_weight;
+                $item->product_weight_unit = $prd->product_weight_unit;
                 $item->tax_type = $query->tax_type;
                 $item->tax_percentage = $query->tax_percentage;
                 $item->tax_amount = $query->tax_amount;

@@ -298,7 +298,7 @@
             -webkit-appearance: none;
         }
     </style>
-
+   
     {{-- pagination style --}}
     <style>
         .pagination-container .pagination {

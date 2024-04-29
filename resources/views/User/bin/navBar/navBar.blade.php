@@ -64,6 +64,20 @@
 
             <a href="{{ route('user-cart') }}" class="ms-5" type="submit">
                 <img src="{{ asset('logo/shopping-cart.png') }}" height="23px" alt="">
+                <div style="width: 18px;
+                height: 18px;
+                position: absolute;
+                background: white;
+                border-radius: 50%;
+                top: 5px;
+                right: 10.5%;">
+                <span style="    color: #f54;
+                font-weight: 700;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                margin-top: -3.5px;">{{ cartvalue() }}</span>    
+            </div>
             </a>
         </div>
 

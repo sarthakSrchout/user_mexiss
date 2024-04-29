@@ -35,6 +35,8 @@ Route::match(['post', 'get'], '/user/profile', [UserController::class, 'profile'
 Route::match(['post', 'get'], '/user/myorrders', [UserController::class, 'myorrders'])->name('user-myorrders')->middleware('userauth');
 Route::match(['post', 'get'], '/user/addresspostoperation', [UserController::class, 'addresspostoperation'])->name('user-addresspostoperation')->middleware('userauth');
 Route::match(['post', 'get'], '/user/getaddressdetails/{address_id}', [UserController::class, 'getaddressdetails'])->name('user-getaddressdetails')->middleware('userauth');
+Route::match(['post', 'get'], '/user/order/search', [UserController::class, 'ordersearch'])->name('user-order-search')->middleware('userauth');
+Route::match(['post', 'get'], '/user/myorrders/filter', [UserController::class, 'orderfilter'])->name('user-order-filter')->middleware('userauth');
 
 
 
@@ -71,7 +73,4 @@ Route::prefix('auth')->group(function () {
    
 });
 
-// in product add specification and tax type for every product like india product for loacl shipment and interantional shipment
-//product price in dollar??
-//category not required in product
-//rating system in product
+
