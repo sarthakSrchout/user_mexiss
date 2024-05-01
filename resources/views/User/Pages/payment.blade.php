@@ -270,7 +270,7 @@
                             console.log(response);
                             var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
                                 'content');
-
+                            console.log(response)
                             document.getElementById('overlay').style.display = 'block';
                             document.getElementById('loader-container').style.display = 'block';
                             $.ajax({
@@ -279,9 +279,11 @@
                                 headers: {
                                     'X-CSRF-TOKEN': csrfToken
                                 },
+                                
                                 data: {
                                     pay_method: 1,
-                                    razer_pay_id: response.razorpay_payment_id
+                                    razer_pay_id: response.razorpay_payment_id,
+                                    resp: response
                                 },
                                 success: function(response) {
                                     if (response.status == 2) {

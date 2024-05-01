@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -277,6 +277,37 @@
 </head>
 
 <body style="min-height:100vh;">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+
+
+
+        .rating-box h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .rating-box .stars {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stars i {
+            font-size: 20px;
+            color: #b5b8b1;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .stars i.active {
+            color: #ffb851;
+            transform: scale(1.2);
+        }
+    </style>
     <style>
         /* Remove spinner buttons for number input */
         input[type=number] {
@@ -298,19 +329,19 @@
             -webkit-appearance: none;
         }
     </style>
-   
+
     {{-- pagination style --}}
     <style>
         .pagination-container .pagination {
             border: none;
             margin: 0;
         }
-    
+
         .pagination-container .pagination .page-item .page-link {
             color: black;
             border: none;
         }
-    
+
         .pagination-container .pagination .page-item.active .page-link {
             background-color: #f45;
             border-color: #f45;
@@ -343,7 +374,8 @@
             z-index: 12321312312312;
             /* Ensure it's above the overlay */
         }
-        .link{
+
+        .link {
             text-decoration: none;
             color: black
         }
@@ -450,7 +482,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 
-          @if ($message = session('success_response'))
+    @if ($message = session('success_response'))
         <script>
             Swal.fire({
                 title: 'Success!',
@@ -459,27 +491,27 @@
                 confirmButtonColor: '#28a745', // Set the color to green
             });
         </script>
-        @endif
-        @if ($message = session('error_response'))
-            <script>
-                Swal.fire({
-                    title: 'Error!',
-                    text: '{{ $message }}',
-                    icon: 'error',
-                    confirmButtonColor: '#dc3545', // Set the color to red for error
-                });
-            </script>
-        @endif
-        @if ($message = session('loginmsg'))
-            <script>
-                Swal.fire({
-                    title: 'Success!',
-                    text: '{{ $message }}',
-                    icon: 'success',
-                    confirmButtonColor: '#28a745', // Set the color to green for success
-                });
-            </script>
-        @endif
+    @endif
+    @if ($message = session('error_response'))
+        <script>
+            Swal.fire({
+                title: 'Error!',
+                text: '{{ $message }}',
+                icon: 'error',
+                confirmButtonColor: '#dc3545', // Set the color to red for error
+            });
+        </script>
+    @endif
+    @if ($message = session('loginmsg'))
+        <script>
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ $message }}',
+                icon: 'success',
+                confirmButtonColor: '#28a745', // Set the color to green for success
+            });
+        </script>
+    @endif
 </body>
 
 </html>

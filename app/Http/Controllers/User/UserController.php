@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Common\BulksSMS;
 use App\Http\Controllers\Common\ImageUpload;
+use App\Http\Controllers\Common\ShipRocket;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -14,6 +16,7 @@ use App\Models\OrderItems;
 use App\Models\outerCategory;
 use App\Models\Product;
 use App\Models\ProductQueryBasedRequest;
+use App\Models\rating;
 use App\Models\subCategory;
 use App\Models\User;
 use App\Models\UserAddress;
@@ -28,10 +31,12 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public $uploadImage;
-
-    public function __construct(ImageUpload $img)
+    protected $shiprocket;
+    protected $BulksSMS;
+    public function __construct(ImageUpload $img,ShipRocket $shiprocket, BulksSMS $BulksSMS)
     {
-
+        $this->shiprocket = $shiprocket;
+        $this->BulksSMS = $BulksSMS;
         $this->uploadImage = $img;
     }
     public function homepage(Request $request)
@@ -384,11 +389,24 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
         $data['user'] = User::where('id', $user_id)->first();
-        $data['order'] = OrderItems::with('product', 'order')->where('user_id', $user_id)->orderByDesc('created_at')->paginate(4);
+
+        
+        $data['order'] = OrderItems::with('product', 'order','accepted')->where('user_id', $user_id)->orderByDesc('created_at')->paginate(4);
         $data['order']->getCollection()->transform(function ($orderItem) {
+
+
             if (is_string($orderItem->product->product_images)) {
                 $orderItem->product->product_images = explode(',', $orderItem->product->product_images);
             }
+            if($orderItem?->accepted && $orderItem->accepted->order_id_shiprocket != 0){
+                $shiprocket = $this->shiprocket->shiprocketAuth();
+
+                $response  = $this->shiprocket->expectedDate($shiprocket,  $orderItem->accepted->order_id_shiprocket);
+                $responseDecode = json_decode($response);
+                // dd($responseDecode);
+            }
+            $rating = rating::where([['order_items_id',$orderItem->id],['user_id',Auth::user()->id]])->first();
+            $orderItem->rating = $rating;
             return $orderItem;
         });
         $data['ordervalue'] = Null;

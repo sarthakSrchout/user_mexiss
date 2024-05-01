@@ -2,18 +2,34 @@
 
 namespace App\Http\Controllers\Order;
 
+use App\Http\Controllers\Common\BulksSMS;
+use App\Http\Controllers\Common\ImageUpload;
+use App\Http\Controllers\Common\ShipRocket;
 use App\Http\Controllers\Controller;
+use App\Models\acceptedOrders;
+use App\Models\cancelOrders;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\Product;
+use App\Models\rating;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Razorpay\Api\Api;
 
 class OrderController extends Controller
 {
-    //
+    public $uploadImage;
+    protected $shiprocket;
+    protected $BulksSMS;
+    public function __construct(ImageUpload $img, ShipRocket $shiprocket, BulksSMS $BulksSMS)
+    {
+        $this->shiprocket = $shiprocket;
+        $this->BulksSMS = $BulksSMS;
+        $this->uploadImage = $img;
+    }
     public function placed()
     {
         return view('User.Pages.placed');
@@ -22,7 +38,6 @@ class OrderController extends Controller
     {
         $user_id = Auth::user()->id;
         $cart = Cart::with('address', 'address.country', 'item')->where('user_id', $user_id)->first();
-
 
         try {
             DB::beginTransaction();
@@ -129,5 +144,129 @@ class OrderController extends Controller
             DB::rollBack();
             return response()->json(['status' => 2]);
         }
+    }
+
+    public function cancelorder(Request $request)
+    {
+
+        $orderIdProduct = $request->order_item_id;
+        $orderitem = OrderItems::with('order', 'accepted')->where('id', $orderIdProduct)->first();
+
+        $shiprocketOrderId = acceptedOrders::select('order_id_shiprocket', 'shipment_id_shiprocket', 'order_items_id')->where('order_items_id', $orderitem->id)->first();
+        if ($shiprocketOrderId && $shiprocketOrderId->order_id_shiprocket != 0) {
+
+            $shiprocket = $this->shiprocket->shiprocketAuth();
+            $this->shiprocket->cancelOrder($shiprocket, $shiprocketOrderId->order_id_shiprocket);
+            $cancelOrder = new cancelOrders([
+                "order_items_id" => $shiprocketOrderId->order_items_id,
+                "order_id_shiprocket" => $shiprocketOrderId->order_id_shiprocket,
+                "shipment_id_shiprocket" => $shiprocketOrderId->shipment_id_shiprocket,
+            ]);
+            $cancelOrder->save();
+        }
+
+        acceptedOrders::where('order_items_id', $orderitem->id)->delete();
+
+        $orderitem->order_status = '3';
+        $orderitem->save();
+        //razerpay
+        if ($orderitem->order->order_method == '1') {
+
+            $key_id = env('RAZORPAY_KEY');
+            $secret = env('RAZORPAY_SECRET');
+
+            // Initialize Razorpay API with your key ID and secret
+            $api = new Api($key_id, $secret);
+
+            $paymentId = $orderitem->order->razepay_id;
+
+            try {
+                // Make a refund request
+                $paycurl = curl_init();
+                curl_setopt_array($paycurl, array(
+                    CURLOPT_URL => "https://api.razorpay.com/v1/payments/$paymentId/capture",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode([
+                        "amount" => $orderitem->payable_amount * 100, // Amount to be refunded (in paise)
+
+                    ]),
+                    CURLOPT_HTTPHEADER => array(
+                        "Content-Type: application/json",
+                        "Authorization: Basic " . base64_encode("$key_id:$secret")
+                    ),
+                ));
+                curl_exec($paycurl);
+
+                curl_close($paycurl);
+
+              
+                
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://api.razorpay.com/v1/payments/$paymentId/refund",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode([
+                        "amount" => $orderitem->payable_amount * 100, // Amount to be refunded (in paise)
+                        "speed" => "normal",
+                        "notes" => [
+                            "notes_key_1" => "Beam me up Scotty.",
+                            "notes_key_2" => "Engage"
+                        ],
+                    ]),
+                    CURLOPT_HTTPHEADER => array(
+                        "Content-Type: application/json",
+                        "Authorization: Basic " . base64_encode("$key_id:$secret")
+                    ),
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+                curl_close($curl);
+
+                $refunddata = json_decode($response);
+                $orderitem->refund_razerpay_id = $refunddata->id;
+                $orderitem->payment_status = '3';
+                $orderitem->save();
+            } catch (Exception $e) {
+                return redirect()->back()->with('error_response', 'Some Problem in getting your payment! Contact Admin!');
+            }
+    
+        }
+
+        return redirect()->back()->with('success_response', 'Order cancelled!');
+    }
+
+    public function rating(Request $request){
+        $order_item = OrderItems::where('id',$request->orderid)->first();
+        // dd($request->all());
+        if($request->ratingId){
+            $rating = rating::where('rating_id',$request->ratingId)->first();
+        }
+        else{
+            $rating = new rating();
+        }
+        $rating->rating = $request->rating;
+        $rating->rating_head = $request->rating;
+        $rating->product_id = $order_item->product_id;
+        $rating->order_items_id = $order_item->id;
+        $rating->user_id = Auth::user()->id;
+        $rating->save();
+        return true;
+    }
+    public function trackorder(Request $request){
+        $shipmentId = $request->shipmentId;
+        $shiprocket = $this->shiprocket->shiprocketAuth();
+
+        $tracking = $this->shiprocket->trackingData($shiprocket, $shipmentId);
+
+        $responseDecode = json_decode($tracking);
+        // dd($responseDecode->{$shipmentId}->{'tracking_data'});
+        $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+
+        $data['tracking'] = $responseDecode->{$shipmentId}->{'tracking_data'};
+        return view('User.Pages.trackorder', $data);
     }
 }

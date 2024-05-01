@@ -301,8 +301,8 @@
                                 <div class="card-body p-4">
                                     <h6 style="font-size: 14px;color:#FF4545">{{ $product->seller->business_name }}</h6>
                                     <h6 style="font-size: 14px;color:#000000;font-weight:400" class="mt-2">
-                                        {{ $product->seller->business_state }},
-                                        {{ $product->seller->country->country_name }}
+                                        {{ $product->seller?->business_state }},
+                                        {{ $product->seller?->country?->country_name }}
                                     </h6>
                                     <h6 style="font-size: 14px;color:#000000" class="mt-2 mb-3">Registered since :
                                         {{ $product->seller->created_at->format('Y') }}</h6>

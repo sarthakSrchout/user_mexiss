@@ -281,7 +281,51 @@
     @include('User.bin.footer.footer')
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   
+    <script>
+        // Function to submit rating data via AJAX
+        function submitRating(orderid, rating,ratingId) {
+            // Your AJAX request configuration
+            console.log(orderid,rating,ratingId)
+            const _token = $('meta[name="csrf-token"]').attr('content'); // Get CSRF token
+
+            $.ajax({
+                url: '{{ route('user-order-rating') }}',
+                method: 'POST',
+                data: {
+                    orderid: orderid,
+                    rating: rating,
+                    ratingId: ratingId,
+                    _token: _token 
+
+                },
+                success: function(response) {
+                    // console.log('Rating submitted successfully');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error submitting rating');
+                }
+            });
+        }
+    
+        // Event listener for star clicks
+        $(document).ready(function() {
+            $('.stars i').click(function() {
+                const orderid = $(this).closest('.stars').data('id');
+                const ratingId = $(this).closest('.stars').data('rating-id');
+
+                const stars = $(this).parent().children();
+                const clickedIndex = stars.index(this);
+                const rating = clickedIndex + 1;
+    
+                submitRating(orderid, rating,ratingId);
+    
+                // Update UI: Add 'active' class to selected stars
+                stars.removeClass('active');
+                stars.slice(0, clickedIndex + 1).addClass('active');
+            });
+        });
+    </script>
+    
     <script>
         $(document).ready(function() {
             const fetch_data = (page, search) => {

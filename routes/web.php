@@ -37,6 +37,9 @@ Route::match(['post', 'get'], '/user/addresspostoperation', [UserController::cla
 Route::match(['post', 'get'], '/user/getaddressdetails/{address_id}', [UserController::class, 'getaddressdetails'])->name('user-getaddressdetails')->middleware('userauth');
 Route::match(['post', 'get'], '/user/order/search', [UserController::class, 'ordersearch'])->name('user-order-search')->middleware('userauth');
 Route::match(['post', 'get'], '/user/myorrders/filter', [UserController::class, 'orderfilter'])->name('user-order-filter')->middleware('userauth');
+Route::match(['post', 'get'], '/user/myorrders/cancelorder', [OrderController::class, 'cancelorder'])->name('user-order-cancelorder')->middleware('userauth');
+Route::match(['post', 'get'], '/user/myorrders/rating', [OrderController::class, 'rating'])->name('user-order-rating')->middleware('userauth');
+Route::match(['post', 'get'], '/user/myorrders/trackorder', [OrderController::class, 'trackorder'])->name('user-order-trackorder')->middleware('userauth');
 
 
 
