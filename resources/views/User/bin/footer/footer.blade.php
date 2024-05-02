@@ -7,7 +7,7 @@
                 <img src="{{ asset('logo/logo.png') }}" height="30px" alt="">
             </a>
             <p class="text-light" style="font-size: 15px">MEXXISS TECHNOLOGIES PRIVATE LIMITED</p>
-            <p class="text-light" style="font-size: 12px;"">Copyright © 2023, All Right Reserved
+            <p class="text-light" style="font-size: 12px;">Copyright © 2023, All Right Reserved
             </p>
         </div>
 
@@ -15,9 +15,9 @@
         <div class="col mb-3 mt-5 largescreen">
             <h5 class="text-light">Company</h5>
             <ul class="nav flex-column mt-3">
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
+                <li class="nav-item mb-2"><a href="{{ route('user-aboutus') }}" class="nav-link p-0 "
                         style="font-size: 13px;color:grey">About Us</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
+                <li class="nav-item mb-2"><a href="{{ route('user-term') }}" class="nav-link p-0 "
                         style="font-size: 13px;color:grey">Terms and Conditions</a>
                 </li>
 
@@ -27,11 +27,9 @@
         <div class="col mb-3 mt-5 largescreen">
             <h5 class="text-light">Service and Support</h5>
             <ul class="nav flex-column mt-3">
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
-                        style="font-size: 13px;color:grey">Login</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
+                <li class="nav-item mb-2"><a href="{{ route('user-contactus') }}" class="nav-link p-0 "
                         style="font-size: 13px;color:grey">Contact</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
+                <li class="nav-item mb-2"><a href="{{ route('user-faq') }}" class="nav-link p-0 "
                         style="font-size: 13px;color:grey">FAQs</a></li>
             </ul>
         </div>
@@ -40,9 +38,9 @@
             <div class="col-6 mb-3 mt-0 mt-lg-5 smallscreen">
                 <h5 class="text-light smallscreenffootertext" >Company</h5>
                 <ul class="nav flex-column mt-3">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
+                    <li class="nav-item mb-2"><a href="{{ route('user-aboutus') }}" class="nav-link p-0 "
                             style="font-size: 13px;color:grey">About Us</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
+                    <li class="nav-item mb-2"><a href="{{ route('user-term') }}" class="nav-link p-0 "
                             style="font-size: 13px;color:grey">Terms and Conditions</a>
                     </li>
 
@@ -52,11 +50,10 @@
             <div class="col-6 mb-3 mt-0 mt-lg-5 smallscreen">
                 <h5 class="text-light smallscreenffootertext" >Service and Support</h5>
                 <ul class="nav flex-column mt-3">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
-                            style="font-size: 13px;color:grey">Login</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
+                
+                    <li class="nav-item mb-2"><a href="{{ route('user-contactus') }}" class="nav-link p-0 "
                             style="font-size: 13px;color:grey">Contact</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 "
+                    <li class="nav-item mb-2"><a href="{{ route('user-faq') }}" class="nav-link p-0 "
                             style="font-size: 13px;color:grey">FAQs</a></li>
                 </ul>
             </div>

@@ -138,7 +138,7 @@
             }
 
             .whyuspaading {
-                padding: 30px 50px
+                padding: 30px 70px
             }
 
             .cattitle {
@@ -221,7 +221,7 @@
                                 Machinery Solutions</h2>
                         </div>
 
-                        <a href="" class="button mt-2 button-background " style="padding: 10px 20px!important">
+                        <a href="{{ route('user-product') }}" class="button mt-2 button-background " style="padding: 10px 20px!important">
                             Explore Now <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -2px" class="ms-1"
                                 width="17" height="17" fill="currentColor" class="bi bi-arrow-right"
                                 viewBox="0 0 16 16">
@@ -230,18 +230,19 @@
                             </svg></a>
                     </div>
                     <div class="col-6 d-none d-lg-block mx-auto">
-                        <form action="" method="post" style="margin-top: 30%">
+                        <form action="{{ route('user-homepage') }}" method="post" style="margin-top: 30%">
+                            @csrf
                             <h1 for="" class="text-light homeparagraph">Search products and find verified sellers
                                 near
 
                                 you</h1><br>
                             <div class="input-group mb-3" style="height: 45px;margin-top: -10px;">
 
-                                <input type="text" class="form-control shadow-none"
+                                <input type="text" name="search" class="form-control shadow-none"
                                     aria-label="Text input with segmented dropdown button"
                                     placeholder="Enter Product/Service Name" style="border-radius: 0px;font-size:14px">
                                 <button class="btn homeparagraph text-light button-background"
-                                    style="border-radius: 0px;width:90px" type="button">Search</button>
+                                    style="border-radius: 0px;width:90px" type="submit">Search</button>
 
                             </div>
                         </form>
@@ -329,13 +330,13 @@
                     @foreach ($outer as $index => $item)
                         {{-- {{ dd($item)}} --}}
                         <div class="col-2 card-layout {{ $index >= 4 ? ' largescreen' : '' }}" >
-                           <a href="" class="link">
+                           <a href="{{ route('user-categoryfilter',['outer_id' => $item->outCid]) }}" class="link">
                             <div class="card border-0 shadow"
                             style="height: 100px">
                             <div class="card-body text-center">
-                                <img src="{{ asset('logo/fab.png') }}" class="card-img-top mb-2 mt-1 categoryimage"
+                                <img src="{{ $item->out_cat_image }}" class="card-img-top mb-2 mt-1 categoryimage"
                                     alt="">
-                                <p class="mt-1 cattitle">{{ $item->outer_Category_name }}</p>
+                                <p class="mt-1 cattitle">{{ Str::limit($item->outer_Category_name, 15, '...') }}</p>
                             </div>
                         </div>
                            </a>
@@ -399,28 +400,27 @@
     </div>
     {{-- parts you may like --}}
     <div class="container mt-5">
-        <h4 class="text-center" style="color: #FF4545">Parts You May Like</h4>
+        <h4 class="text-center" style="color: #FF4545">Query Based Products</h4>
         <div class="row mt-4">
+            @foreach ($queryproduct as $item)
             <div class="col-lg-3 col-6 mt-3 ">
                 <div class="card productCardData" style="border-radius: 0px">
                     <div class="card-body">
-                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top " style="border-radius:0px"
+                        <img src="{{ $item->product_images[0] }}" class="card-img-top " style="border-radius:0px;height:250px"
                             alt="">
-                        <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                        <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
+                        <h6 style="font-size: .85rem" class="mt-2">{{ $item->product_name }}</h6>
+                        <h6 style="font-size: .75rem" class="mt-1">Rs. {{ $item->discounted_price }}</h6>
                         <img src="{{ asset('logo/stars.png') }}" alt=""><span style="font-size: .7rem"
                             class="text-bold ms-1">(5)</span>
                         <div class="d-flex">
-                            <a href="" class="button mt-2 button-background d-flex newbutton" style="">
+                            <a href="{{ route('user-productdetails',['product_id' => $item->id]) }}" class="button mt-2 button-background d-flex newbutton" style="">
                                 View Details
 
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px"
-                                    alt="">
+                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px" alt="">
                             </a>
                             <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2 newbutton">
                                 Contact Us
                                 <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px" alt="">
-
                             </a>
 
 
@@ -429,178 +429,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-6 mt-3 ">
-                <div class="card productCardData" style="border-radius: 0px">
-                    <div class="card-body">
-                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top " style="border-radius:0px"
-                            alt="">
-                        <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                        <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                        <img src="{{ asset('logo/stars.png') }}" alt=""><span style="font-size: .7rem"
-                            class="text-bold ms-1">(5)</span>
-                        <div class="d-flex">
-                            <a href="" class="button mt-2 button-background d-flex newbutton" style="">
-                                View Details
-
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px"
-                                    alt="">
-                            </a>
-                            <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2 newbutton">
-                                Contact Us
-                                <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px" alt="">
-
-                            </a>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6 mt-3 ">
-                <div class="card productCardData" style="border-radius: 0px">
-                    <div class="card-body">
-                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top " style="border-radius:0px"
-                            alt="">
-                        <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                        <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                        <img src="{{ asset('logo/stars.png') }}" alt=""><span style="font-size: .7rem"
-                            class="text-bold ms-1">(5)</span>
-                        <div class="d-flex">
-                            <a href="" class="button mt-2 button-background d-flex newbutton" style="">
-                                View Details
-
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px"
-                                    alt="">
-                            </a>
-                            <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2 newbutton">
-                                Contact Us
-                                <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px" alt="">
-
-                            </a>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6 mt-3 ">
-                <div class="card productCardData" style="border-radius: 0px">
-                    <div class="card-body">
-                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top " style="border-radius:0px"
-                            alt="">
-                        <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                        <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                        <img src="{{ asset('logo/stars.png') }}" alt=""><span style="font-size: .7rem"
-                            class="text-bold ms-1">(5)</span>
-                        <div class="d-flex">
-                            <a href="" class="button mt-2 button-background d-flex newbutton" style="">
-                                View Details
-
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px"
-                                    alt="">
-                            </a>
-                            <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2 newbutton">
-                                Contact Us
-                                <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px" alt="">
-
-                            </a>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6 mt-3 ">
-                <div class="card productCardData" style="border-radius: 0px">
-                    <div class="card-body">
-                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top " style="border-radius:0px"
-                            alt="">
-                        <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                        <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                        <img src="{{ asset('logo/stars.png') }}" alt=""><span style="font-size: .7rem"
-                            class="text-bold ms-1">(5)</span>
-                        <div class="d-flex">
-                            <a href="" class="button mt-2 button-background d-flex newbutton" style="">
-                                View Details
-
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px"
-                                    alt="">
-                            </a>
-                            <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2 newbutton">
-                                Contact Us
-                                <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px" alt="">
-
-                            </a>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6 mt-3 ">
-                <div class="card productCardData" style="border-radius: 0px">
-                    <div class="card-body">
-                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top " style="border-radius:0px"
-                            alt="">
-                        <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                        <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                        <img src="{{ asset('logo/stars.png') }}" alt=""><span style="font-size: .7rem"
-                            class="text-bold ms-1">(5)</span>
-                        <div class="d-flex">
-                            <a href="" class="button mt-2 button-background d-flex newbutton" style="">
-                                View Details
-
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px"
-                                    alt="">
-                            </a>
-                            <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2 newbutton">
-                                Contact Us
-                                <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px" alt="">
-
-                            </a>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6 mt-3 ">
-                <div class="card productCardData" style="border-radius: 0px">
-                    <div class="card-body">
-                        <img src="{{ asset('logo/productImage.png') }}" class="card-img-top " style="border-radius:0px"
-                            alt="">
-                        <h6 style="font-size: .85rem" class="mt-2">REDFORD CB-16 COLD BOX</h6>
-                        <h6 style="font-size: .75rem" class="mt-1">Rs. 3570</h6>
-                        <img src="{{ asset('logo/stars.png') }}" alt=""><span style="font-size: .7rem"
-                            class="text-bold ms-1">(5)</span>
-                        <div class="d-flex">
-                            <a href="" class="button mt-2 button-background d-flex newbutton" style="">
-                                View Details
-
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px"
-                                    alt="">
-                            </a>
-                            <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2 newbutton">
-                                Contact Us
-                                <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px" alt="">
-
-                            </a>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
+            @endforeach
+         
         </div>
-        <h6 class="text-center  text-decoration-underline mt-3" style="color: #FF4545">View All</h6>
+        <h6 class="text-center  text-decoration-underline mt-3" ><a href="{{ route('user-product') }}" style="color: #FF4545">View All</a></h6>
     </div>
     {{-- about us --}}
     <div class="container" style="margin-top: 7%">
@@ -701,71 +533,32 @@
             <div class="col-12 col-lg-3  mb-3">
                 <div class="card-body p-2">
                     <h5 style="color: #FF4545">Our Categories</h5>
-                    <p class="mt-2" style="font-size: 13px">we take pride in offering a comprehensive range of services
+                    <p class="mt-2" style="font-size: 13px">We take pride in offering a comprehensive range of services
                         tailored to meet the diverse needs of our
                         clients. Our commitment to excellence extends across every aspect of our operations, ensuring that
                         you receive top-notch solutions for your industrial requirements.</p>
                 </div>
             </div>
+            @foreach ($category as $item)
             <div class="col-lg-3 col-6  mb-3">
                 <div class="card-body categoryCard">
                     <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
+                        <img src="{{ $item->cat_img }}" style="width: 100%" class="categoryImage"
                             alt="">
-                        <div class="categoryImageTitle ">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
+                        <a href="{{ route('user-shopbycategories') }}" style="text-decoration: none">
+                            <div class="categoryImageTitle ">
+                                <h6 style="font-size: 14px" class="text-light">{{ $item->category_name }}</h6>
+                                <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
+                                        class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
+                                        height="9px"></p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
+            @endforeach
 
-            <div class="col-lg-3 col-6  mb-3">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle ">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-3 col-6  mb-3">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle ">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-6  mb-3">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle ">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
 

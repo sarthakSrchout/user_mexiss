@@ -80,119 +80,24 @@
     <div class="container mb-5">
         <div class="row">
 
-            <div class="col-lg-3 col-6  mt-5">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle " style="padding: 8px 13px">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
+            @foreach ($category as $item)
+                <div class="col-lg-3 col-6  mt-5">
+                  <a href="{{ route('user-categoryfilter',['cat_id' => $item->cid]) }}" style="text-decoration: none">
+                    <div class="card-body categoryCard">
+                        <div style="width: 100%">
+                            <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
+                                alt="">
+                            <div class="categoryImageTitle " style="padding: 8px 13px">
+                                <h6 style="font-size: 14px" class="text-light">{{ $item->category_name }}</h6>
+                                <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Shop Now<img
+                                        class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
+                                        height="9px"></p>
+                            </div>
                         </div>
                     </div>
+                  </a>
                 </div>
-            </div>
-            <div class="col-lg-3 col-6  mt-5">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle " style="padding: 8px 13px">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6  mt-5">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle " style="padding: 8px 13px">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6  mt-5">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle " style="padding: 8px 13px">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6  mt-5">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle " style="padding: 8px 13px">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6  mt-5">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle " style="padding: 8px 13px">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6  mt-5">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle " style="padding: 8px 13px">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-6  mt-5">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <div class="categoryImageTitle " style="padding: 8px 13px">
-                            <h6 style="font-size: 14px" class="text-light">Core Machine</h6>
-                            <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                    class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                    height="9px"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
 
         </div>
     </div>

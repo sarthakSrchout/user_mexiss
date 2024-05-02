@@ -90,7 +90,7 @@
                         <div class="col-4">
                             <div class="input-group">
 
-                                <input type="text" class="form-control shadow-none"
+                                <input type="text" class="form-control shadow-none" value="{{ request()->search }}"
                                     aria-label="Text input with segmented dropdown button" id="search"
                                     placeholder="Enter Product/Service Name" style="border-radius: 0px;font-size:12px">
                                 <button id="searchbutton" class="btn homeparagraph text-light button-background"
@@ -114,7 +114,6 @@
                                     .accordion-button:focus {
                                         box-shadow: none !important;
                                     }
-                                 
                                 </style>
 
                                 <div class="hidescrollbar" style="height: 300px;overflow:hidden;overflow-y: auto;">
@@ -495,17 +494,17 @@
                     slide: function(event, ui) {
                         $("#amount").val("Rs. " + ui.values[0] + " - Rs. " + ui.values[1]);
                     },
-                    stop: function (event, ui) {
-                    fetchFilteredData();
-                }
+                    stop: function(event, ui) {
+                        fetchFilteredData();
+                    }
                 });
                 $("#amount").val("Rs. " + $("#slider-range").slider("values", 0) +
                     " - Rs. " + $("#slider-range").slider("values", 1));
-             
+
             });
 
             $("#sortby").change(function() {
-                
+
                 fetchFilteredData();
             });
 
@@ -566,6 +565,13 @@
                     var search = $('#search').val();
                     fetch_data(page, search);
                 });
+                let data = "{{ request()->search }}";
+
+                if (data) {
+                    var search = $('#search').val();
+                    var page = $('#hidden_page').val();
+                    fetch_data(page, search);
+                }
             });
         </script>
     @endsection

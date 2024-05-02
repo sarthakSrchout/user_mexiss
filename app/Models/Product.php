@@ -27,5 +27,15 @@ class Product extends Model
     public function technical(){
         return $this->hasMany(ProductTechnicalData::class,'product_id','id');
     }
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'product_id', 'id');
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        return $this->ratings()->avg('rating');
+    }
+
     use HasFactory;
 }

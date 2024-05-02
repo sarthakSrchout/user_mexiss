@@ -33,7 +33,7 @@ class UserController extends Controller
     public $uploadImage;
     protected $shiprocket;
     protected $BulksSMS;
-    public function __construct(ImageUpload $img,ShipRocket $shiprocket, BulksSMS $BulksSMS)
+    public function __construct(ImageUpload $img, ShipRocket $shiprocket, BulksSMS $BulksSMS)
     {
         $this->shiprocket = $shiprocket;
         $this->BulksSMS = $BulksSMS;
@@ -43,19 +43,40 @@ class UserController extends Controller
     {
         // dd(isauth($request));
         // authcheck();
+        if($request->method() == 'POST'){
+            return redirect()->route('user-product',['search' => $request->search]);
+        }
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-        $data['outer'] = DB::table('outer_category')->where('home_page_set', '!=', '0')->orderBy('created_at')->limit(8)->get();
-        $data['product'] = DB::table('product')->where('status', '1')->inRandomOrder()->limit(12)->get();
-        $data['product']->map(function ($q) {
+        $data['outer'] = DB::table('outer_category')->where('status', '1')->orderBy('created_at')->limit(8)->get();
+        $data['category'] = DB::table('category')->where('status', '1')->inRandomOrder()->limit(8)->get();
+
+        $data['queryproduct'] = Product::where([['status', '1'], ['product_type', '1']])->inRandomOrder()->limit(8)->get();
+        $data['product'] = Product::with('ratings')->where('status', '1')->inRandomOrder()->limit(8)->get();
+
+        $data['product']->each(function ($product) {
+            if (is_string($product->product_images)) {
+                $product->product_images = explode(',', $product->product_images);
+            }
+            // Ensure that the 'ratings' relationship is loaded before accessing it
+            $product->load('ratings');
+            $product->averageRating = $product->ratings->avg('rating');
+            unset($product->ratings);
+        });
+
+        // dd($data);
+
+        $data['queryproduct']->map(function ($q) {
             if (is_string($q->product_images)) {
                 $q->product_images = explode(',', $q->product_images);
             }
         });
+      
         // dd($data);
         return view('User.Pages.homepage', $data);
     }
-    public function product()
+    public function product(Request $request)
     {
+
         $data['recommendate'] = Product::where('status', '1')->inRandomOrder()->limit(22)->get();
         $data['recommendate']->map(function ($q) {
             if (is_string($q->product_images)) {
@@ -63,16 +84,17 @@ class UserController extends Controller
             }
         });
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-        $data['product'] = DB::table('product')->where('status', '1')->orderByDesc('created_at')->paginate(8);
+        $data['selected'] = [];
+        $data['cat'] = outerCategory::with('activecategory', 'activecategory.activesubcategory')->where('status', '1')->get();
+
+
+        $data['product'] = Product::where('status', '1')->orderByDesc('created_at')->paginate(8);
         $data['product']->map(function ($q) {
             if (is_string($q->product_images)) {
                 $q->product_images = explode(',', $q->product_images);
             }
         });
-        $data['selected'] = [];
-
-        $data['cat'] = outerCategory::with('activecategory', 'activecategory.activesubcategory')->where('status', '1')->get();
-        // dd($data['cat']);
+        // dd($data);
         return view('User.Pages.product', $data);
     }
     public function categoryfilter(Request $request)
@@ -88,7 +110,7 @@ class UserController extends Controller
         $data['cat'] = outerCategory::with('activecategory', 'activecategory.activesubcategory')->where('status', '1')->get();
         if ($request->sub_id) {
             $data['selected'] = subCategory::where('scid', $request->sub_id)->first();
-            $data['product'] = DB::table('product')->where([['status', '1'], ['scid', $request->sub_id]])->orderByDesc('created_at')->paginate(8);
+            $data['product'] = Product::where([['status', '1'], ['scid', $request->sub_id]])->orderByDesc('created_at')->paginate(8);
             $data['product']->map(function ($q) {
                 if (is_string($q->product_images)) {
                     $q->product_images = explode(',', $q->product_images);
@@ -96,7 +118,7 @@ class UserController extends Controller
             });
         } else if ($request->cat_id) {
             $data['selected'] = category::where('cid', $request->cat_id)->first();
-            $data['product'] = DB::table('product')->where([['status', '1'], ['cid', $request->cat_id]])->orderByDesc('created_at')->paginate(8);
+            $data['product'] = Product::where([['status', '1'], ['cid', $request->cat_id]])->orderByDesc('created_at')->paginate(8);
             $data['product']->map(function ($q) {
                 if (is_string($q->product_images)) {
                     $q->product_images = explode(',', $q->product_images);
@@ -104,7 +126,7 @@ class UserController extends Controller
             });
         } else if ($request->outer_id) {
             $data['selected'] = outerCategory::where('outCid', $request->outer_id)->first();
-            $data['product'] = DB::table('product')->where([['status', '1'], ['outCid', $request->outer_id]])->orderByDesc('created_at')->paginate(8);
+            $data['product'] = Product::where([['status', '1'], ['outCid', $request->outer_id]])->orderByDesc('created_at')->paginate(8);
             $data['product']->map(function ($q) {
                 if (is_string($q->product_images)) {
                     $q->product_images = explode(',', $q->product_images);
@@ -119,7 +141,7 @@ class UserController extends Controller
         $searchTerm = $request->search;
 
         // Initialize query builder
-        $query = DB::table('product')->where('status', '1');
+        $query = Product::where('status', '1');
 
         // Price filter
         if ($request->has('min_price') && $request->has('max_price')) {
@@ -167,7 +189,7 @@ class UserController extends Controller
     public function aboutus(Request $request)
     {
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-        $data['aboutus'] = MultiplePage::with('section','section.item')->where('slug','about-us')->first();
+        $data['aboutus'] = MultiplePage::with('section', 'section.item')->where('slug', 'about-us')->first();
         // dd($data);
         return view('User.Pages.aboutuspage', $data);
     }
@@ -195,7 +217,7 @@ class UserController extends Controller
     public function term()
     {
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-        $data['term'] = MultiplePage::with('section','section.item')->where('slug','terms-and-conditions')->first();
+        $data['term'] = MultiplePage::with('section', 'section.item')->where('slug', 'terms-and-conditions')->first();
 
         return view('User.Pages.termsandcondition', $data);
     }
@@ -225,14 +247,14 @@ class UserController extends Controller
     public function faq()
     {
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-        $data['faq'] = MultiplePage::with('section','section.item')->where('slug','faq')->first();
+        $data['faq'] = MultiplePage::with('section', 'section.item')->where('slug', 'faq')->first();
 
         return view('User.Pages.frequently', $data);
     }
     public function help()
     {
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-        $data['help'] = MultiplePage::with('section','section.item')->where('slug','help-and-support')->first();
+        $data['help'] = MultiplePage::with('section', 'section.item')->where('slug', 'help-and-support')->first();
 
         return view('User.Pages.helpandsupport', $data);
     }
@@ -270,13 +292,13 @@ class UserController extends Controller
         $searchTerm = $request->search;
 
 
-        $data['product'] = DB::table('product')->where('status', '1')
+        $data['product'] = Product::where('status', '1')
             ->where(function ($query) use ($searchTerm) {
                 $lowerSearchTerm = strtolower($searchTerm);
                 $query->orWhere(function ($query) use ($lowerSearchTerm) {
                     $query->whereRaw('LOWER(product_name) LIKE ?', ['%' . $lowerSearchTerm . '%']);
                 });
-            })->paginate(8);
+            })->orderByDesc('created_at')->paginate(8);
         if ($data['product'] instanceof LengthAwarePaginator) {
             $data['product']->getCollection()->each(function ($q) {
                 if (is_string($q->product_images)) {
@@ -286,6 +308,7 @@ class UserController extends Controller
         }
         return view('User.Pages.productpagiantion', $data)->render();
     }
+
     public function cart(Request $request)
     {
         $ip = $request->ip();
@@ -390,22 +413,22 @@ class UserController extends Controller
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
         $data['user'] = User::where('id', $user_id)->first();
 
-        
-        $data['order'] = OrderItems::with('product', 'order','accepted')->where('user_id', $user_id)->orderByDesc('created_at')->paginate(4);
+
+        $data['order'] = OrderItems::with('product', 'order', 'accepted')->where('user_id', $user_id)->orderByDesc('created_at')->paginate(4);
         $data['order']->getCollection()->transform(function ($orderItem) {
 
 
             if (is_string($orderItem->product->product_images)) {
                 $orderItem->product->product_images = explode(',', $orderItem->product->product_images);
             }
-            if($orderItem?->accepted && $orderItem->accepted->order_id_shiprocket != 0){
+            if ($orderItem?->accepted && $orderItem->accepted->order_id_shiprocket != 0) {
                 $shiprocket = $this->shiprocket->shiprocketAuth();
 
                 $response  = $this->shiprocket->expectedDate($shiprocket,  $orderItem->accepted->order_id_shiprocket);
                 $responseDecode = json_decode($response);
                 // dd($responseDecode);
             }
-            $rating = rating::where([['order_items_id',$orderItem->id],['user_id',Auth::user()->id]])->first();
+            $rating = rating::where([['order_items_id', $orderItem->id], ['user_id', Auth::user()->id]])->first();
             $orderItem->rating = $rating;
             return $orderItem;
         });
@@ -417,6 +440,7 @@ class UserController extends Controller
     public function shopbycategories()
     {
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+        $data['category'] = DB::table('category')->where('status', '1')->inRandomOrder()->get();
 
         return view('User.Pages.shopbycategories', $data);
     }

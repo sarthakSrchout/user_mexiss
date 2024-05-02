@@ -250,7 +250,6 @@
             .categoryImageTitle {
                 background: #212121;
                 height: 55px;
-                width: 112%;
                 margin: 0px -16px;
                 margin-top: -68px;
                 position: relative;
