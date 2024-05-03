@@ -117,8 +117,11 @@ class OrderController extends Controller
                 } else if ($request->pay_method == '1') {
                     //place by razerpay
                     $item->payment_status = '1';
+                    $item->amount_made_on_this_product = round((($query->quantity * $query->discounted_price) + $query->tax_amount) - $query->coupon_discount_amount);
+
                 }
                 $item->coupon_discount_amount = $query->coupon_discount_amount;
+                
                 $item->payable_amount = round((($query->quantity * $query->discounted_price) + $query->tax_amount) - $query->coupon_discount_amount);
                 $item->order_status = '0';
                 $item->save();
@@ -229,7 +232,13 @@ class OrderController extends Controller
                 $refunddata = json_decode($response);
                 $orderitem->refund_razerpay_id = $refunddata->id;
                 $orderitem->payment_status = '3';
+                $orderitem->amount_made_on_this_product = 0;
+
                 $orderitem->save();
+
+                $orderitem->order->amount_made = $orderitem->order->amount_made  - $orderitem->payable_amount;
+                $orderitem->order->save();
+
             } catch (Exception $e) {
                 return redirect()->back()->with('error_response', 'Some Problem in getting your payment! Contact Admin!');
             }

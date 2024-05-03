@@ -153,78 +153,103 @@
                                 <div class="row p-2 mt-4">
                                     <div class="col-4 " style="border-right: 1.2px solid">
                                         <div class="d-flex mt-4">
-                                            <h1 style="font-weight: 400">4.3</h1>
+                                            <h1 style="font-weight: 400">
+                                                {{ $product->average_rating ? $product->average_rating : 0 }}</h1>
                                             <img src="{{ asset('logo/star-1.png') }}" class="mt-2 ms-2" height="30px"
                                                 alt="">
                                         </div>
-                                        <p style="font-size: 12.5px;color:grey">5 verfied buyers</p>
+                                        <p style="font-size: 12.5px;color:grey">{{ $product->no_of_people }} verfied buyers
+                                        </p>
                                     </div>
                                     <div class="col-8 p-3">
                                         <div class="d-flex " style="flex-direction: column">
-                                            <div class="d-flex" style="align-items: center">
+                                            <div class="d-flex mb-1" style="align-items: center">
                                                 <div style="font-size: 13px">5</div>
                                                 <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
                                                     alt="">
                                                 <div
                                                     style="height: 5px;
-                                                background: #FEC80Aed;
-                                                width: 60%;
+                                                background: #E0E0E0;
+                                                width: 100%;
                                                 border-radius: 8px;">
+                                                    <div
+                                                        style="height: 5px;
+                                                    background: #FEC80Aed;
+                                                    width: {{ $product->five_per }}%;
+                                                    border-radius: 8px;">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="d-flex mt-1" style="flex-direction: column">
-                                            <div class="d-flex" style="align-items: center">
+                                            <div class="d-flex mb-1" style="align-items: center">
                                                 <div style="font-size: 13px">4</div>
-                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2"
-                                                    height="13px" alt="">
+                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
+                                                    alt="">
                                                 <div
                                                     style="height: 5px;
                                                 background: #E0E0E0;
-                                                width: 60%;
+                                                width: 100%;
                                                 border-radius: 8px;">
+                                                    <div
+                                                        style="height: 5px;
+                                                    background: #FEC80Aed;
+                                                    width:  {{ $product->four_per }}%;
+                                                    border-radius: 8px;">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="d-flex mt-1" style="flex-direction: column">
-                                            <div class="d-flex" style="align-items: center">
+                                            <div class="d-flex mb-1" style="align-items: center">
                                                 <div style="font-size: 13px">3</div>
-                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2"
-                                                    height="13px" alt="">
+                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
+                                                    alt="">
                                                 <div
                                                     style="height: 5px;
                                                 background: #E0E0E0;
-                                                width: 60%;
+                                                width: 100%;
                                                 border-radius: 8px;">
+                                                    <div
+                                                        style="height: 5px;
+                                                    background: #FEC80Aed;
+                                                    width:  {{ $product->three_per }}%;
+                                                    border-radius: 8px;">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="d-flex mt-1" style="flex-direction: column">
-                                            <div class="d-flex" style="align-items: center">
+                                            <div class="d-flex mb-1" style="align-items: center">
                                                 <div style="font-size: 13px">2</div>
-                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2"
-                                                    height="13px" alt="">
+                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
+                                                    alt="">
                                                 <div
                                                     style="height: 5px;
                                                 background: #E0E0E0;
-                                                width: 60%;
+                                                width: 100%;
                                                 border-radius: 8px;">
+                                                    <div
+                                                        style="height: 5px;
+                                                    background: #FEC80Aed;
+                                                    width:  {{ $product->two_per }}%;
+                                                    border-radius: 8px;">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="d-flex mt-1" style="flex-direction: column">
-                                            <div class="d-flex" style="align-items: center">
+                                            <div class="d-flex mb-1" style="align-items: center">
                                                 <div style="font-size: 13px">1</div>
-                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2"
-                                                    height="13px" alt="">
+                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
+                                                    alt="">
                                                 <div
                                                     style="height: 5px;
                                                 background: #E0E0E0;
-                                                width: 60%;
+                                                width: 100%;
                                                 border-radius: 8px;">
+                                                    <div
+                                                        style="height: 5px;
+                                                    background: #FEC80Aed;
+                                                    width:  {{ $product->one_per }}%;
+                                                    border-radius: 8px;">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -262,23 +287,36 @@
                 </div>
             </div>
             <div class="col-12 col-lg-6">
-                <h6>{{ $product->product_name }}</h6>
+                <h4>{{ $product->product_name }}</h4>
                 <p style="font-size: 13px;color:#FF4545;font-weight:500" class="mt-3">Description</p>
                 <p style="font-size: 13px;color:black;margin-top:-13px">{{ $product->description }}/p>
                 <p style="font-size: 13px;color:black;margin-top:-13px">Manufacturer : {{ $product->manufacturer }}</p>
                 <p style="font-size: 13px;color:black;margin-top:-13px">Condition : {{ $product->pcondition }}</p>
                 <div class="d-flex mt-4" style="height: 5px;align-items:center">
-                    <img src="{{ asset('logo/stars.png') }}" style="margin-top:-13px" alt="">
-                    <p style="font-size: 13px" class="ms-2">(5)</p>
+                    <div style="display: flex;align-items: center">
+                        <div class="star-ratings">
+                            <div class="fill-ratings" style="width: {{ $product->average_percentage }}%;">
+                                <span>★★★★★</span>
+                            </div>
+                            <div class="empty-ratings">
+                                <span>★★★★★</span>
+                            </div>
+
+                        </div>
+                        <span style="font-size: .8rem"
+                            class="text-bold ms-1">({{ $product->average_rating ? $product->average_rating : '0' }})</span>
+                    </div>
                 </div>
                 <h6 class="mt-3">Rs. {{ $product->discounted_price }} <del style="font-size: 13px" class="ms-2">Rs.
                         {{ $product->original_price }}</del></h6>
                 @if ($product->product_type == '1')
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="getquotesbutton largescreen link"
-                        style="text-decoration: none;background: #FF4545">Get Quote</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        class="getquotesbutton largescreen link" style="text-decoration: none;background: #FF4545">Get
+                        Quote</a>
                 @else
                     @if ($product->product_quantity == 0)
-                        <h2 style="font-size: 17px;color:#FF4545;font-weight:500" class="mt-3 text-decoration-underline">Out of Stock!</h2>
+                        <h2 style="font-size: 17px;color:#FF4545;font-weight:500" class="mt-3 text-decoration-underline">
+                            Out of Stock!</h2>
                     @elseif ($product->cart == 1)
                         <a href="{{ route('user-cart') }}" class="getquotesbutton largescreen"
                             style="text-decoration: none">Go to Cart</a>
@@ -299,9 +337,9 @@
                                     <span class="ms-2">SELLER</span>
                                 </div>
                                 <div class="card-body p-4">
-                                    <h6 style="font-size: 14px;color:#FF4545">{{ $product->seller->business_name }}</h6>
+                                    <h6 style="font-size: 14px;color:#FF4545">{{ $product->seller->business_name ? $product->seller->business_name :  $product->seller->name}}</h6>
                                     <h6 style="font-size: 14px;color:#000000;font-weight:400" class="mt-2">
-                                        {{ $product->seller?->business_state }},
+                                        {{ $product->seller?->business_state ?  $product->seller?->business_state :  $product->seller?->bussiness_city }},
                                         {{ $product->seller?->country?->country_name }}
                                     </h6>
                                     <h6 style="font-size: 14px;color:#000000" class="mt-2 mb-3">Registered since :
@@ -356,19 +394,16 @@
 
     @if ($product->product_type == '0')
         @if ($product->product_quantity == 0)
-       
-            
         @elseif ($product->cart == 1)
-        <a href="{{ route('user-cart') }}" class="getquotesbutton button mt-2 smallscreen w-100 link text-center"
-            style="padding: 10px !important;font-size:15px;bottom: 0; position: fixed; z-index: 101001;">Go to
-            Cart</a>
-            
+            <a href="{{ route('user-cart') }}" class="getquotesbutton button mt-2 smallscreen w-100 link text-center"
+                style="padding: 10px !important;font-size:15px;bottom: 0; position: fixed; z-index: 101001;">Go to
+                Cart</a>
         @else
-            <a href="{{ route('user-addtocart',['product_id' => $product->id]) }}" class="getquotesbutton button mt-2 smallscreen w-100 link text-center"
+            <a href="{{ route('user-addtocart', ['product_id' => $product->id]) }}"
+                class="getquotesbutton button mt-2 smallscreen w-100 link text-center"
                 style="padding: 10px !important;font-size:15px;bottom: 0; position: fixed; z-index: 101001;">Add to
                 Cart</a>
         @endif
-      
     @else
         <button data-bs-toggle="modal" data-bs-target="#exampleModal"
             class="button mt-2 button-background smallscreen w-100"
@@ -413,7 +448,8 @@
                             </div>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('user-sendproductquery',['product_id' => $product->id,'seller_id' => $product->seller?->sellar_id]) }}">
+                            <form method="post"
+                                action="{{ route('user-sendproductquery', ['product_id' => $product->id, 'seller_id' => $product->seller?->sellar_id]) }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-6">
@@ -424,20 +460,22 @@
                                             </span>
                                             <input type="text" required
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                                class="form-control shadow-none" value="{{ Auth::user()?->first_name }}"  placeholder="First Name *" name="first_name"
-                                                aria-label="Username" aria-describedby="basic-addon1">
+                                                class="form-control shadow-none" value="{{ Auth::user()?->first_name }}"
+                                                placeholder="First Name *" name="first_name" aria-label="Username"
+                                                aria-describedby="basic-addon1">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-group mb-3 inquiryinput">
-                                            <span class="input-group-text" 
+                                            <span class="input-group-text"
                                                 style="background: transparent; border-radius: 0px">
                                                 <img src="{{ asset('logo/person.png') }}" alt="" height="18px">
                                             </span>
                                             <input type="text" required
                                                 style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                                class="form-control shadow-none" value="{{ Auth::user()?->last_name }}" placeholder="Last name *" name="last_name"
-                                                aria-label="Username" aria-describedby="basic-addon1">
+                                                class="form-control shadow-none" value="{{ Auth::user()?->last_name }}"
+                                                placeholder="Last name *" name="last_name" aria-label="Username"
+                                                aria-describedby="basic-addon1">
                                         </div>
                                     </div>
                                     <div class="input-group mb-3 inquiryinput">
@@ -447,7 +485,8 @@
                                         </span>
                                         <input type="email" required
                                             style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                            class="form-control shadow-none" value="{{ Auth::user()?->email }}" placeholder="E-mail *" aria-label="Username" name="email"
+                                            class="form-control shadow-none" value="{{ Auth::user()?->email }}"
+                                            placeholder="E-mail *" aria-label="Username" name="email"
                                             aria-describedby="basic-addon1">
                                     </div>
                                     <div class="input-group mb-3 inquiryinput">
@@ -457,8 +496,8 @@
                                         </span>
                                         <input type="tel" required value="{{ Auth::user()?->phone_no }}"
                                             style="border-left: 0px; border-radius: 0px; font-size: 13.5px; outline: none; box-shadow: none;"
-                                            class="form-control shadow-none" placeholder="Phone *" aria-label="Username" name="phone"
-                                            aria-describedby="basic-addon1">
+                                            class="form-control shadow-none" placeholder="Phone *" aria-label="Username"
+                                            name="phone" aria-describedby="basic-addon1">
                                     </div>
                                     <div class="input-group mb-3 ">
                                         <textarea class="form-control shadow-none"
@@ -467,8 +506,7 @@
 
                                     </div>
                                     <div class="input-group mb-3 ">
-                                        <button type="submit"
-                                            class="button btn mt-2 button-background w-100"
+                                        <button type="submit" class="button btn mt-2 button-background w-100"
                                             style="padding: 7px 10px!important;font-size:13px"> Send Query
                                         </button>
                                     </div>

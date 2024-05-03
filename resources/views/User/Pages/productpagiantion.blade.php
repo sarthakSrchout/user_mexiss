@@ -7,8 +7,19 @@
                     style="border-radius:0px;height:150px" alt="">
                 <h6 style="font-size: .85rem" class="mt-2">{{ $item->product_name }}</h6>
                 <h6 style="font-size: .75rem" class="mt-1">Rs. {{ $item->discounted_price }}</h6>
-                <img src="{{ asset('logo/stars.png') }}" alt=""><span
-                    style="font-size: .7rem" class="text-bold ms-1">(5)</span>
+                <div style="display: flex;align-items: center">
+                    <div class="star-ratings">
+                        <div class="fill-ratings" style="width: {{ $item->average_percentage }}%;">
+                          <span>★★★★★</span>
+                        </div>
+                        <div class="empty-ratings">
+                          <span>★★★★★</span>
+                        </div>
+                        
+                      </div>
+                      <span style="font-size: .8rem"
+                    class="text-bold ms-1">({{  $item->average_rating ?  $item->average_rating : 0 }})</span>
+                </div>
                 <div class="d-flex">
                     <a href="{{ route('user-productdetails',['product_id' => $item->id]) }}" class="button mt-2 button-background d-flex"
                         style="align-items:center;align-items: center;
@@ -43,6 +54,6 @@
 
 
 </style>
-<div class="pagination-container d-flex justify-content-center mt-4">
+<div class="pagination-container d-flex justify-content-center mt-4 mb-5 mb-md-0">
     {!! $product->links('pagination::bootstrap-4') !!}
 </div>

@@ -18,6 +18,7 @@ use App\Models\Product;
 use App\Models\ProductQueryBasedRequest;
 use App\Models\rating;
 use App\Models\subCategory;
+use App\Models\Testimonial;
 use App\Models\User;
 use App\Models\UserAddress;
 use App\Models\UserQuery;
@@ -39,39 +40,53 @@ class UserController extends Controller
         $this->BulksSMS = $BulksSMS;
         $this->uploadImage = $img;
     }
+    public function averagerating($q){
+        $q->load('ratings');
+        $q->average_rating = $q->ratings->avg('rating');
+        $q->average_percentage = ($q->ratings->avg('rating')/5) * 100;
+        unset($q->ratings);
+    }
+    public function ratingextradetails($q){
+        $q->load('ratings');
+        $q->no_of_people = $q->peoplerating();
+        $q->five_per = $q->fivepercentage();
+        $q->four_per = $q->fourpercentage();
+        $q->three_per = $q->threepercentage();
+        $q->two_per = $q->twopercentage();
+        $q->one_per = $q->onepercentage();
+        unset($q->ratings);
+    }
     public function homepage(Request $request)
     {
         // dd(isauth($request));
         // authcheck();
-        if($request->method() == 'POST'){
-            return redirect()->route('user-product',['search' => $request->search]);
+        if ($request->method() == 'POST') {
+            return redirect()->route('user-product', ['search' => $request->search]);
         }
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-        $data['outer'] = DB::table('outer_category')->where('status', '1')->orderBy('created_at')->limit(8)->get();
+        $data['outer'] = DB::table('outer_category')->where('status', '1')->inRandomOrder()->limit(8)->get();
         $data['category'] = DB::table('category')->where('status', '1')->inRandomOrder()->limit(8)->get();
 
         $data['queryproduct'] = Product::where([['status', '1'], ['product_type', '1']])->inRandomOrder()->limit(8)->get();
-        $data['product'] = Product::with('ratings')->where('status', '1')->inRandomOrder()->limit(8)->get();
+        $data['product'] = Product::with('ratings')->where('status', '1')->orderByDesc('created_at')->limit(8)->get();
+        $data['test'] = Testimonial::where('status', '1')->inRandomOrder()->limit(5)->get();
 
         $data['product']->each(function ($product) {
             if (is_string($product->product_images)) {
                 $product->product_images = explode(',', $product->product_images);
             }
-            // Ensure that the 'ratings' relationship is loaded before accessing it
-            $product->load('ratings');
-            $product->averageRating = $product->ratings->avg('rating');
-            unset($product->ratings);
+            $this->averagerating($product);
         });
 
-        // dd($data);
 
         $data['queryproduct']->map(function ($q) {
             if (is_string($q->product_images)) {
                 $q->product_images = explode(',', $q->product_images);
             }
+            $this->averagerating($q);
+
         });
-      
-        // dd($data);
+
         return view('User.Pages.homepage', $data);
     }
     public function product(Request $request)
@@ -82,6 +97,8 @@ class UserController extends Controller
             if (is_string($q->product_images)) {
                 $q->product_images = explode(',', $q->product_images);
             }
+            $this->averagerating($q);
+
         });
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
         $data['selected'] = [];
@@ -89,10 +106,12 @@ class UserController extends Controller
 
 
         $data['product'] = Product::where('status', '1')->orderByDesc('created_at')->paginate(8);
+        $data['productcount'] = Product::where('status', '1')->count();
         $data['product']->map(function ($q) {
             if (is_string($q->product_images)) {
                 $q->product_images = explode(',', $q->product_images);
             }
+            $this->averagerating($q);
         });
         // dd($data);
         return view('User.Pages.product', $data);
@@ -104,6 +123,8 @@ class UserController extends Controller
             if (is_string($q->product_images)) {
                 $q->product_images = explode(',', $q->product_images);
             }
+            $this->averagerating($q);
+
         });
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
 
@@ -115,6 +136,8 @@ class UserController extends Controller
                 if (is_string($q->product_images)) {
                     $q->product_images = explode(',', $q->product_images);
                 }
+                $this->averagerating($q);
+
             });
         } else if ($request->cat_id) {
             $data['selected'] = category::where('cid', $request->cat_id)->first();
@@ -123,6 +146,7 @@ class UserController extends Controller
                 if (is_string($q->product_images)) {
                     $q->product_images = explode(',', $q->product_images);
                 }
+                $this->averagerating($q);
             });
         } else if ($request->outer_id) {
             $data['selected'] = outerCategory::where('outCid', $request->outer_id)->first();
@@ -131,6 +155,8 @@ class UserController extends Controller
                 if (is_string($q->product_images)) {
                     $q->product_images = explode(',', $q->product_images);
                 }
+                $this->averagerating($q);
+
             });
         }
         // dd($data['cat']);
@@ -181,6 +207,8 @@ class UserController extends Controller
                 if (is_string($q->product_images)) {
                     $q->product_images = explode(',', $q->product_images);
                 }
+                $this->averagerating($q);
+
             });
         }
         return view('User.Pages.productpagiantion', $data)->render();
@@ -271,6 +299,8 @@ class UserController extends Controller
             if (is_string($q->product_images)) {
                 $q->product_images = explode(',', $q->product_images);
             }
+            $this->averagerating($q);
+
         });
         $data['product']['cart'] = 0;
         $ip = $request->ip();
@@ -284,6 +314,9 @@ class UserController extends Controller
             $data['product']['cart'] = 1;
         }
         $data['product']['product_image'] = explode(',', $data['product']->product_images);
+
+        $this->averagerating($data['product']);
+        $this->ratingextradetails($data['product']);
 
         return view('User.Pages.singleproduct', $data);
     }
@@ -304,6 +337,8 @@ class UserController extends Controller
                 if (is_string($q->product_images)) {
                     $q->product_images = explode(',', $q->product_images);
                 }
+                $this->averagerating($q);
+
             });
         }
         return view('User.Pages.productpagiantion', $data)->render();
@@ -318,6 +353,8 @@ class UserController extends Controller
             if (is_string($q->product_images)) {
                 $q->product_images = explode(',', $q->product_images);
             }
+            $this->averagerating($q);
+
         });
         if (!Auth::user()) {
             $data['cart'] = guestCart::with('item', 'coupon')->where('user_ip', $ip)->first();

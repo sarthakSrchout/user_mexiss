@@ -118,7 +118,6 @@
 
     </div>
     <div class="container-fluid mt-2"
-    
         style="border-top: .5px solid rgb(181, 181, 181);border-bottom: .5px solid rgb(181, 181, 181) ">
         @if ($cart && sizeof($cart->item) > 0)
             <div class="row">
@@ -158,9 +157,20 @@
                                                         {{ $item->discounted_price }} <del class="ms-2">Rs.
                                                             {{ $item->original_price }}</del></p>
                                                     <div class="d-flex mt-4" style="height: 5px;align-items:center">
-                                                        <img src="{{ asset('logo/stars.png') }}" style="margin-top:-13px"
-                                                            alt="">
-                                                        <p style="font-size: 13px" class="ms-2">(5)</p>
+                                                        <div style="display: flex;align-items: center">
+                                                            <div class="star-ratings">
+                                                                <div class="fill-ratings"
+                                                                    style="width: {{ $item->product->averagePercentage($item->product->id) }}%;">
+                                                                    <span>★★★★★</span>
+                                                                </div>
+                                                                <div class="empty-ratings">
+                                                                    <span>★★★★★</span>
+                                                                </div>
+
+                                                            </div>
+                                                            <span style="font-size: .8rem"
+                                                                class="text-bold ms-1">({{ $item->product->averageRating($item->product->id) ? $item->product->averageRating($item->product->id) : 0 }})</span>
+                                                        </div>
                                                     </div>
 
                                                     <p style="font-size: 13px;color:black" class="mt-2">Quantity</p>
@@ -304,7 +314,8 @@
                             padding: 12px 35px;
                             text-decoration: none;
                             color: white;
-                            font-weight: 600;">Start Shopping</a>
+                            font-weight: 600;">Start
+                        Shopping</a>
                 </div>
             </div>
         @endif

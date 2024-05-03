@@ -14,7 +14,38 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    {{-- //stars style --}}
+    <style>
+        .star-ratings {
+            unicode-bidi: bidi-override;
+            color: #dedede;
+            font-size: 18px;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
 
+        .star-ratings .fill-ratings {
+            color: #fec80a;
+            padding: 0;
+            position: absolute;
+            z-index: 1;
+            display: block;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .star-ratings .fill-ratings span {
+            display: inline-block;
+        }
+
+        .star-ratings .empty-ratings {
+            padding: 0;
+            display: block;
+            z-index: 0;
+        }
+    </style>
     <style>
         .border-warning-4x {
             border: 8px solid #ffc107 !important
@@ -470,6 +501,15 @@
                 $('.closebtn').prop('hidden', true);
                 $('.openbtn').prop('hidden', false);
             });
+        });
+    </script>
+    {{-- star js --}}
+    <script>
+        $(document).ready(function() {
+           
+            var star_rating_width = $('.fill-ratings span').width();
+          
+            $('.star-ratings').width(star_rating_width);
         });
     </script>
     @yield('script')

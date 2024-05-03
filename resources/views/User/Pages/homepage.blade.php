@@ -191,8 +191,6 @@
                 margin-top: 30%
             }
         }
-
-        
     </style>
     @include('User.bin.navBar.navBar')
     {{-- banner section --}}
@@ -221,7 +219,8 @@
                                 Machinery Solutions</h2>
                         </div>
 
-                        <a href="{{ route('user-product') }}" class="button mt-2 button-background " style="padding: 10px 20px!important">
+                        <a href="{{ route('user-product') }}" class="button mt-2 button-background "
+                            style="padding: 10px 20px!important">
                             Explore Now <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -2px" class="ms-1"
                                 width="17" height="17" fill="currentColor" class="bi bi-arrow-right"
                                 viewBox="0 0 16 16">
@@ -329,17 +328,16 @@
                     </div> --}}
                     @foreach ($outer as $index => $item)
                         {{-- {{ dd($item)}} --}}
-                        <div class="col-2 card-layout {{ $index >= 4 ? ' largescreen' : '' }}" >
-                           <a href="{{ route('user-categoryfilter',['outer_id' => $item->outCid]) }}" class="link">
-                            <div class="card border-0 shadow"
-                            style="height: 100px">
-                            <div class="card-body text-center">
-                                <img src="{{ $item->out_cat_image }}" class="card-img-top mb-2 mt-1 categoryimage"
-                                    alt="">
-                                <p class="mt-1 cattitle">{{ Str::limit($item->outer_Category_name, 15, '...') }}</p>
-                            </div>
-                        </div>
-                           </a>
+                        <div class="col-2 card-layout {{ $index >= 4 ? ' largescreen' : '' }}">
+                            <a href="{{ route('user-categoryfilter', ['outer_id' => $item->outCid]) }}" class="link">
+                                <div class="card border-0 shadow" style="height: 100px">
+                                    <div class="card-body text-center">
+                                        <img src="{{ $item->out_cat_image }}" class="card-img-top mb-2 mt-1 categoryimage"
+                                            alt="">
+                                        <p class="mt-1 cattitle">{{ Str::limit($item->outer_Category_name, 15, '...') }}</p>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     @endforeach
 
@@ -347,8 +345,8 @@
                         <a href="{{ route('user-shopbycategories') }}" class="link">
                             <div class="card border-0 shadow" style="height: 100px">
                                 <div class="card-body text-center">
-                                    <img src="{{ asset('logo/viewall.png') }}" class="card-img-top mb-2 mt-1 categoryarrowimage"
-                                        alt="">
+                                    <img src="{{ asset('logo/viewall.png') }}"
+                                        class="card-img-top mb-2 mt-1 categoryarrowimage" alt="">
                                     <p class="mt-2 cattitle"> View all Categories</p>
                                 </div>
                             </div>
@@ -366,32 +364,47 @@
         <h4 class="text-center" style="color: #FF4545">Products You May Like</h4>
         <div class="row mt-4">
             @foreach ($product as $item)
-            <div class="col-lg-3 col-6 mt-3 ">
-                <div class="card productCardData" style="border-radius: 0px">
-                    <div class="card-body">
-                        <img src="{{ $item->product_images[0] }}" class="card-img-top " style="border-radius:0px;height:250px"
-                            alt="">
-                        <h6 style="font-size: .85rem" class="mt-2">{{ $item->product_name }}</h6>
-                        <h6 style="font-size: .75rem" class="mt-1">Rs. {{ $item->discounted_price }}</h6>
-                        <img src="{{ asset('logo/stars.png') }}" alt=""><span style="font-size: .7rem"
-                            class="text-bold ms-1">(5)</span>
-                        <div class="d-flex">
-                            <a href="{{ route('user-productdetails',['product_id' => $item->id]) }}" class="button mt-2 button-background d-flex newbutton" style="">
-                                View Details
+                <div class="col-lg-3 col-6 mt-3 ">
+                    <div class="card productCardData" style="border-radius: 0px">
+                        <div class="card-body">
+                            <img src="{{ $item->product_images[0] }}" class="card-img-top "
+                                style="border-radius:0px;height:250px" alt="">
+                            <h6 style="font-size: .85rem" class="mt-2">{{ $item->product_name }}</h6>
+                            <h6 style="font-size: .75rem" class="mt-1">Rs. {{ $item->discounted_price }}</h6>
+                            <div style="display: flex;align-items: center">
+                                <div class="star-ratings">
+                                    <div class="fill-ratings" style="width: {{ $item->average_percentage }}%;">
+                                        <span>★★★★★</span>
+                                    </div>
+                                    <div class="empty-ratings">
+                                        <span>★★★★★</span>
+                                    </div>
 
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px" alt="">
-                            </a>
-                            <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2 newbutton">
-                                Contact Us
-                                <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px" alt="">
-                            </a>
+                                </div>
+                                <span style="font-size: .8rem"
+                                    class="text-bold ms-1">({{ $item->average_rating ? $item->average_rating : 0 }})</span>
+                            </div>
+                            <div class="d-flex">
+                                <a href="{{ route('user-productdetails', ['product_id' => $item->id]) }}"
+                                    class="button mt-2 button-background d-flex newbutton" style="">
+                                    View Details
 
+                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px"
+                                        alt="">
+                                </a>
+                                <a href="{{ route('user-contactus') }}"
+                                    class="button secondary-color  mt-2 ms-2 newbutton">
+                                    Contact Us
+                                    <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px"
+                                        alt="">
+                                </a>
+
+
+                            </div>
 
                         </div>
-
                     </div>
                 </div>
-            </div>
             @endforeach
 
         </div>
@@ -403,36 +416,52 @@
         <h4 class="text-center" style="color: #FF4545">Query Based Products</h4>
         <div class="row mt-4">
             @foreach ($queryproduct as $item)
-            <div class="col-lg-3 col-6 mt-3 ">
-                <div class="card productCardData" style="border-radius: 0px">
-                    <div class="card-body">
-                        <img src="{{ $item->product_images[0] }}" class="card-img-top " style="border-radius:0px;height:250px"
-                            alt="">
-                        <h6 style="font-size: .85rem" class="mt-2">{{ $item->product_name }}</h6>
-                        <h6 style="font-size: .75rem" class="mt-1">Rs. {{ $item->discounted_price }}</h6>
-                        <img src="{{ asset('logo/stars.png') }}" alt=""><span style="font-size: .7rem"
-                            class="text-bold ms-1">(5)</span>
-                        <div class="d-flex">
-                            <a href="{{ route('user-productdetails',['product_id' => $item->id]) }}" class="button mt-2 button-background d-flex newbutton" style="">
-                                View Details
+                <div class="col-lg-3 col-6 mt-3 ">
+                    <div class="card productCardData" style="border-radius: 0px">
+                        <div class="card-body">
+                            <img src="{{ $item->product_images[0] }}" class="card-img-top "
+                                style="border-radius:0px;height:250px" alt="">
+                            <h6 style="font-size: .85rem" class="mt-2">{{ $item->product_name }}</h6>
+                            <h6 style="font-size: .75rem" class="mt-1">Rs. {{ $item->discounted_price }}</h6>
+                            <div style="display: flex;align-items: center">
+                                <div class="star-ratings">
+                                    <div class="fill-ratings" style="width: {{ $item->average_percentage }}%;">
+                                        <span>★★★★★</span>
+                                    </div>
+                                    <div class="empty-ratings">
+                                        <span>★★★★★</span>
+                                    </div>
 
-                                <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px" alt="">
-                            </a>
-                            <a href="{{ route('user-contactus') }}" class="button secondary-color  mt-2 ms-2 newbutton">
-                                Contact Us
-                                <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px" alt="">
-                            </a>
+                                </div>
+                                <span style="font-size: .8rem"
+                                    class="text-bold ms-1">({{ $item->average_rating ? $item->average_rating : 0 }})</span>
+                            </div>
+                            <div class="d-flex">
+                                <a href="{{ route('user-productdetails', ['product_id' => $item->id]) }}"
+                                    class="button mt-2 button-background d-flex newbutton" style="">
+                                    View Details
 
+                                    <img src="{{ asset('logo/arrow-1.png') }}" class="ms-1" height="11px"
+                                        alt="">
+                                </a>
+                                <a href="{{ route('user-contactus') }}"
+                                    class="button secondary-color  mt-2 ms-2 newbutton">
+                                    Contact Us
+                                    <img src="{{ asset('logo/call.png') }}" class="ms-1" height="11px"
+                                        alt="">
+                                </a>
+
+
+                            </div>
 
                         </div>
-
                     </div>
                 </div>
-            </div>
             @endforeach
-         
+
         </div>
-        <h6 class="text-center  text-decoration-underline mt-3" ><a href="{{ route('user-product') }}" style="color: #FF4545">View All</a></h6>
+        <h6 class="text-center  text-decoration-underline mt-3"><a href="{{ route('user-product') }}"
+                style="color: #FF4545">View All</a></h6>
     </div>
     {{-- about us --}}
     <div class="container" style="margin-top: 7%">
@@ -540,22 +569,21 @@
                 </div>
             </div>
             @foreach ($category as $item)
-            <div class="col-lg-3 col-6  mb-3">
-                <div class="card-body categoryCard">
-                    <div style="width: 100%">
-                        <img src="{{ $item->cat_img }}" style="width: 100%" class="categoryImage"
-                            alt="">
-                        <a href="{{ route('user-shopbycategories') }}" style="text-decoration: none">
-                            <div class="categoryImageTitle ">
-                                <h6 style="font-size: 14px" class="text-light">{{ $item->category_name }}</h6>
-                                <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
-                                        class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
-                                        height="9px"></p>
-                            </div>
-                        </a>
+                <div class="col-lg-3 col-6  mb-3">
+                    <div class="card-body categoryCard">
+                        <div style="width: 100%">
+                            <img src="{{ $item->cat_img }}" style="width: 100%" class="categoryImage" alt="">
+                            <a href="{{ route('user-shopbycategories') }}" style="text-decoration: none">
+                                <div class="categoryImageTitle ">
+                                    <h6 style="font-size: 14px" class="text-light">{{ $item->category_name }}</h6>
+                                    <p style="font-size: 11px;color:rgb(204, 204, 204);margin-top:-5px">Learn More <img
+                                            class="ms-1" style="margin-top: -2px" src="{{ asset('logo/arrow.png') }}"
+                                            height="9px"></p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
 
 
@@ -652,25 +680,43 @@
                         alt="">
                 </div>
                 <div class="col-10 mx-auto">
-                    <div class="card shadow cardposition"
+                    <div class="card shadow cardposition slider"
                         style="    border-radius: 0px;border:0;
                             position: relative;
                             margin-top: 19%;
                             z-index: 1;">
-                        <div class="card-body " style="padding: 15px 40px">
-                            <img src="{{ asset('logo/stars.png') }}" alt="">
-                            <p style="font-size: 13px" class="mt-3">What stands out the most is their dedication to
-                                customer satisfaction. The team at ASI is not just a group of experts; they are genuine
-                                partners in our success. They have been responsive to our needs, quick to address any
-                                concerns, and consistently deliver on time.</p>
-                            <h6 style="font-size: 14px">Michale John</h6>
-                            <h6 class="mb-4" style="font-size: 14px;margin-top:-4px">Creative Lead, KOIL</h6>
+                       @foreach ($test as $item)
+                       <div class="card-body me-4" style="padding: 15px 45px">
+                        <div style="display: flex;align-items: center">
+                            <div >
+                                <img src="{{ $item->user_profile }}" style="    width: 50px;
+                                height: 50px;
+                                border-radius: 50%" class="img-fluid" alt="">
+                            </div>
+                            <div class="star-ratings ms-3">
+                                <div class="fill-ratings" style="width: {{ $item->rating }}%;">
+                                    <span>★★★★★</span>
+                                </div>
+                                <div class="empty-ratings">
+                                    <span>★★★★★</span>
+                                </div>
+
+                            </div>
                         </div>
+                        <p style="font-size: 13px" class="mt-3">{{ Str::limit($item->testimonial, 300, '...') }}</p>
+                        <h6 style="font-size: 14px">{{ $item->user_name }}</h6>
+                        <h6 class="mb-4" style="font-size: 14px;margin-top:-4px">{{ $item->user_role }}, {{ $item->user_job_at }}</h6>
                     </div>
+                       @endforeach
+                   
+                    </div>
+
+
                 </div>
+
             </div>
             <div class="col-12 col-lg-5 p-5 order-1 order-lg-2">
-                <h5 style="margin-top: 10%;color:#FF4545">What Our Clients Say About Us?</h5>
+                <h4 style="margin-top: 10%;color:#FF4545">What Our Clients Say About Us?</h4>
                 <p class="mt-3" style="font-size: 13px">Testimonials that Speak Louder Than Words: Our Clients Share
                     Their Success Stories.</p>
                 <img src="{{ asset('logo/test-1.png') }}" height="75px"
@@ -709,6 +755,30 @@
         </div>
 
     </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.slider').slick({
+                // Slick settings go here
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                adaptiveHeight: true,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                // Add more settings as needed
+            });
+        });
+    </script>
+
     {{-- footer section --}}
     @include('User.bin.footer.footer')
 @endsection

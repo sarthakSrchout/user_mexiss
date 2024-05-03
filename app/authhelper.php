@@ -13,10 +13,13 @@ if (!function_exists('authcheck')) {
 }
 if (!function_exists('cartvalue')) {
     function cartvalue(){
-        // dd("ASda");
+    
         if(Auth::user()){
             $value = Cart::where('user_id',Auth::user()->id)->first();
-            return $value->no_of_products;
+            if($value){
+                return $value->no_of_products ;
+            }
+            return 0;
         }
         else{
             $ip = request()->ip();

@@ -68,10 +68,17 @@
 
                     </a>
                     <p class="mt-3 ms-3" style="font-size: 14.5px;color:#ffffff;font-weight:600;flex:1">Products </p>
-                    <a href="">
-                        <img src="{{ asset('logo/search1.png') }}" alt="">
+                    <div class="col-6">
+                        <div class="input-group">
 
-                    </a>
+                            <input type="text" class="form-control shadow-none" value="{{ request()->search }}"
+                                aria-label="Text input with segmented dropdown button" id="search"
+                                placeholder="Enter Product/Service Name" style="border-radius: 0px;font-size:12px">
+                            <button id="searchbutton" class="btn homeparagraph text-light button-background"
+                                style="border-radius: 0px;" type="button">Search</button>
+
+                        </div>
+                    </div>
                     <a href="{{ route('user-cart') }}" class="ms-3 me-4">
                         <img src="{{ asset('logo/cart1.png') }}" alt="">
 
@@ -215,12 +222,14 @@
                                         href="">Clear</a>
                                 </div>
 
-                                <div class="price-range-slider mt-4">
-                                    <div id="slider-range" class="range-bar"></div>
-                                </div>
-                                <div class="mt-2 ms-5">
-                                    <input type="text" id="amount" readonly
-                                        style="border:0; color:#ff4545;border:none; font-weight:bold;width: -webkit-fill-available;">
+                                <div>
+                                    <div class="price-range-slider mt-4">
+                                        <div id="slider-range" class="range-bar"></div>
+                                    </div>
+                                    <div class="mt-2 ms-4">
+                                        <input type="text" id="amount" readonly disabled
+                                            style="border:0; color:#ff4545;border:none; font-weight:bold;width: -webkit-fill-available;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -232,8 +241,8 @@
                         <div class="d-flex largeflexscreen"
                             style="justify-content: space-between;font-size:13px;
                             align-items: center;">
-                            <div class="ms-5">{{ count($product) }} Items</div>
-                            <div c>
+                            <div class="ms-5">{{ $productcount }} Items</div>
+                            <div >
                                 Sort By:
                                 <select name="sortby" id="sortby" style="padding: 2px">
                                     <option value="" selected disabled>Sort By</option>
@@ -256,6 +265,20 @@
 
                 </div>
             </div>
+
+
+            <div class="largescreen" style="margin-top: 6%">
+                <hr>
+            </div>
+
+            @include('User.Pages.recommendation')
+
+            {{-- footer section --}}
+            <div class="largescreen">
+                @include('User.bin.footer.footer')
+
+            </div>
+            {{-- small screen --}}
             <nav class="navbar navbar-expand-lg bg-body-tertiary w-100 secondary-color p-0 shadow smallscreen"
                 id="navbar"
                 style="bottom: 0; position: fixed; z-index: 101001; background: #FF4545 !important;display:block">
@@ -279,33 +302,22 @@
 
             </nav>
             <div id="sortDiv" class="p-3"
-                style="display: none; position: fixed; bottom: 45px; left: 0; width: 100%; background: #fff; border-top: 1px solid #ccc;">
+                style="display: none; position: fixed; bottom: 45px; left: 0; width: 100%; background: #fff; border-top: 1px solid #ccc;z-index:9898989898">
                 <!-- Add your sorting options here -->
                 <ul style="list-style: none">
                     <li style="color: grey;font-weight:600">Sort By</li>
                     <hr>
-                    <li style="font-size: 13px" class="mt-2">What's New</li>
+                    <li style="font-size: 13px" class="mt-2">Reset</li>
                     <li style="font-size: 13px" class="mt-2">Price- High to Low</li>
                     <li style="font-size: 13px" class="mt-2">Price- Low to High</li>
-                    <li style="font-size: 13px" class="mt-2">Popularity</li>
-                    <li style="font-size: 13px" class="mt-2">Customer Ratings</li>
+                    <li style="font-size: 13px" class="mt-2">Z to A</li>
+                    <li style="font-size: 13px" class="mt-2">A to Z</li>
+                    <li style="font-size: 13px" class="mt-2">Newest</li>
+                    <li style="font-size: 13px" class="mt-2">Oldest</li>
                     <!-- Add more options as needed -->
                 </ul>
             </div>
         </div>
-
-        <div class="largescreen" style="margin-top: 6%">
-            <hr>
-        </div>
-
-        @include('User.Pages.recommendation')
-
-        {{-- footer section --}}
-        <div class="largescreen">
-            @include('User.bin.footer.footer')
-
-        </div>
-
         {{-- FilterScreen --}}
         <div id="filterscreen" style="display: none;width: 100%">
             <div class="container-fluid">
@@ -465,8 +477,6 @@
             function toggleSort() {
                 var sortDiv = document.getElementById('sortDiv');
                 sortDiv.style.display = sortDiv.style.display === 'none' ? 'block' : 'none';
-
-
             }
         </script>
         <script>
@@ -504,7 +514,6 @@
             });
 
             $("#sortby").change(function() {
-
                 fetchFilteredData();
             });
 

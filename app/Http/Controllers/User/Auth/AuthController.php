@@ -103,6 +103,7 @@ class AuthController extends Controller
 
         if ($otpget && ($otpget['otp'] == $otp)) {
             Auth::login($user);
+
             $this->cart->guestcarttocart($request);
             return response()->json(['status' => 1, 'msg' => 'User Registered!']);
         } else {
