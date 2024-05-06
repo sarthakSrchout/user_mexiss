@@ -85,7 +85,7 @@
                   <a href="{{ route('user-categoryfilter',['cat_id' => $item->cid]) }}" style="text-decoration: none">
                     <div class="card-body categoryCard">
                         <div style="width: 100%">
-                            <img src="{{ asset('logo/induction.png') }}" style="width: 100%" class="categoryImage"
+                            <img src="{{ $item ->cat_img}}" style="width: 100%" class="categoryImage"
                                 alt="">
                             <div class="categoryImageTitle " style="padding: 8px 13px">
                                 <h6 style="font-size: 14px" class="text-light">{{ $item->category_name }}</h6>

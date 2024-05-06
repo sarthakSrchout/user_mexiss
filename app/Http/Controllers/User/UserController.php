@@ -17,6 +17,7 @@ use App\Models\outerCategory;
 use App\Models\Product;
 use App\Models\ProductQueryBasedRequest;
 use App\Models\rating;
+use App\Models\RecentlyViewed;
 use App\Models\subCategory;
 use App\Models\Testimonial;
 use App\Models\User;
@@ -98,7 +99,13 @@ class UserController extends Controller
                 $q->product_images = explode(',', $q->product_images);
             }
             $this->averagerating($q);
-
+        });
+        $data['recently'] = RecentlyViewed::with('product')->where('user_ip', $request->ip())->orderByDesc('updated_at')->limit(12)->get();
+        $data['recently']->map(function ($q) {
+            if (is_string($q->product->product_images)) {
+                $q->product->product_images = explode(',', $q->product->product_images);
+            }
+            $this->averagerating($q->product);
         });
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
         $data['selected'] = [];
@@ -124,10 +131,18 @@ class UserController extends Controller
                 $q->product_images = explode(',', $q->product_images);
             }
             $this->averagerating($q);
-
+        });
+        $data['recently'] = RecentlyViewed::with('product')->where('user_ip', $request->ip())->orderByDesc('updated_at')->limit(12)->get();
+        $data['recently']->map(function ($q) {
+            if (is_string($q->product->product_images)) {
+                $q->product->product_images = explode(',', $q->product->product_images);
+            }
+            $this->averagerating($q->product);
         });
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
+        $data['productcount'] = Product::where('status', '1')->count();
 
+        //filter code
         $data['cat'] = outerCategory::with('activecategory', 'activecategory.activesubcategory')->where('status', '1')->get();
         if ($request->sub_id) {
             $data['selected'] = subCategory::where('scid', $request->sub_id)->first();
@@ -302,6 +317,14 @@ class UserController extends Controller
             $this->averagerating($q);
 
         });
+        $data['recently'] = RecentlyViewed::with('product')->where('user_ip', $request->ip())->orderByDesc('updated_at')->limit(12)->get();
+        $data['recently']->map(function ($q) {
+            if (is_string($q->product->product_images)) {
+                $q->product->product_images = explode(',', $q->product->product_images);
+            }
+            $this->averagerating($q->product);
+
+        });
         $data['product']['cart'] = 0;
         $ip = $request->ip();
         $gc = guestCart::where('user_ip', $ip)->first();
@@ -318,6 +341,18 @@ class UserController extends Controller
         $this->averagerating($data['product']);
         $this->ratingextradetails($data['product']);
 
+        $recently = RecentlyViewed::where([['user_ip',$request->ip()],['product_id',$request->product_id]])->first();
+        if($recently){
+            $recently->updated_at = now();
+            $recently->save();
+        }
+        else{
+            $recently = new RecentlyViewed();
+            $recently->user_ip = $request->ip();
+            $recently->product_id = $request->product_id;
+            $recently->save();
+        }
+        // dd($data);
         return view('User.Pages.singleproduct', $data);
     }
     public function productsearch(Request $request)
@@ -354,6 +389,14 @@ class UserController extends Controller
                 $q->product_images = explode(',', $q->product_images);
             }
             $this->averagerating($q);
+
+        });
+        $data['recently'] = RecentlyViewed::with('product')->where('user_ip', $request->ip())->orderByDesc('updated_at')->limit(12)->get();
+        $data['recently']->map(function ($q) {
+            if (is_string($q->product->product_images)) {
+                $q->product->product_images = explode(',', $q->product->product_images);
+            }
+            $this->averagerating($q->product);
 
         });
         if (!Auth::user()) {
@@ -649,5 +692,10 @@ class UserController extends Controller
         $data['ordervalue'] = $request->order;
         $data['timevalue'] = $request->time;
         return view('User.Pages.myoorders', $data)->with('success_response', 'Filter Applied!');
+    }
+
+    public function recentlyviewed(Request $request){
+
+        return redirect()->back();
     }
 }

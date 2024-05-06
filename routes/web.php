@@ -41,6 +41,7 @@ Route::match(['post', 'get'], '/user/myorrders/cancelorder', [OrderController::c
 Route::match(['post', 'get'], '/user/myorrders/rating', [OrderController::class, 'rating'])->name('user-order-rating')->middleware('userauth');
 Route::match(['post', 'get'], '/user/myorrders/trackorder', [OrderController::class, 'trackorder'])->name('user-order-trackorder')->middleware('userauth');
 
+Route::match(['post', 'get'], '/user/recentlyviewed', [UserController::class, 'recentlyviewed'])->name('user-recentlyviewed');
 
 
 //guest cart

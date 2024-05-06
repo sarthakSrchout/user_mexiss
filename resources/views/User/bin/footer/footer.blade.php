@@ -7,7 +7,6 @@
                 <img src="{{ asset('logo/logo.png') }}" height="30px" alt="">
             </a>
             <p class="text-light" style="font-size: 15px">MEXXISS TECHNOLOGIES PRIVATE LIMITED</p>
-            <p class="text-light" style="font-size: 12px;">Copyright © 2023, All Right Reserved
             </p>
         </div>
 
@@ -33,9 +32,9 @@
                         style="font-size: 13px;color:grey">FAQs</a></li>
             </ul>
         </div>
-        <div class="row p-0">
+        <div class="row p-0 smallflexscreen">
 
-            <div class="col-6 mb-3 mt-0 mt-lg-5 smallscreen">
+            <div class="col-6 mb-3 mt-0 mt-lg-5">
                 <h5 class="text-light smallscreenffootertext" >Company</h5>
                 <ul class="nav flex-column mt-3">
                     <li class="nav-item mb-2"><a href="{{ route('user-aboutus') }}" class="nav-link p-0 "
@@ -47,7 +46,7 @@
                 </ul>
             </div>
 
-            <div class="col-6 mb-3 mt-0 mt-lg-5 smallscreen">
+            <div class="col-6 mb-3 mt-0 mt-lg-5">
                 <h5 class="text-light smallscreenffootertext" >Service and Support</h5>
                 <ul class="nav flex-column mt-3">
                 
@@ -67,7 +66,10 @@
             </ul>
         </div>
 
+        <div class="row p-0">
+            <p class="text-light" style="font-size: 15px;">Copyright © 2023, All Right Reserved
 
+        </div>
 
     </footer>
     {{-- <p>Copyright © 2023, All Right Reserved</p> --}}

@@ -182,8 +182,8 @@
                                             </div>
                                             <div class="d-flex mb-1" style="align-items: center">
                                                 <div style="font-size: 13px">4</div>
-                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
-                                                    alt="">
+                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2"
+                                                    height="13px" alt="">
                                                 <div
                                                     style="height: 5px;
                                                 background: #E0E0E0;
@@ -199,8 +199,8 @@
                                             </div>
                                             <div class="d-flex mb-1" style="align-items: center">
                                                 <div style="font-size: 13px">3</div>
-                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
-                                                    alt="">
+                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2"
+                                                    height="13px" alt="">
                                                 <div
                                                     style="height: 5px;
                                                 background: #E0E0E0;
@@ -216,8 +216,8 @@
                                             </div>
                                             <div class="d-flex mb-1" style="align-items: center">
                                                 <div style="font-size: 13px">2</div>
-                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
-                                                    alt="">
+                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2"
+                                                    height="13px" alt="">
                                                 <div
                                                     style="height: 5px;
                                                 background: #E0E0E0;
@@ -233,8 +233,8 @@
                                             </div>
                                             <div class="d-flex mb-1" style="align-items: center">
                                                 <div style="font-size: 13px">1</div>
-                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2" height="13px"
-                                                    alt="">
+                                                <img src="{{ asset('logo/star-1.png') }}" class="ms-1 me-2"
+                                                    height="13px" alt="">
                                                 <div
                                                     style="height: 5px;
                                                 background: #E0E0E0;
@@ -249,7 +249,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
                             </div>
@@ -289,7 +289,14 @@
             <div class="col-12 col-lg-6">
                 <h4>{{ $product->product_name }}</h4>
                 <p style="font-size: 13px;color:#FF4545;font-weight:500" class="mt-3">Description</p>
-                <p style="font-size: 13px;color:black;margin-top:-13px">{{ $product->description }}/p>
+                <p id="description-text" style="font-size: 11px;color:black;">
+                    {{ $product->description }}
+                </p>
+                <div id="read-more-btn" class="mb-3"
+                    style="display: none;border:none;color:#FF4545;background: transparent;font-size:12px;margin-top: -13px!important;">
+                    Read More</div>
+
+
                 <p style="font-size: 13px;color:black;margin-top:-13px">Manufacturer : {{ $product->manufacturer }}</p>
                 <p style="font-size: 13px;color:black;margin-top:-13px">Condition : {{ $product->pcondition }}</p>
                 <div class="d-flex mt-4" style="height: 5px;align-items:center">
@@ -311,8 +318,9 @@
                         {{ $product->original_price }}</del></h6>
                 @if ($product->product_type == '1')
                     <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        class="getquotesbutton largescreen link" style="text-decoration: none;background: #FF4545">Get
-                        Quote</a>
+                        class="getquotesbutton largescreen link" style="text-decoration: none;">Get
+                        Quotes <img class="ms-2" src="{{ asset('logo/call.png') }}" height="15px"
+                            alt=""></a>
                 @else
                     @if ($product->product_quantity == 0)
                         <h2 style="font-size: 17px;color:#FF4545;font-weight:500" class="mt-3 text-decoration-underline">
@@ -326,9 +334,8 @@
                     @endif
                 @endif
                 <p style="font-size: 13px;color:#FF4545;font-weight:500" class="mt-3">Specification</p>
-                <p style="font-size: 13px;color:black;margin-top:-13px">100% Original Products</p>
-                <p style="font-size: 13px;color:black;margin-top:-13px">Pay on delivery might be available</p>
-                <p style="font-size: 13px;color:black;margin-top:-13px">Easy 14 days returns and exchanges</p>
+                <span style="font-size: 13px;color:black;margin-top:-13px">{!! $product->product_specification !!}</span>
+               
                 <div class="row mt-5">
                     @if ($product->seller)
                         <div class="col-12">
@@ -337,16 +344,20 @@
                                     <span class="ms-2">SELLER</span>
                                 </div>
                                 <div class="card-body p-4">
-                                    <h6 style="font-size: 14px;color:#FF4545">{{ $product->seller->business_name ? $product->seller->business_name :  $product->seller->name}}</h6>
+                                    <h6 style="font-size: 14px;color:#FF4545">
+                                        {{ $product->seller->business_name ? $product->seller->business_name : $product->seller->name }}
+                                    </h6>
                                     <h6 style="font-size: 14px;color:#000000;font-weight:400" class="mt-2">
-                                        {{ $product->seller?->business_state ?  $product->seller?->business_state :  $product->seller?->bussiness_city }},
+                                        {{ $product->seller?->business_state ? $product->seller?->business_state : $product->seller?->bussiness_city }},
                                         {{ $product->seller?->country?->country_name }}
                                     </h6>
                                     <h6 style="font-size: 14px;color:#000000" class="mt-2 mb-3">Registered since :
                                         {{ $product->seller->created_at->format('Y') }}</h6>
                                     <button data-bs-toggle="modal" data-bs-target="#exampleModal"
                                         class="button mt-2 button-background "
-                                        style="padding: 7px 10px!important;font-size:10.2px"> Request for Callback
+                                        style="padding: 7px 10px!important;font-size:10.2px;display: flex;align-items: center"><img
+                                            class="me-2" src="{{ asset('logo/call.png') }}" height="15px"
+                                            alt=""> Request for Callback
                                     </button>
                                 </div>
                             </div>
@@ -364,7 +375,8 @@
                                     @if (sizeof($product->technical) > 0)
                                         @foreach ($product->technical as $item)
                                             <li class="list-group-item d-flex">
-                                                <h6 style="font-size:12px">{{ $item->label }}:</h6>
+                                                <h6 style="font-size:12px" class="text-bold">{{ $item->label }}:</h6>
+                                                <h6 style="font-size:12px" class="text-bold">{{ $item->label }}:</h6>
                                                 <h6 style="font-size:12px;font-weight:400" class="ms-1">
                                                     {{ $item->value }}
                                                 </h6>
@@ -405,10 +417,9 @@
                 Cart</a>
         @endif
     @else
-        <button data-bs-toggle="modal" data-bs-target="#exampleModal"
-            class="button mt-2 button-background smallscreen w-100"
-            style="padding: 10px !important;font-size:15px;bottom: 0; position: fixed; z-index: 101001; background: #FF4545 !important">
-            Get Quotes
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="getquotesbutton mt-2 smallscreen w-100"
+            style="padding: 10px !important;font-size:15px;bottom: 0; position: fixed; z-index: 101001;">
+            Get Quotes <img class="ms-2" src="{{ asset('logo/call.png') }}" height="15px" alt="">
         </button>
     @endif
 
@@ -424,7 +435,7 @@
         style="z-index: 999999999999999999;">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content" style="border-radius:0px;">
-                <div class="row">
+                <div class="row" style="--bs-gutter-x:0">
                     <div class="col-lg-3 col-12">
                         <img style="height: 100%" src="{{ asset('logo/modalimage.png') }}" class="img-fluid largescreen"
                             alt="">
@@ -543,4 +554,36 @@
             });
         });
     </script>
+
+    {{-- //read more script --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var description = document.getElementById("description-text");
+        var descriptionText = description.textContent.trim();
+        var descriptionWords = descriptionText.split(" ");
+        var maxLength = 100;
+
+        if (descriptionWords.length > maxLength) {
+            var truncatedText = descriptionWords.slice(0, maxLength).join(" ");
+            var remainingText = descriptionWords.slice(maxLength).join(" ");
+
+            description.innerHTML = truncatedText +
+                '<span id="remaining-text" style="display: none;font-size:11px;color:black">' +
+                remainingText + '</span>';
+            document.getElementById("read-more-btn").style.display = "block";
+        }
+
+        document.getElementById("read-more-btn").addEventListener("click", function() {
+            var remainingText = document.getElementById("remaining-text");
+            if (remainingText.style.display === "none") {
+                remainingText.style.display = "block";
+                document.getElementById("read-more-btn").textContent = "Read Less";
+            } else {
+                remainingText.style.display = "none";
+                document.getElementById("read-more-btn").textContent = "Read More";
+            }
+        });
+    });
+</script>
+
 @endsection

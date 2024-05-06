@@ -77,7 +77,7 @@
 
             .corevalue2image {
                 margin: 0 auto;
-                height: 180px
+                height: 250px
             }
 
             .cardposition {
@@ -100,6 +100,17 @@
                 margin-top: 10%
             }
 
+            .clientimagewidth {
+                width: 70%
+            }
+
+            .clientwidth {
+                width: 70%
+            }
+            .corereddiv {
+               display: none
+            }
+
         }
 
         /* Large devices (laptops/desktops, 992px and up) */
@@ -109,6 +120,7 @@
                 align-items: auto;
                 display: auto;
                 flex-direction: auto;
+                margin-top: 3%;
             }
 
             .machinery {
@@ -161,19 +173,19 @@
             .corevalue2 {
                 margin: 0 auto;
                 display: flex;
-                margin-left: 17%;
+                margin-left: 35%;
                 position: relative;
-                margin-top: -29%;
+                margin-top: -35%;
             }
 
             .corevalue1image {
                 margin: 0 auto;
-                height: 450px
+                height: 400px
             }
 
             .corevalue2image {
                 margin: 0 auto;
-                height: 200px
+                height: 270px
             }
 
             .margincolorbottom {
@@ -189,6 +201,20 @@
 
             .margintopform {
                 margin-top: 30%
+            }
+
+            .clientwidth {
+                width: 60%
+            }
+
+            .corereddiv {
+                width: 100%;
+                height: 225px;
+                position: relative;
+                margin-left: 10px;
+                margin-bottom: 10px;
+                border-bottom: 10px solid red;
+                border-left: 10px solid red;
             }
         }
     </style>
@@ -484,8 +510,11 @@
                     industry.</div>
                 <div class="mt-4">
                     <a href="{{ route('user-aboutus') }}" class="button button-background mt-2"
-                        style="padding: 8px 20px!important"> Read
-                        More
+                        style="padding: 8px 20px!important;align-items: center;
+                        display: flex;
+                        width: fit-content;">
+                        Read
+                        More <img class="ms-2" src="{{ asset('logo/arrow.png') }}" alt="">
                     </a>
                 </div>
             </div>
@@ -495,11 +524,11 @@
     <div class="container-fluid p-0 " style="margin-top: 7%;background:#263238">
         <div class="row" style="margin-right: 0px">
             <div class="col-12 col-lg-8 whyuspaading">
-                <h4 class="text-light ms-lg-4 ms-2 mb-4">Why Choose Us?</h4>
+                <h4 class="text-light ms-lg-3 ms-2 mb-4">Why Choose Us?</h4>
                 <div class="row">
                     <div class="col-6 col-lg-5 me-lg-5">
                         <div class="card whyuscard">
-                            <div class="card-body p-lg-4 p-2">
+                            <div class="card-body p-lg-3 p-2">
                                 <img src="{{ asset('logo/star.png') }}" height="30px" alt="">
                                 <h6 class="text-light mt-2">Industry Expertise</h6>
                                 <p class="mt-3 w-100" style="color: #d4d4d4;font-size:11.5px">With 5 years of experience,
@@ -511,7 +540,7 @@
                     </div>
                     <div class="col-6  col-lg-5 me-lg-5">
                         <div class="card whyuscard">
-                            <div class="card-body p-lg-4 p-2">
+                            <div class="card-body p-lg-3 p-2">
                                 <img src="{{ asset('logo/quality.png') }}" height="23px" alt="">
                                 <h6 class="text-light mt-2">Quality Assurance</h6>
                                 <p class="mt-3" style="color: #d4d4d4;font-size:11.5px">At STEELVISTA, quality is
@@ -527,7 +556,7 @@
                 <div class="row">
                     <div class="col-lg-5 col-6 me-lg-5">
                         <div class="card whyuscard">
-                            <div class="card-body p-lg-4 p-2">
+                            <div class="card-body p-lg-3 p-2">
                                 <img src="{{ asset('logo/truck.png') }}" height="23px" alt="">
                                 <h6 class="text-light mt-2">Timely Delivery</h6>
                                 <p class="mt-3" style="color: #d4d4d4;font-size:11.5px">We understand the importance of
@@ -538,7 +567,7 @@
                     </div>
                     <div class="col-lg-5 col-6 me-lg-5">
                         <div class="card whyuscard">
-                            <div class="card-body p-lg-4 p-2">
+                            <div class="card-body p-lg-3 p-2">
                                 <img src="{{ asset('logo/track.png') }}" height="25px" alt="">
                                 <h6 class="text-light mt-2">Proven Track Record</h6>
                                 <p class="mt-3" style="color: #d4d4d4;font-size:11.5px">Over the years, we have
@@ -597,6 +626,15 @@
 
         </a>
     </div>
+    <style>
+        .cardshadow {
+            transition: box-shadow 0.3s;
+        }
+
+        .cardshadow:hover {
+            box-shadow: 5px 4px 50px rgba(0, 0, 0, 0.1);
+        }
+    </style>
     {{-- our core values --}}
     <div class="container" style="margin-top: 7%">
         <div class="row" style="padding:0px 20px">
@@ -605,7 +643,7 @@
                 <p class="mt-4 " style="font-size: 15px">Our mission is simple: to provide our clients with the highest
                     quality steel products and machinery, backed by unparalleled service. </p>
 
-                <div class="card shadow mt-5" style="border: 0">
+                <div class="card cardshadow mt-5" style="border: 0">
                     <div class="card-body">
                         <div class="d-flex">
                             <div style="align-items: center;display:flex" class="ms-3"><img
@@ -618,7 +656,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card shadow mt-3" style="border: 0">
+                <div class="card cardshadow mt-3" style="border: 0">
                     <div class="card-body">
                         <div class="d-flex">
                             <div style="align-items: center;display:flex" class="ms-3"><img
@@ -631,7 +669,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card shadow mt-3" style="border: 0">
+                <div class="card cardshadow mt-3" style="border: 0">
                     <div class="card-body">
                         <div class="d-flex">
                             <div style="align-items: center;display:flex" class="ms-3"><img
@@ -645,17 +683,19 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-12 col-lg-6 order-1 order-lg-2">
                 <div style="margin-left: 10%">
                     <div style="margin: 0 auto;width:100%;display:flex">
                         <img src="{{ asset('logo/corevalue-1.png') }}" class="corevalue1image" style=""
                             alt="">
+                        <div style="" class="corereddiv"></div>
                     </div>
                     <div style="" class="corevalue2">
                         <img src="{{ asset('logo/corevalue-2.png') }}" class="corevalue2image" alt="">
                     </div>
-                    <div class="card shadow w-75 w-lg-50"
-                        style="border: 0;width:50%;position: relative;
+                    <div class="card shadow clientwidth"
+                        style="border: 0;position: relative;
                     margin-top: -14%;
                     margin-left: 12%;">
                         <div class="card-body d-flex align-items-center">
@@ -685,30 +725,34 @@
                             position: relative;
                             margin-top: 19%;
                             z-index: 1;">
-                       @foreach ($test as $item)
-                       <div class="card-body me-4" style="padding: 15px 45px">
-                        <div style="display: flex;align-items: center">
-                            <div >
-                                <img src="{{ $item->user_profile }}" style="    width: 50px;
+                        @foreach ($test as $item)
+                            <div class="card-body me-4" style="padding: 15px 45px">
+                                <div style="display: flex;align-items: center">
+                                    <div>
+                                        <img src="{{ $item->user_profile }}"
+                                            style="    width: 50px;
                                 height: 50px;
-                                border-radius: 50%" class="img-fluid" alt="">
-                            </div>
-                            <div class="star-ratings ms-3">
-                                <div class="fill-ratings" style="width: {{ $item->rating }}%;">
-                                    <span>★★★★★</span>
-                                </div>
-                                <div class="empty-ratings">
-                                    <span>★★★★★</span>
-                                </div>
+                                border-radius: 50%"
+                                            class="img-fluid" alt="">
+                                    </div>
+                                    <div class="star-ratings ms-3">
+                                        <div class="fill-ratings" style="width: {{ $item->rating }}%;">
+                                            <span>★★★★★</span>
+                                        </div>
+                                        <div class="empty-ratings">
+                                            <span>★★★★★</span>
+                                        </div>
 
+                                    </div>
+                                </div>
+                                <p style="font-size: 13px" class="mt-3">
+                                    {{ Str::limit($item->testimonial, 300, '...') }}</p>
+                                <h6 style="font-size: 14px">{{ $item->user_name }}</h6>
+                                <h6 class="mb-4" style="font-size: 14px;margin-top:-4px">{{ $item->user_role }},
+                                    {{ $item->user_job_at }}</h6>
                             </div>
-                        </div>
-                        <p style="font-size: 13px" class="mt-3">{{ Str::limit($item->testimonial, 300, '...') }}</p>
-                        <h6 style="font-size: 14px">{{ $item->user_name }}</h6>
-                        <h6 class="mb-4" style="font-size: 14px;margin-top:-4px">{{ $item->user_role }}, {{ $item->user_job_at }}</h6>
-                    </div>
-                       @endforeach
-                   
+                        @endforeach
+
                     </div>
 
 
@@ -731,14 +775,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5 col-12 mx-auto">
-                        <h3 class="" style="margin-top: 14%;color:#FF4545">Committed to Value, Committed to you.
+                        <h3 class="" style="margin-top: 16%;color:#FF4545">Committed to Value, Committed to you.
                         </h3>
                         <p class="mt-4 text-light">Feel free to get in touch with us anytime; we're here to answer your
                             questions, address your needs, and assist you in any way we can.</p>
                     </div>
                     <div class="col-12 col-lg-5 mx-auto">
                         <form action="" method="post" class="margintopform" style="">
-                            <div class="input-group mb-3" style="height: 45px;margin-top: -10px;">
+                            <div class="input-group mb-3" style="height: 50px;margin-top: -10px;">
 
                                 <input type="text" class="form-control shadow-none"
                                     aria-label="Text input with segmented dropdown button" placeholder="Enter Your Email"

@@ -409,6 +409,12 @@
             text-decoration: none;
             color: black
         }
+        a:hover{
+            color: white;
+        }
+        button:hover{
+            color: white;
+        }
     </style>
 
     <div id="overlay"></div>
