@@ -289,11 +289,11 @@
             <div class="col-12 col-lg-6">
                 <h4>{{ $product->product_name }}</h4>
                 <p style="font-size: 13px;color:#FF4545;font-weight:500" class="mt-3">Description</p>
-                <p id="description-text" style="font-size: 11px;color:black;">
+                <p id="description-text" style="font-size: 11px;color:black;width:500px;word-wrap: break-word;">
                     {{ $product->description }}
                 </p>
                 <div id="read-more-btn" class="mb-3"
-                    style="display: none;border:none;color:#FF4545;background: transparent;font-size:12px;margin-top: -13px!important;">
+                    style="display: none;border:none;color:#FF4545;background: transparent;font-size:12px;margin-top: -13px!important;cursor: pointer;">
                     Read More</div>
 
 
@@ -556,34 +556,33 @@
     </script>
 
     {{-- //read more script --}}
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var description = document.getElementById("description-text");
-        var descriptionText = description.textContent.trim();
-        var descriptionWords = descriptionText.split(" ");
-        var maxLength = 100;
-
-        if (descriptionWords.length > maxLength) {
-            var truncatedText = descriptionWords.slice(0, maxLength).join(" ");
-            var remainingText = descriptionWords.slice(maxLength).join(" ");
-
-            description.innerHTML = truncatedText +
-                '<span id="remaining-text" style="display: none;font-size:11px;color:black">' +
-                remainingText + '</span>';
-            document.getElementById("read-more-btn").style.display = "block";
-        }
-
-        document.getElementById("read-more-btn").addEventListener("click", function() {
-            var remainingText = document.getElementById("remaining-text");
-            if (remainingText.style.display === "none") {
-                remainingText.style.display = "block";
-                document.getElementById("read-more-btn").textContent = "Read Less";
-            } else {
-                remainingText.style.display = "none";
-                document.getElementById("read-more-btn").textContent = "Read More";
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var description = document.getElementById("description-text");
+            var descriptionText = description.textContent.trim();
+            var maxLength = 450;
+    
+            if (descriptionText.length > maxLength) {
+                var truncatedText = descriptionText.slice(0, maxLength);
+                var remainingText = descriptionText.slice(maxLength);
+    
+                description.innerHTML = truncatedText +
+                    '<span id="remaining-text" style="display: none;font-size:11px;color:black">' +
+                    remainingText + '</span>';
+                document.getElementById("read-more-btn").style.display = "block";
             }
+    
+            document.getElementById("read-more-btn").addEventListener("click", function() {
+                var remainingText = document.getElementById("remaining-text");
+                if (remainingText.style.display === "none") {
+                    remainingText.style.display = "block";
+                    document.getElementById("read-more-btn").textContent = "Read Less";
+                } else {
+                    remainingText.style.display = "none";
+                    document.getElementById("read-more-btn").textContent = "Read More";
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 @endsection
