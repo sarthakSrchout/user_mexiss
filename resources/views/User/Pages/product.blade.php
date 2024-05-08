@@ -68,7 +68,7 @@
 
                     </a>
                     <p class="mt-3 ms-3" style="font-size: 14.5px;color:#ffffff;font-weight:600;flex:1">Products </p>
-                    <div class="col-6">
+                    {{-- <div class="col-6">
                         <div class="input-group">
 
                             <input type="text" class="form-control shadow-none" value="{{ request()->search }}"
@@ -78,7 +78,7 @@
                                 style="border-radius: 0px;" type="button">Search</button>
 
                         </div>
-                    </div>
+                    </div> --}}
                     <a href="{{ route('user-cart') }}" class="ms-3 me-4">
                         <img src="{{ asset('logo/cart1.png') }}" alt="">
 
@@ -241,8 +241,8 @@
                         <div class="d-flex largeflexscreen"
                             style="justify-content: space-between;font-size:13px;
                             align-items: center;">
-                            <div class="ms-5">{{ $productcount }} Items</div>
-                            <div >
+                            <div class="ms-5" id="productcount">{{ $productcount }} Items</div>
+                            <div>
                                 Sort By:
                                 <select name="sortby" id="sortby" style="padding: 2px">
                                     <option value="" selected disabled>Sort By</option>
@@ -523,7 +523,7 @@
                 var maxPrice = $("#slider-range").slider("values", 1);
                 var sortBy = $("#sortby").val();
                 // Make AJAX request to fetch filtered data
-                console.log(sortBy)
+                // console.log(sortBy)
                 $.ajax({
                     url: "{{ route('user-productfilter') }}",
                     method: "GET",
@@ -554,9 +554,9 @@
                         url: "{{ route('product-search') }}" + "/?page=" + page + "&search=" +
                             search,
                         success: function(data) {
-                            // console.log(data)
                             $('#paginationdata').html('');
                             $('#paginationdata').html(data);
+
                         }
                     })
                 }
@@ -564,6 +564,7 @@
                 $('#searchbutton').on('click', function() {
                     var search = $('#search').val();
                     var page = $('#hidden_page').val();
+                    console.log("button clicked")
                     fetch_data(page, search);
                 });
 
@@ -577,6 +578,7 @@
                 let data = "{{ request()->search }}";
 
                 if (data) {
+                    console.log("ASdsa")
                     var search = $('#search').val();
                     var page = $('#hidden_page').val();
                     fetch_data(page, search);

@@ -41,13 +41,15 @@ class UserController extends Controller
         $this->BulksSMS = $BulksSMS;
         $this->uploadImage = $img;
     }
-    public function averagerating($q){
+    public function averagerating($q)
+    {
         $q->load('ratings');
         $q->average_rating = $q->ratings->avg('rating');
-        $q->average_percentage = ($q->ratings->avg('rating')/5) * 100;
+        $q->average_percentage = ($q->ratings->avg('rating') / 5) * 100;
         unset($q->ratings);
     }
-    public function ratingextradetails($q){
+    public function ratingextradetails($q)
+    {
         $q->load('ratings');
         $q->no_of_people = $q->peoplerating();
         $q->five_per = $q->fivepercentage();
@@ -85,7 +87,6 @@ class UserController extends Controller
                 $q->product_images = explode(',', $q->product_images);
             }
             $this->averagerating($q);
-
         });
 
         return view('User.Pages.homepage', $data);
@@ -140,7 +141,6 @@ class UserController extends Controller
             $this->averagerating($q->product);
         });
         $data['country'] = DB::table('country_table')->orderBy('country_name')->get();
-        $data['productcount'] = Product::where('status', '1')->count();
 
         //filter code
         $data['cat'] = outerCategory::with('activecategory', 'activecategory.activesubcategory')->where('status', '1')->get();
@@ -152,8 +152,8 @@ class UserController extends Controller
                     $q->product_images = explode(',', $q->product_images);
                 }
                 $this->averagerating($q);
-
             });
+            $data['productcount'] = Product::where([['status', '1'], ['scid', $request->sub_id]])->count();
         } else if ($request->cat_id) {
             $data['selected'] = category::where('cid', $request->cat_id)->first();
             $data['product'] = Product::where([['status', '1'], ['cid', $request->cat_id]])->orderByDesc('created_at')->paginate(8);
@@ -163,6 +163,7 @@ class UserController extends Controller
                 }
                 $this->averagerating($q);
             });
+            $data['productcount'] = Product::where([['status', '1'], ['cid', $request->cat_id]])->count();
         } else if ($request->outer_id) {
             $data['selected'] = outerCategory::where('outCid', $request->outer_id)->first();
             $data['product'] = Product::where([['status', '1'], ['outCid', $request->outer_id]])->orderByDesc('created_at')->paginate(8);
@@ -171,8 +172,8 @@ class UserController extends Controller
                     $q->product_images = explode(',', $q->product_images);
                 }
                 $this->averagerating($q);
-
             });
+            $data['productcount'] = Product::where([['status', '1'], ['outCid', $request->outer_id]])->count();
         }
         // dd($data['cat']);
         return view('User.Pages.product', $data);
@@ -214,8 +215,9 @@ class UserController extends Controller
                     break;
             }
         }
-
         // Retrieve paginated results
+        $data['productcount'] = $query->count();
+        // dd($data);
         $data['product'] = $query->paginate(8);
         if ($data['product'] instanceof LengthAwarePaginator) {
             $data['product']->getCollection()->each(function ($q) {
@@ -223,9 +225,9 @@ class UserController extends Controller
                     $q->product_images = explode(',', $q->product_images);
                 }
                 $this->averagerating($q);
-
             });
         }
+
         return view('User.Pages.productpagiantion', $data)->render();
     }
 
@@ -315,7 +317,6 @@ class UserController extends Controller
                 $q->product_images = explode(',', $q->product_images);
             }
             $this->averagerating($q);
-
         });
         $data['recently'] = RecentlyViewed::with('product')->where('user_ip', $request->ip())->orderByDesc('updated_at')->limit(12)->get();
         $data['recently']->map(function ($q) {
@@ -323,7 +324,6 @@ class UserController extends Controller
                 $q->product->product_images = explode(',', $q->product->product_images);
             }
             $this->averagerating($q->product);
-
         });
         $data['product']['cart'] = 0;
         $ip = $request->ip();
@@ -341,12 +341,11 @@ class UserController extends Controller
         $this->averagerating($data['product']);
         $this->ratingextradetails($data['product']);
 
-        $recently = RecentlyViewed::where([['user_ip',$request->ip()],['product_id',$request->product_id]])->first();
-        if($recently){
+        $recently = RecentlyViewed::where([['user_ip', $request->ip()], ['product_id', $request->product_id]])->first();
+        if ($recently) {
             $recently->updated_at = now();
             $recently->save();
-        }
-        else{
+        } else {
             $recently = new RecentlyViewed();
             $recently->user_ip = $request->ip();
             $recently->product_id = $request->product_id;
@@ -367,13 +366,21 @@ class UserController extends Controller
                     $query->whereRaw('LOWER(product_name) LIKE ?', ['%' . $lowerSearchTerm . '%']);
                 });
             })->orderByDesc('created_at')->paginate(8);
+
+        $data['productcount'] = Product::where('status', '1')
+            ->where(function ($query) use ($searchTerm) {
+                $lowerSearchTerm = strtolower($searchTerm);
+                $query->orWhere(function ($query) use ($lowerSearchTerm) {
+                    $query->whereRaw('LOWER(product_name) LIKE ?', ['%' . $lowerSearchTerm . '%']);
+                });
+            })->count();
+
         if ($data['product'] instanceof LengthAwarePaginator) {
             $data['product']->getCollection()->each(function ($q) {
                 if (is_string($q->product_images)) {
                     $q->product_images = explode(',', $q->product_images);
                 }
                 $this->averagerating($q);
-
             });
         }
         return view('User.Pages.productpagiantion', $data)->render();
@@ -389,7 +396,6 @@ class UserController extends Controller
                 $q->product_images = explode(',', $q->product_images);
             }
             $this->averagerating($q);
-
         });
         $data['recently'] = RecentlyViewed::with('product')->where('user_ip', $request->ip())->orderByDesc('updated_at')->limit(12)->get();
         $data['recently']->map(function ($q) {
@@ -397,7 +403,6 @@ class UserController extends Controller
                 $q->product->product_images = explode(',', $q->product->product_images);
             }
             $this->averagerating($q->product);
-
         });
         if (!Auth::user()) {
             $data['cart'] = guestCart::with('item', 'coupon')->where('user_ip', $ip)->first();
@@ -694,7 +699,8 @@ class UserController extends Controller
         return view('User.Pages.myoorders', $data)->with('success_response', 'Filter Applied!');
     }
 
-    public function recentlyviewed(Request $request){
+    public function recentlyviewed(Request $request)
+    {
 
         return redirect()->back();
     }
