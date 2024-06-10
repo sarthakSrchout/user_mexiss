@@ -270,12 +270,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group d-flex mb-3">
+                                    <div class="form-group d-flex ">
                                         <select name="country_table_id" id="country_table_id"
                                             class="form-select shadow-none"
                                             style="width: 85px; font-size: 13.5px;border-radius:0">
                                             @foreach ($country as $item)
-                                                <option value="{{ $item->id }}"
+                                                <option value="{{ $item->id }}" data-code="{{ $item->country_phone_code }}"
                                                     @if ($item->country_phone_code == '+91') selected @endif>
                                                     {{ $item->country_phone_code }} ( {{ $item->country_name }} )</option>
                                             @endforeach
@@ -286,6 +286,8 @@
                                             name="phone_number" class="form-control shadow-none ms-2"
                                             placeholder="Your Phone Number *">
                                     </div>
+                                    <span id="phone_number_validation" class="text-danger mb-3 mt-2"
+                                    style="font-size: 10px;"></span>
                                     <div class="input-group mb-3 inquiryinput">
                                         <span class="input-group-text"
                                             style="background: transparent; border-radius: 0px">
@@ -300,6 +302,7 @@
 
 
                                 </div>
+                                
 
                                 <div class="row">
                                     <div class="input-group mb-3 inquiryinput" style="width: 33%">
@@ -392,7 +395,45 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  
+    <script>
+        function validatePhoneNumberLength() {
+            var selectedCode = document.getElementById('country_table_id').options[document.getElementById(
+                'country_table_id').selectedIndex].getAttribute('data-code');
+            console.log(selectedCode)
+            var phoneNumberInput = document.getElementById('phone_number');
+            var phoneNumberInputDiv = document.getElementById('phone_number_validation');
+            var addressubmitbutton = document.getElementById('addressubmitbutton');
+            var phoneNumber = phoneNumberInput.value;
 
+            if (selectedCode === '+91') {
+                if (phoneNumber.length !== 10) {
+                    phoneNumberInputDiv.innerHTML = 'Phone number must be exactly 10 digits for India (+91).';
+                    addressubmitbutton.disabled = true
+                } else {
+                    phoneNumberInputDiv.innerHTML = ''
+                    addressubmitbutton.disabled = false;
+                }
+            } else {
+                phoneNumberInputDiv.innerHTML = '';
+                addressubmitbutton.disabled = false
+
+            }
+        }
+
+        document.getElementById('country_table_id').addEventListener('change', function() {
+            validatePhoneNumberLength();
+        });
+
+        document.getElementById('phone_number').addEventListener('input', function() {
+            validatePhoneNumberLength();
+        });
+
+
+        // Trigger initial validation check on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            validatePhoneNumberLength();
+        });
+    </script>
     <script>
         let currentpage = 'insert';
 

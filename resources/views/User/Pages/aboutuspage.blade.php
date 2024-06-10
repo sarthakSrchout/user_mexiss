@@ -71,8 +71,10 @@
         <div class="row mt-2 mb-2">
             <div class="col-12 d-flex">
                 <div class="d-flex align-items-center">
-                    <img src="{{ asset('logo/leftarrow.png') }}" height="9.5px" alt="">
-                    <p class="mt-3 ms-4" style="font-size: 14px">Home</p>
+                    <a href="{{ route('user-homepage') }}" class="d-flex align-items-center link">
+                        <img src="{{ asset('logo/leftarrow.png') }}" height="9.5px" alt="">
+                        <p class="mt-3 ms-4 text-dark" style="font-size: 14px">Home</p>
+                    </a>
                     <img class="ms-1" src="{{ asset('logo/greater.png') }}" height="15px" alt="">
                     <p class="mt-3 ms-1" style="font-size: 14px;color:#FF4545;flex:1">About Us</p>
                 </div>

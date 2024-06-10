@@ -148,34 +148,35 @@
                         </div>
 
                         @foreach ($address as $item)
-                        <div class="col-12 mb-3">
-                            <label class="w-100">
-                                <input type="radio" value="{{ $item->id }}" name="product" @if($cart->user_address_id == $item->id) checked @endif class="card-input-element"
-                                    style="position: relative" />
-                        
-                                <div class="card w-100 card-input border-0" style="border-radius:0px">
-                                    <div class="card-body p-4">
-                                        <h6>{{ $item->full_name }}</h6>
-                                        <p style="margin-top: px;font-size:13.5px">{{ $item->building_no_or_name }},
-                                            {{ $item->colony }}</p>
-                                        <p style="margin-top: -12px;font-size:13.5px">{{ $item->state }} ,
-                                            {{ $item->city }} , {{ $item->pincode }}</p>
-                                        <p style="margin-top: -12px;font-size:13.5px">Mobile :
-                                            {{ $item->phone_number }}</p>
-                                        <p style="margin-top: -12px;font-size:13.5px">Type :
-                                            {{ $item->address_type == '0' ? 'Work' : 'Home' }}</p>
-                        
-                                        <button onclick="editfunction({{ $item->id }})" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"
-                                            class="btn homeparagraph text-light button-background"
-                                            style="border-radius: 3px;font-size:12px;height:25px;padding:2px 10px;color:#FF4545 !important;border:1px solid #FF4545;background:white !important"
-                                            type="button">Edit</button>
+                            <div class="col-12 mb-3">
+                                <label class="w-100">
+                                    <input type="radio" value="{{ $item->id }}" name="product"
+                                        @if ($cart->user_address_id == $item->id) checked @endif class="card-input-element"
+                                        style="position: relative" />
+
+                                    <div class="card w-100 card-input border-0" style="border-radius:0px">
+                                        <div class="card-body p-4">
+                                            <h6>{{ $item->full_name }}</h6>
+                                            <p style="margin-top: px;font-size:13.5px">{{ $item->building_no_or_name }},
+                                                {{ $item->colony }}</p>
+                                            <p style="margin-top: -12px;font-size:13.5px">{{ $item->state }} ,
+                                                {{ $item->city }} , {{ $item->pincode }}</p>
+                                            <p style="margin-top: -12px;font-size:13.5px">Mobile :
+                                                {{ $item->phone_number }}</p>
+                                            <p style="margin-top: -12px;font-size:13.5px">Type :
+                                                {{ $item->address_type == '0' ? 'Work' : 'Home' }}</p>
+
+                                            <button onclick="editfunction({{ $item->id }})" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                                class="btn homeparagraph text-light button-background"
+                                                style="border-radius: 3px;font-size:12px;height:25px;padding:2px 10px;color:#FF4545 !important;border:1px solid #FF4545;background:white !important"
+                                                type="button">Edit</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                        </div>
+                                </label>
+                            </div>
                         @endforeach
-                        
+
 
                         {{-- <div class="col-12 mb-3     largescreen">
                             <button class="btn w-100 homeparagraph text-light button-background" data-bs-toggle="modal" onclick="insertfunction()"
@@ -396,12 +397,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group d-flex mb-3">
+                                    <div class="form-group d-flex ">
                                         <select name="country_table_id" id="country_table_id"
                                             class="form-select shadow-none"
                                             style="width: 85px; font-size: 13.5px;border-radius:0">
                                             @foreach ($country as $item)
                                                 <option value="{{ $item->id }}"
+                                                    data-code="{{ $item->country_phone_code }}"
                                                     @if ($item->country_phone_code == '+91') selected @endif>
                                                     {{ $item->country_phone_code }} ( {{ $item->country_name }} )</option>
                                             @endforeach
@@ -412,6 +414,9 @@
                                             name="phone_number" class="form-control shadow-none ms-2"
                                             placeholder="Your Phone Number *">
                                     </div>
+                                    <span id="phone_number_validation" class="text-danger mb-3 mt-2"
+                                        style="font-size: 10px;"></span>
+
                                     <div class="input-group mb-3 inquiryinput">
                                         <span class="input-group-text"
                                             style="background: transparent; border-radius: 0px">
@@ -519,7 +524,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         let id;
-    
+
         // Function to check if any radio button is selected
         function isAnyRadioButtonSelected() {
             var radioButtons = document.querySelectorAll('input[name="product"]');
@@ -532,7 +537,7 @@
             });
             return anyChecked;
         }
-    
+
         // Event handler for the "Continue" button click
         document.getElementById('continueBtn').addEventListener('click', function(event) {
             if (!isAnyRadioButtonSelected()) {
@@ -542,26 +547,67 @@
                 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
                 $.ajax({
-                url: "{{ route('user-address') }}",
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                data: { id: id },
-                success: function(response) {
-                    console.log(response);
-                    window.location.href = "{{ route('user-payment') }}";
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
+                    url: "{{ route('user-address') }}",
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        window.location.href = "{{ route('user-payment') }}";
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
 
             }
         });
     </script>
-    
 
+
+    <script>
+        function validatePhoneNumberLength() {
+            var selectedCode = document.getElementById('country_table_id').options[document.getElementById(
+                'country_table_id').selectedIndex].getAttribute('data-code');
+            console.log(selectedCode)
+            var phoneNumberInput = document.getElementById('phone_number');
+            var phoneNumberInputDiv = document.getElementById('phone_number_validation');
+            var addressubmitbutton = document.getElementById('addressubmitbutton');
+            var phoneNumber = phoneNumberInput.value;
+
+            if (selectedCode === '+91') {
+                if (phoneNumber.length !== 10) {
+                    phoneNumberInputDiv.innerHTML = 'Phone number must be exactly 10 digits for India (+91).';
+                    addressubmitbutton.disabled = true
+                } else {
+                    phoneNumberInputDiv.innerHTML = ''
+                    addressubmitbutton.disabled = false;
+                }
+            } else {
+                phoneNumberInputDiv.innerHTML = '';
+                addressubmitbutton.disabled = false
+
+            }
+        }
+
+        document.getElementById('country_table_id').addEventListener('change', function() {
+            validatePhoneNumberLength();
+        });
+
+        document.getElementById('phone_number').addEventListener('input', function() {
+            validatePhoneNumberLength();
+        });
+
+
+        // Trigger initial validation check on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            validatePhoneNumberLength();
+        });
+    </script>
     <script>
         let currentpage = 'insert';
 
